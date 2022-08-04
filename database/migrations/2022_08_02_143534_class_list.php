@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('class_list', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('form_name'); 
             $table->string('class_name')->unique(); //Make sure username only exist in database once
         });
     }
