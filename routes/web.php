@@ -57,7 +57,7 @@ Route::get('/adminAddSubject', function () {
     if(Session::get('username') == null){
         return view('admin/adminInvalidSession');
     }else{
-        $subjects = DB::table('subject_list')->orderBy('class_name')->get();
+        $subjects = DB::table('subject_list')->orderBy('form_level')->get();
         $forms = DB::table('form_list')->orderBy('form_level')->get();
         $classes = DB::table('class_list')->orderBy('form_name')->get();
         return view('admin/adminAddSubject',compact('forms','classes','subjects'));
@@ -65,8 +65,6 @@ Route::get('/adminAddSubject', function () {
 });
 Route::post('/addSubject', [App\Http\Controllers\adminSubjectController::class, 'addSubject'])->name("addSubject");
 Route::post('/filterSubject', [App\Http\Controllers\adminSubjectController::class, 'filterSubject'])->name("filterSubject");
-Route::post('/existingSubject', [App\Http\Controllers\adminSubjectController::class, 'addExistingSubject'])->name("addExistingSubject");
-
 
 //Admin add lecturer route
 Route::get('/adminAddEducator', function () { 

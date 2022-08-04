@@ -17,8 +17,8 @@ return new class extends Migration
             $table->increments('id');
             $table->string('subject_code')->unique(); //Make sure username only exist in database once
             $table->string('subject_name'); //Make sure username only exist in database once
-            $table->string('class_name');    
-            $table->foreign('class_name')->references('class_name')->on('class_list')->onDelete('cascade'); 
+            $table->integer('form_level'); 
+            $table->foreign('form_level')->references('form_level')->on('form_list')->onDelete('cascade'); 
         });
     
     }
