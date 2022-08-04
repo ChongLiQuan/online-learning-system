@@ -11,10 +11,7 @@
     </div>
 
     &nbsp;
-
-    <div class="button">
         <a href="adminLogin">Go Back</a>
-    </div>
 
 </div>
 

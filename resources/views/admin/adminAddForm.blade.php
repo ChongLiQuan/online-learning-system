@@ -4,7 +4,7 @@
 
 <center> 
 <h1> Add New Form </h1>
-    <form action="/adminAddForm" method="post" class="form-group"> 
+    <form action="{{route('addForm')}}" method="post" class="form-group"> 
     <input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>">
         
     <div class='login_field'>
@@ -42,13 +42,13 @@
 
     <center>
     <h1> Existing Form List</h1>
+    <div class="list_container">
 
     @if (session('delete_status'))
     <p style="text-align:center; color:green;"><b>{{ session('delete_status') }}</b></p>
     @endif
     
-    <table class='tableForm'> 
-
+    <table class='sortable' style='text-align: center;'> 
     <tr>
         <th>Form Name</th>
         <th>Form Level</th>

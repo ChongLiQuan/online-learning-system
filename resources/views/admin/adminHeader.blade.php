@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
 
     <title>Admin Dashboard</title>
+    <script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
     <link rel="stylesheet" href="<?php echo asset('css/adminHomepage.css')?>" type="text/css"> 
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +18,6 @@
   <section class="home-section">
     <nav>
       <div class="sidebar-button">
-        <i class='bx bx-menu sidebarBtn'></i>
         <span class="dashboard">Admin Dashboard</span>
       </div>
       <div class="profile-details">

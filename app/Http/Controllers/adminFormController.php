@@ -17,11 +17,9 @@ class adminFormController extends Controller
         $this->validate($request, [
             'form_name' => 'required',         
             'form_level' => 'required|numeric|max:6',
-
             ]);
         
         $check_duplicate = DB::select('select * from form_list where form_name = ?', [$form_name]);
-        
 
         if($check_duplicate != null){  
             return redirect('adminAddForm')->with('error_status', 'Failed, please try again with different name!');      

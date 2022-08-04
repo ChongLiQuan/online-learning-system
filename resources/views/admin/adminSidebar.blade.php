@@ -22,21 +22,21 @@
           </a>
         </li>
         <li>
-          <a href="#">
-            <i class='bx bx-pie-chart-alt-2' ></i>
-            <span class="links_name">Analytics</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <i class='bx bx-coin-stack' ></i>
-            <span class="links_name">Stock</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
+          <a href="/adminAddSubject">
             <i class='bx bx-book-alt' ></i>
-            <span class="links_name">Total order</span>
+            <span class="links_name">Add Subject</span>
+          </a>
+        </li>
+        <li>
+          <a href="/adminAddEducator">
+            <i class='bx bx-pie-chart-alt-2' ></i>
+            <span class="links_name">Register Educator</span>
+          </a>
+        </li>
+        <li>
+          <a href="/adminAddStudent">
+            <i class='bx bx-coin-stack' ></i>
+            <span class="links_name">Register Student</span>
           </a>
         </li>
         <li>
