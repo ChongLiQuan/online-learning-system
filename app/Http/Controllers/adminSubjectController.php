@@ -29,10 +29,10 @@ class adminSubjectController extends Controller
     }
 
     public function deleteSubject(Request $request){
-        $delete_class = $request->input('delete_class');
+        $delete_subject = $request->input('delete_subject');
 
-        DB::table('class_list')->where('class_name',[$delete_class])->delete(); 
-        return redirect('adminAddClass')->with('delete_status', $delete_class . ' Deleted Successfully! ');
+        DB::table('subject_list')->where('subject_code',[$delete_subject])->delete(); 
+        return redirect('adminAddSubject')->with('delete_status', $delete_subject . ' Deleted Successfully! ');
     }
 
     public function filterSubject(Request $request){

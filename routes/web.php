@@ -6,32 +6,39 @@ use App\Http\Controllers\adminLogoutController;
 use App\Http\Controllers\adminFormController;
 use App\Http\Controllers\adminClassController;
 use App\Http\Controllers\adminSubjectController;
+use App\Http\Controllers\adminEducatorController;
 
 //General both party page
-Route::get('/', function () { return view('welcome');});
+Route::get('/', function () {
+    return view('welcome');
+});
 
 //Admin pages route
 //Admin login and logout route and check invalid session
-Route::get('/adminLogin', function () { return view('admin/adminLogin');});
+Route::get('/adminLogin', function () {
+    return view('admin/adminLogin');
+});
 Route::post('/adminLogin', [App\Http\Controllers\adminLoginController::class, 'validateLogin']);
 Route::get('/adminLogout', [App\Http\Controllers\adminLogoutController::class, 'logout']);
 
 //Admin homepage route and check valid session 
-Route::get('/adminHomepage', function () { 
-    if(Session::get('username') == null){
+Route::get('/adminHomepage', function () {
+    if (Session::get('username') == null) {
         return view('admin/adminInvalidSession');
-    }else{
+    } else {
         return view('admin/adminHomepage');
-    }});
+    }
+});
 
 //Admin add form route and check invalid session
-Route::get('/adminAddForm', function () { 
-    if(Session::get('username') == null){
+Route::get('/adminAddForm', function () {
+    if (Session::get('username') == null) {
         return view('admin/adminInvalidSession');
-    }else{
+    } else {
         $forms = DB::table('form_list')->orderBy('form_level')->get();
-        return view('admin/adminAddForm',compact('forms'));
-    }});
+        return view('admin/adminAddForm', compact('forms'));
+    }
+});
 
 Route::post('/adminAddForm', [App\Http\Controllers\adminFormController::class, 'addForm'])->name('addForm');
 
@@ -39,13 +46,13 @@ Route::post('/adminAddForm', [App\Http\Controllers\adminFormController::class, '
 Route::post('/', [App\Http\Controllers\adminFormController::class, 'deleteForm'])->name('deleteForm');
 
 //Admin add class route
-Route::get('/adminAddClass', function () { 
-    if(Session::get('username') == null){
+Route::get('/adminAddClass', function () {
+    if (Session::get('username') == null) {
         return view('admin/adminInvalidSession');
-    }else{
+    } else {
         $forms = DB::table('form_list')->orderBy('form_level')->get();
         $classes = DB::table('class_list')->get();
-        return view('admin/adminAddClass',compact('forms','classes'));
+        return view('admin/adminAddClass', compact('forms', 'classes'));
     }
 });
 Route::post('/adminAddClass', [App\Http\Controllers\adminClassController::class, 'addClass'])->name("addClass");
@@ -53,29 +60,33 @@ Route::post('/delete', [App\Http\Controllers\adminClassController::class, 'delet
 Route::post('/filter', [App\Http\Controllers\adminClassController::class, 'filterClass'])->name("filterClass");
 
 //Admin add subject route
-Route::get('/adminAddSubject', function () { 
-    if(Session::get('username') == null){
+Route::get('/adminAddSubject', function () {
+    if (Session::get('username') == null) {
         return view('admin/adminInvalidSession');
-    }else{
+    } else {
         $subjects = DB::table('subject_list')->orderBy('form_level')->get();
         $forms = DB::table('form_list')->orderBy('form_level')->get();
         $classes = DB::table('class_list')->orderBy('form_name')->get();
-        return view('admin/adminAddSubject',compact('forms','classes','subjects'));
+        return view('admin/adminAddSubject', compact('forms', 'classes', 'subjects'));
     }
 });
 Route::post('/addSubject', [App\Http\Controllers\adminSubjectController::class, 'addSubject'])->name("addSubject");
+Route::post('/deleteSubject', [App\Http\Controllers\adminSubjectController::class, 'deleteSubject'])->name("deleteSubject");
 Route::post('/filterSubject', [App\Http\Controllers\adminSubjectController::class, 'filterSubject'])->name("filterSubject");
 
-//Admin add lecturer route
-Route::get('/adminAddEducator', function () { 
-    if(Session::get('username') == null){
+//Admin add educator route
+Route::get('/adminAddEducator', function () {
+    if (Session::get('username') == null) {
         return view('admin/adminInvalidSession');
-    }else{
-        $forms = DB::table('form_list')->orderBy('form_level')->get();
-        $classes = DB::table('class_list')->orderBy('form_name')->get();
-        return view('admin/adminAddEducator',compact('forms','classes'));
+    } else {
+        $educators = DB::table('educator_list')->orderBy('edu_id')->get();
+        return view('admin/adminAddEducator', compact('educators'));
     }
 });
+Route::post('/addEducator', [App\Http\Controllers\adminEducatorController::class, 'addEducator'])->name("addEducator");
+Route::post('/deleteEducator', [App\Http\Controllers\adminEducatorController::class, 'deleteEducator'])->name("deleteEducator");
+
+
 
 //Student pages route
 Auth::routes();

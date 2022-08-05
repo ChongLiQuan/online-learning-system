@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('subject_list', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('subject_id');
             $table->string('subject_code')->unique(); //Make sure username only exist in database once
             $table->string('subject_name'); //Make sure username only exist in database once
             $table->integer('form_level'); 

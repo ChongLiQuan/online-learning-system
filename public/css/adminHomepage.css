@@ -507,7 +507,6 @@ nav .profile-details i{
   margin-top: 1%;
   width:80%;
   text-align:center;
-
 }
 
 td{
@@ -516,6 +515,14 @@ td{
   width: 40%;
 }
 
+.sortable td{
+    border: 1px solid;
+    height: 40px;
+    width: 10%;
+}
+
 .list_container{
   margin-top: 2%;
 }
+
+.error {color: #ff0000; text-align: center;}

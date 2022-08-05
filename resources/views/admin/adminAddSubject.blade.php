@@ -122,9 +122,9 @@
                     </td>
 
                     <td>
-                        <form action="{{route('deleteClass')}}" method="post" class="form-group">
+                        <form action="{{route('deleteSubject')}}" method="post" class="form-group">
                             <input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'>
-                            <input type='hidden' name='delete_class' value="{{ $subject->subject_name }}">
+                            <input type='hidden' name='delete_subject' value="{{ $subject->subject_code }}">
                             <button class="button login_submit">
                                 <span class="button_text">Delete</span>
                             </button>
