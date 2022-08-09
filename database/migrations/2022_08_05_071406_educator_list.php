@@ -13,10 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
+
         Schema::create('educator_list', function (Blueprint $table) {
-            $table->increments('edu_id');
+            $table->increments('id');
+            $table->string('edu_id')->nullable()->unique();
             $table->string('edu_name')->unique(); //Make sure username only exist in database once
-            $table->integer('edu_IC')->unique();; //Make sure username only exist in database once
+            $table->string('edu_IC')->unique();; //Make sure username only exist in database once
             $table->integer('edu_year');
             $table->integer('edu_age');
             $table->string('edu_address');

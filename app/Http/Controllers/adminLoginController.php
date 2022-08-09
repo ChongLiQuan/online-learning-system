@@ -19,7 +19,7 @@ class adminLoginController extends Controller
             'password' => 'required'
             ]);
 
-            $result = DB::select('select * from adminUser where username = ? AND password = ?', [$username, $password]);
+            $result = DB::select('select * from admin_list where username = ? AND password = ?', [$username, $password]);
         
         if($result != null){
             session()->start();

@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('admin_list', function (Blueprint $table) {
+        Schema::create('user_login_details', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('username')->unique(); //Make sure username only exist in database once
-            $table->string('password'); //Need Encrypt
-            $table->string('role');
+            $table->string('user_name')->nullable()->unique();
+            $table->string('user_password')->unique();; //Make sure username only exist in database once
+            $table->integer('user_role');
             $table->string('name');
-            $table->string('email')->unique();
+            $table->string('email');
         });
     }
 
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('admin_list');
+        Schema::dropIfExists('user_login_details');
     }
 };

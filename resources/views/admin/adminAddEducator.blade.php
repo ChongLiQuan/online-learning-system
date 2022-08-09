@@ -188,7 +188,7 @@
                         <input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'>
                         <input type='hidden' name='delete_edu' value="{{ $educator->edu_id }}">
                         <button class="button login_submit">
-                            <span class="button_text">Delete Class</span>
+                            <span class="button_text">Remove Educator</span>
                         </button>
                     </form>
                 </td>

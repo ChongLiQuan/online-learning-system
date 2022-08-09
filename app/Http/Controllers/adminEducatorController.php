@@ -35,7 +35,23 @@ class adminEducatorController extends Controller
         }else{
             DB::select('insert into educator_list (edu_name, edu_IC, edu_year, edu_age, edu_address, edu_email, edu_gender, edu_dob) 
             values (?,?,?,?,?,?,?,?)' , [$edu_name, $edu_IC, $edu_year, $edu_age, $edu_address, $edu_email, $edu_gender, $edu_dob]);
-            return redirect('adminAddEducator')->with('pass_status', 'New Educator registered successfully');
+            
+            $current_id = DB::table('educator_list')->where('edu_IC', $edu_IC)->pluck('id')->first();
+            $new_id = now()->year . (int)$current_id;
+
+            if($new_id != NULL){
+                DB::table('educator_list')->where('edu_IC', $edu_IC)->update(['edu_id' => 'EDU_' . $new_id]);
+
+                $user_name =  DB::table('educator_list')->where('edu_IC', $edu_IC)->pluck('edu_id')->first();
+                $user_password = $edu_IC; 
+                $user_role = 1;
+
+                DB::select('insert into user_login_details (user_name, user_password, user_role, name, email) values (?,?,?,?,?)' , [$user_name, $user_password, 
+                $user_role, $edu_name, $edu_email]);
+                
+                return redirect('adminAddEducator')->with('pass_status', 'New Educator registered successfully');
+            }
+        
         }
     
     }
