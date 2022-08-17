@@ -54,7 +54,7 @@
     <input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>">
         <select name='filter_form'>
         @foreach($forms as $form)
-        <option name="form_name" value="{{ $form->form_name }}">{{ $form->form_name }}</option>
+        <option name="form_name" value="{{ $form->form_id }}">Form {{ $form->form_id }}</option>
         @endforeach
         </select>   
         
@@ -84,7 +84,7 @@
 
     <tr>
         <th>Class Name</th>
-        <th>Form Name</th>
+        <th>Form ID</th>
         <th>Delete</th>
     </tr>
 
@@ -96,7 +96,7 @@
     </td> 
     
     <td> 
-        <h4> {{ $class->form_name }} </h4>         
+        <h4> {{ $class->form_id }} </h4>         
     </td>  
 
     <td>

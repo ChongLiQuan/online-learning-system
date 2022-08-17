@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('admin_list', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('admin_id');
             $table->string('username')->unique(); //Make sure username only exist in database once
             $table->string('password'); //Need Encrypt
             $table->string('role');

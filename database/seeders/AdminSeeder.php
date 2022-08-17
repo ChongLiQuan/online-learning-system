@@ -16,7 +16,7 @@ class AdminSeeder extends Seeder
     public function run()
     {
         DB::table('admin_list')->insert([
-            'id' => '0',
+            'admin_id' => '0',
             'username' => 'admin',
             'password' => 'admin',
             'role' => '0',

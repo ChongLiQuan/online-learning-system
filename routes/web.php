@@ -7,6 +7,7 @@ use App\Http\Controllers\adminFormController;
 use App\Http\Controllers\adminClassController;
 use App\Http\Controllers\adminSubjectController;
 use App\Http\Controllers\adminEducatorController;
+use App\Http\Controllers\adminStudentController;
 
 //General both party page
 Route::get('/', function () {
@@ -64,9 +65,9 @@ Route::get('/adminAddSubject', function () {
     if (Session::get('username') == null) {
         return view('admin/adminInvalidSession');
     } else {
-        $subjects = DB::table('subject_list')->orderBy('form_level')->get();
+        $subjects = DB::table('subject_list')->orderBy('form_id')->get();
         $forms = DB::table('form_list')->orderBy('form_level')->get();
-        $classes = DB::table('class_list')->orderBy('form_name')->get();
+        $classes = DB::table('class_list')->orderBy('form_id')->get();
         return view('admin/adminAddSubject', compact('forms', 'classes', 'subjects'));
     }
 });
@@ -86,7 +87,26 @@ Route::get('/adminAddEducator', function () {
 Route::post('/addEducator', [App\Http\Controllers\adminEducatorController::class, 'addEducator'])->name("addEducator");
 Route::post('/deleteEducator', [App\Http\Controllers\adminEducatorController::class, 'deleteEducator'])->name("deleteEducator");
 
+Route::get('/adminEditEducator', function () {
+    if (Session::get('username') == null) {
+        return view('admin/adminInvalidSession');
+    } else {
+        return view('admin/adminEditEducator', compact('educators'));
+    }
+});
+Route::post('/editEducatorRoute', [App\Http\Controllers\adminEducatorController::class, 'editEducatorRoute'])->name("editEducatorRoute");
+Route::post('/editEducator', [App\Http\Controllers\adminEducatorController::class, 'editEducator'])->name("editEducator");
 
+//Admin add student route
+Route::get('/adminAddStudent', function () {
+    if (Session::get('username') == null) {
+        return view('admin/adminInvalidSession');
+    } else {
+        $students = DB::table('student_list')->orderBy('student_id')->get();
+        return view('admin/adminAddStudent', compact('students'));
+    }
+});
+Route::post('/addStudent', [App\Http\Controllers\adminStudentController::class, 'addStudent'])->name("addStudent");
 
 //Student pages route
 Auth::routes();

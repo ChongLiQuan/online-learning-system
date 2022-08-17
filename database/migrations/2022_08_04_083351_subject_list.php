@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('subject_list', function (Blueprint $table) {
             $table->increments('subject_id');
-            $table->string('subject_code')->unique(); //Make sure username only exist in database once
-            $table->string('subject_name'); //Make sure username only exist in database once
-            $table->integer('form_level'); 
-            $table->foreign('form_level')->references('form_level')->on('form_list')->onDelete('cascade'); 
+            $table->string('subject_code')->unique(); //Make sure subject code only exist in database once
+            $table->string('subject_name')->unique(); //Make sure subject name only exist in database once
+            $table->integer('form_id')->unsigned()->default(0);
+            $table->foreign('form_id')->references('form_id')->on('form_list')->onDelete('cascade'); 
         });
     
     }

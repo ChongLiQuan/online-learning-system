@@ -72,7 +72,7 @@
                                 <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
                                 <select name='filter_form'>
                                     @foreach($forms as $form)
-                                    <option name="filter_form" value="{{ $form->form_level }}">Form {{ $form->form_level }}</option>
+                                    <option name="filter_form" value="{{ $form->form_id }}">Form {{ $form->form_id }}</option>
                                     @endforeach
                                 </select>
                                 <button class="button login_submit">
@@ -102,7 +102,7 @@
                 <tr>
                     <th>Subject Code</th>
                     <th>Subject Name</th>
-                    <th>Form Level</th>
+                    <th>Form ID</th>
                     <th>Delete</th>
                 </tr>
 
@@ -118,7 +118,7 @@
                     </td>
 
                     <td>
-                        <h4> {{ $subject->form_level }} </h4>
+                        <h4> {{ $subject->form_id }} </h4>
                     </td>
 
                     <td>

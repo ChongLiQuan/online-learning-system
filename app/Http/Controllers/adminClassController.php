@@ -21,7 +21,8 @@ class adminClassController extends Controller
         if($check_duplicate != null){  
             return redirect('adminAddClass')->with('error_status', 'Failed, please try again with different class name!');      
         }else{
-            $result = DB::select('insert into class_list (class_name, form_name) values (?,?)' , [$class_name, $form_name]);
+            $form_id = DB::table('form_list')->where('form_name', $form_name)->pluck('form_id')->first();
+            DB::select('insert into class_list (class_name, form_id) values (?,?)' , [$class_name, $form_id]);
             return redirect('adminAddClass')->with('pass_status', 'New Class added successfully!');
         }
     
@@ -38,7 +39,7 @@ class adminClassController extends Controller
         $filter_form = $request->input('filter_form');
 
         $forms = DB::table('form_list')->orderBy('form_level')->get();
-        $classes = DB::table('class_list')->where('form_name',[$filter_form])->get(); 
+        $classes = DB::table('class_list')->where('form_id',[$filter_form])->get(); 
         return view('admin/adminAddClass',compact('forms','classes'));
     }
 }
