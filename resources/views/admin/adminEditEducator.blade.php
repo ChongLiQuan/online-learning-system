@@ -22,8 +22,8 @@
                         <th>
                             <h4>
                                 <lable>Malaysia IC:</label>
-                                    <input type="form_name" value=" {{ $e->edu_IC }}" name="edu_IC" class="edu_input" placeholder="IC Number" autocomplete="off" required disabled>
-                                    <input type="hidden" value=" {{ $e->edu_IC }}" name="edu_IC" class="edu_input">
+                                    <input type="form_name" value=" {{ $e->edu_IC }}" name="edu_IC" class="edu_input" placeholder="IC Number" autocomplete="off" required>
+                                    <input type="hidden" value=" {{ $e->edu_id }}" name="edu_id" class="edu_input">
                             </h4>
                             @error('edu_IC')
                             <div class="error">

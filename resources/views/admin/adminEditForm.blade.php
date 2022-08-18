@@ -12,7 +12,7 @@
             <div class='login_field'>
                 <input type="form_name" name="form_name" class="field_input" value="{{$f->form_name}}" placeholder="New Form Name" autocomplete="off" required>
 
-                <input type="form_level" name="form_level" class="field_input" value="{{$f->form_level}}" placeholder="Form Level (1-6)" autocomplete="off" required disabled>
+                <input type="form_level" name="form_level" class="field_input" value="{{$f->form_level}}" placeholder="Form Level (1-6)" autocomplete="off" required>
 
                 <input type="hidden" name="form_id" value="{{$f->form_id}}">
 

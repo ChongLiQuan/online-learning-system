@@ -75,6 +75,7 @@ class adminEducatorController extends Controller
 
     public function editEducator(Request $request)
     {
+        $edu_id = $request->input('edu_id');
         $edu_name = $request->input('edu_name');
         $edu_year = $request->input('edu_year');
         $edu_IC = $request->input('edu_IC');
@@ -86,6 +87,7 @@ class adminEducatorController extends Controller
 
         $this->validate($request, [
             'edu_name' => 'required',
+            'edu_IC' => 'required',
             'edu_year' => 'required|integer|between:0,60',
             'edu_age' => 'required|integer|between:18,50',
             'edu_address' => 'required',
@@ -96,6 +98,7 @@ class adminEducatorController extends Controller
 
         $data = array(
             "edu_name" => $edu_name,
+            "edu_IC" => $edu_IC,
             "edu_year" => $edu_year,
             "edu_age" => $edu_age,
             "edu_address" => $edu_address,
@@ -104,16 +107,16 @@ class adminEducatorController extends Controller
             "edu_dob" => $edu_dob,
         );
 
-        $check_duplicate = DB::select('select edu_name from educator_list where edu_name = ?', [$edu_name]);
-
-        $count = count($check_duplicate);
-
-        if ($count > 0) {
-            return redirect('adminAddEducator')->with('error_status', 'Educator Information Updated Failed, Educator Name has been taken! ');
-        } else {
-            DB::table('educator_list')->where('edu_IC', $edu_IC)->update($data);
-            return redirect('adminAddEducator')->with('pass_status', 'Subject Information Updated Successfully! ');
+        try {
+            DB::table('educator_list')->where('edu_id', $edu_id)->update($data);
+            return redirect('adminAddEducator')->with('pass_status', 'Educator Information Updated Successfully! ');
+        } catch (\Illuminate\Database\QueryException $e) {
+            $errorCode = $e->getCode();
+            if ($errorCode == 1062) {
+         
+            }
         }
+        return redirect('adminAddEducator')->with('error_status', 'Educator Information Updated Failed, Duplicated Information Found! ');
 
     }
 }

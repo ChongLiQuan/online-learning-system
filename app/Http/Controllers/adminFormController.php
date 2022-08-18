@@ -20,10 +20,11 @@ class adminFormController extends Controller
             'form_level' => 'required|numeric|max:6',
         ]);
 
-        $check_duplicate = DB::select('select * from form_list where form_name = ?', [$form_name]);
+        $check_duplicate_name = DB::select('select * from form_list where form_name = ?', [$form_name]);
+        $check_duplicate_level = DB::select('select * from form_list where form_level = ?', [$form_level]);
 
-        if ($check_duplicate != null) {
-            return redirect('adminAddForm')->with('error_status', 'Failed, please try again with different name!');
+        if ($check_duplicate_name != null || $check_duplicate_level != null) {
+            return redirect('adminAddForm')->with('error_status', 'Failed, please try again with different name or form level!');
         } else {
             $result = DB::select('insert into form_list (form_name, form_level) values (?,?)', [$form_name, $form_level]);
             return redirect('adminAddForm')->with('pass_status', 'New Form added successfully!');
@@ -52,25 +53,28 @@ class adminFormController extends Controller
     {
         $form_name = $request->input('form_name');
         $form_id = $request->input('form_id');
+        $form_level = $request->input('form_level');
 
         $this->validate($request, [
             'form_name' => 'required',
+            'form_level' => 'required',
         ]);
 
         $data = array(
             "form_name" => $form_name,
+            'form_level' => $form_level,
         );
 
-        $check_duplicate = DB::select('select form_name from form_list where form_name = ?', [$form_name]);
-        $count = count($check_duplicate);
-
-        if ($count > 1) {
-
-            return redirect('adminAddForm')->with('error_status', 'Form Information Updated Failed, Name has been taken! ');
-
-        } else {
+        try {
             DB::table('form_list')->where('form_id', $form_id)->update($data);
             return redirect('adminAddForm')->with('pass_status', 'Form Information Updated Successfully! ');
+        } catch (\Illuminate\Database\QueryException $e) {
+            $errorCode = $e->getCode();
+            if ($errorCode == 1062) {
+            }
         }
+        return redirect('adminAddForm')->with('error_status', 'Form Information Updated Failed, Duplciated Information Found! ');
+
+
     }
 }
