@@ -103,6 +103,7 @@
                     <th>Subject Code</th>
                     <th>Subject Name</th>
                     <th>Form ID</th>
+                    <th>Edit</th>
                     <th>Delete</th>
                 </tr>
 
@@ -122,11 +123,21 @@
                     </td>
 
                     <td>
+                        <form action="{{route('editSubjectRoute')}}" method="post" class="form-group">
+                            <input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'>
+                            <input type='hidden' name='subject_id' value="{{ $subject->subject_id }}">
+                            <button class="button login_submit">
+                                <span class="button_text">Edit</span>
+                            </button>
+                        </form>
+                    </td>
+
+                    <td>
                         <form action="{{route('deleteSubject')}}" method="post" class="form-group">
                             <input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'>
                             <input type='hidden' name='delete_subject' value="{{ $subject->subject_code }}">
                             <button class="button login_submit">
-                                <span class="button_text">Delete</span>
+                                <span class="button_text" onclick="return confirm('Are you sure?')">Delete</span>
                             </button>
                         </form>
                     </td>

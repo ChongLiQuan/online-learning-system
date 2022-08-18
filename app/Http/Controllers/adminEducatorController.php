@@ -62,7 +62,7 @@ class adminEducatorController extends Controller
         $delete_edu = $request->input('delete_edu');
 
         DB::table('educator_list')->where('edu_id', [$delete_edu])->delete();
-        return redirect('adminAddEducator')->with('delete_status', 'Form deleted successfully! ');
+        return redirect('adminAddEducator')->with('delete_status', 'Educator Removed successfully! ');
     }
 
     public function editEducatorRoute(Request $request)
@@ -76,8 +76,8 @@ class adminEducatorController extends Controller
     public function editEducator(Request $request)
     {
         $edu_name = $request->input('edu_name');
-        $edu_IC = $request->input('edu_IC');
         $edu_year = $request->input('edu_year');
+        $edu_IC = $request->input('edu_IC');
         $edu_age = $request->input('edu_age');
         $edu_address = $request->input('edu_address');
         $edu_email = $request->input('edu_email');
@@ -86,7 +86,6 @@ class adminEducatorController extends Controller
 
         $this->validate($request, [
             'edu_name' => 'required',
-            'edu_IC' => 'required|digits:12',
             'edu_year' => 'required|integer|between:0,60',
             'edu_age' => 'required|integer|between:18,50',
             'edu_address' => 'required',
@@ -97,7 +96,6 @@ class adminEducatorController extends Controller
 
         $data = array(
             "edu_name" => $edu_name,
-            "edu_IC" => $edu_IC,
             "edu_year" => $edu_year,
             "edu_age" => $edu_age,
             "edu_address" => $edu_address,
@@ -106,9 +104,16 @@ class adminEducatorController extends Controller
             "edu_dob" => $edu_dob,
         );
 
+        $check_duplicate = DB::select('select edu_name from educator_list where edu_name = ?', [$edu_name]);
 
-        DB::table('educator_list')->where('edu_IC', $edu_IC)->update($data);
-        return redirect('adminAddEducator')->with('pass_status', 'Educator Information Updated Successfully! ');
+        $count = count($check_duplicate);
+
+        if ($count > 0) {
+            return redirect('adminAddEducator')->with('error_status', 'Educator Information Updated Failed, Educator Name has been taken! ');
+        } else {
+            DB::table('educator_list')->where('edu_IC', $edu_IC)->update($data);
+            return redirect('adminAddEducator')->with('pass_status', 'Subject Information Updated Successfully! ');
+        }
 
     }
 }

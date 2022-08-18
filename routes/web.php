@@ -43,7 +43,15 @@ Route::get('/adminAddForm', function () {
 
 Route::post('/adminAddForm', [App\Http\Controllers\adminFormController::class, 'addForm'])->name('addForm');
 
-//Admin delete form route
+Route::get('/adminEditForm', function () {
+    if (Session::get('username') == null) {
+        return view('admin/adminInvalidSession');
+    } else {
+        return view('admin/adminEditForm', compact('educators'));
+    }
+});
+Route::post('/editFormRoute', [App\Http\Controllers\adminFormController::class, 'editFormRoute'])->name('editFormRoute');
+Route::post('/editForm', [App\Http\Controllers\adminFormController::class, 'editForm'])->name('editForm');
 Route::post('/', [App\Http\Controllers\adminFormController::class, 'deleteForm'])->name('deleteForm');
 
 //Admin add class route
@@ -56,7 +64,18 @@ Route::get('/adminAddClass', function () {
         return view('admin/adminAddClass', compact('forms', 'classes'));
     }
 });
+Route::get('/adminEditClass', function () {
+    if (Session::get('username') == null) {
+        return view('admin/adminInvalidSession');
+    } else {
+        $forms = DB::table('form_list')->orderBy('form_level')->get();
+        $classes = DB::table('class_list')->get();
+        return view('admin/adminEditClass', compact('forms', 'classes'));
+    }
+});
 Route::post('/adminAddClass', [App\Http\Controllers\adminClassController::class, 'addClass'])->name("addClass");
+Route::post('/editClassRoute', [App\Http\Controllers\adminClassController::class, 'editClassRoute'])->name("editClassRoute");
+Route::post('/editClass', [App\Http\Controllers\adminClassController::class, 'editClass'])->name("editClass");
 Route::post('/delete', [App\Http\Controllers\adminClassController::class, 'deleteClass'])->name("deleteClass");
 Route::post('/filter', [App\Http\Controllers\adminClassController::class, 'filterClass'])->name("filterClass");
 
@@ -71,7 +90,18 @@ Route::get('/adminAddSubject', function () {
         return view('admin/adminAddSubject', compact('forms', 'classes', 'subjects'));
     }
 });
+Route::get('/adminEditSubject', function () {
+    if (Session::get('username') == null) {
+        return view('admin/adminInvalidSession');
+    } else {
+        $forms = DB::table('form_list')->orderBy('form_level')->get();
+        $subjects = DB::table('subject_list')->orderBy('form_id')->get();
+        return view('admin/adminEditSubject', compact('forms', 'subjects'));
+    }
+});
 Route::post('/addSubject', [App\Http\Controllers\adminSubjectController::class, 'addSubject'])->name("addSubject");
+Route::post('/editSubjectRoute', [App\Http\Controllers\adminSubjectController::class, 'editSubjectRoute'])->name("editSubjectRoute");
+Route::post('/editSubject', [App\Http\Controllers\adminSubjectController::class, 'editSubject'])->name("editSubject");
 Route::post('/deleteSubject', [App\Http\Controllers\adminSubjectController::class, 'deleteSubject'])->name("deleteSubject");
 Route::post('/filterSubject', [App\Http\Controllers\adminSubjectController::class, 'filterSubject'])->name("filterSubject");
 
@@ -106,7 +136,18 @@ Route::get('/adminAddStudent', function () {
         return view('admin/adminAddStudent', compact('students'));
     }
 });
+Route::get('/adminEditStudent', function () {
+    if (Session::get('username') == null) {
+        return view('admin/adminInvalidSession');
+    } else {
+        $students = DB::table('student_list')->orderBy('student_id')->get();
+        return view('admin/adminEditStudent', compact('students'));
+    }
+});
 Route::post('/addStudent', [App\Http\Controllers\adminStudentController::class, 'addStudent'])->name("addStudent");
+Route::post('/editStudentRoute', [App\Http\Controllers\adminStudentController::class, 'editStudentRoute'])->name("editStudentRoute");
+Route::post('/editStudent', [App\Http\Controllers\adminStudentController::class, 'editStudent'])->name("editStudent");
+Route::post('/deleteStudent', [App\Http\Controllers\adminStudentController::class, 'deleteStudent'])->name("deleteStudent");
 
 //Student pages route
 Auth::routes();

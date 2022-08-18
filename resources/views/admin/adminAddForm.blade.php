@@ -52,6 +52,7 @@
     <tr>
         <th>Form Name</th>
         <th>Form Level</th>
+        <th>Edit</th>
         <th>Delete</th>
     </tr>
 
@@ -67,11 +68,21 @@
         </td>  
 
         <td>
+        <form action = "{{route('editFormRoute')}}" method='POST' class='form-group' action='/' enctype='multipart/form-data'>
+            <input type = 'hidden' name = '_token' value = '<?php echo csrf_token(); ?>'>
+            <input type = 'hidden' name = 'edit_form' value="{{ $form->form_id }}">
+            <button class="button login_submit">
+            <span class="button_text">Edit</span>
+            </button>
+        </form>
+        </td>
+
+        <td>
         <form action = "{{route('deleteForm')}}" method='POST' class='form-group' action='/' enctype='multipart/form-data'>
             <input type = 'hidden' name = '_token' value = '<?php echo csrf_token(); ?>'>
             <input type = 'hidden' name = 'delete_form' value="{{ $form->form_name }}">
             <button class="button login_submit">
-            <span class="button_text">Delete Form</span>
+            <span class="button_text" onclick="return confirm('Are you sure?')">Delete Form</span>
             </button>
         </form>
         </td>

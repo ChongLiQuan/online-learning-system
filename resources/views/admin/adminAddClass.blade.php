@@ -54,7 +54,7 @@
     <input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>">
         <select name='filter_form'>
         @foreach($forms as $form)
-        <option name="form_name" value="{{ $form->form_id }}">Form {{ $form->form_id }}</option>
+        <option name="form_name" value="{{ $form->form_level }}">Form {{ $form->form_level }}</option>
         @endforeach
         </select>   
         
@@ -85,6 +85,7 @@
     <tr>
         <th>Class Name</th>
         <th>Form ID</th>
+        <th>Edit</th>
         <th>Delete</th>
     </tr>
 
@@ -100,11 +101,21 @@
     </td>  
 
     <td>
+    <form action="{{route('editClassRoute')}}" method="post" class="form-group"> 
+        <input type = 'hidden' name = '_token' value = '<?php echo csrf_token(); ?>'>
+        <input type = 'hidden' name = 'edit_class' value="{{ $class->class_id }}">
+        <button class="button login_submit">
+        <span class="button_text">Edit</span>
+        </button>
+    </form>
+    </td>
+
+    <td>
     <form action="{{route('deleteClass')}}" method="post" class="form-group"> 
         <input type = 'hidden' name = '_token' value = '<?php echo csrf_token(); ?>'>
         <input type = 'hidden' name = 'delete_class' value="{{ $class->class_name }}">
         <button class="button login_submit">
-        <span class="button_text">Delete Class</span>
+        <span class="button_text" onclick="return confirm('Are you sure?')">Delete Class</span>
         </button>
     </form>
     </td>

@@ -2,10 +2,10 @@
 
 <div class="home-content">
 
-@foreach($educator as $e)
+    @foreach($educator as $e)
 
     <center>
-        <h1> Update Educator Information</h1>
+        <h1> Update Existing Educator Information</h1>
         &nbsp;
         <form action="{{route('editEducator')}}" method="post" class="form-group">
             <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
@@ -16,13 +16,14 @@
                         <th>
                             <h4>
                                 <lable>Full Name:</label>
-                                    <input type="form_name" value=" {{ $e->edu_name }}"  name="edu_name" class="edu_input" placeholder="Full Name" autocomplete="off" required>
+                                    <input type="form_name" value=" {{ $e->edu_name }}" name="edu_name" class="edu_input" placeholder="Full Name" autocomplete="off" required>
                             </h4>
                         </th>
                         <th>
                             <h4>
                                 <lable>Malaysia IC:</label>
                                     <input type="form_name" value=" {{ $e->edu_IC }}" name="edu_IC" class="edu_input" placeholder="IC Number" autocomplete="off" required disabled>
+                                    <input type="hidden" value=" {{ $e->edu_IC }}" name="edu_IC" class="edu_input">
                             </h4>
                             @error('edu_IC')
                             <div class="error">
@@ -36,7 +37,7 @@
                         <th>
                             <h4>
                                 <lable>Teaching Experience:</label>
-                                    <input type="form_name" value=" {{ $e->edu_year }}" name="edu_year" class="edu_input" min="0" max="50" placeholder="Teaching Experience (Year)" autocomplete="off" required>
+                                    <input type="form_name" value="{{ $e->edu_year }}" name="edu_year" class="edu_input" min="0" max="50" placeholder="Teaching Experience (Year)" autocomplete="off" required>
                             </h4>
                             @error('edu_year')
                             <div class="error">
@@ -62,7 +63,7 @@
 
                             <h4>
                                 <lable>Address:</label>
-                                    <input type="form_name"  value=" {{ $e->edu_address }}" name="edu_address" class="edu_input" placeholder="Full Address" autocomplete="off" required>
+                                    <input type="form_name" value=" {{ $e->edu_address }}" name="edu_address" class="edu_input" placeholder="Full Address" autocomplete="off" required>
                             </h4>
 
                         </th>
@@ -81,8 +82,12 @@
                                 <label for="gender">Gender:</label>
                                 <select name='edu_gender'>
                                     <option value="" selected disabled hidden>Select here</option>
-                                    <option <?php if($e->edu_gender == 'female'){echo("selected");}?> name="form_name" value="female">Female</option>
-                                    <option <?php if($e->edu_gender == 'male'){echo("selected");}?> name="form_name" value="male">Male</option>
+                                    <option <?php if ($e->edu_gender == 'female') {
+                                                echo ("selected");
+                                            } ?> name="form_name" value="female">Female</option>
+                                    <option <?php if ($e->edu_gender == 'male') {
+                                                echo ("selected");
+                                            } ?> name="form_name" value="male">Male</option>
 
                                 </select>
 
@@ -119,5 +124,5 @@
 <div class="list_container">
     <!-- For the margin gap -->
 
-@endforeach
+    @endforeach
 </div>

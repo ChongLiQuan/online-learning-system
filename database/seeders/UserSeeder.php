@@ -6,7 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use DB;
 
-class EducatorSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -85,5 +85,32 @@ class EducatorSeeder extends Seeder
             'email' => 'marry@gmail.com',
         ]);
 
+        DB::table('student_list')->insert([
+            'student_id' => 'STU_' . now()->year . '2',
+            'student_name' => 'Blackpink Rose',
+            'student_IC' => '000766070349',
+            'student_form' => '5',
+            'student_age' => '18',
+            'student_address' => 'Seoul, Korea Street',
+            'student_email' => 'rose@gmail.com',
+            'student_gender' => 'female',
+            'student_dob' => '1996-05-23',
+            'parent_name' => 'Ko Gram Bak',
+            'parent_IC' => '650534560089',
+            'parent_hp' => '019725462',
+            'parent_occupation' => 'Singer',
+            'parent_age' => '50',
+            'parent_address' => 'Seoul, Korea Street',
+            'relationship' => 'father',
+            'parent_dob' => '1965-02-23'
+        ]);
+
+        DB::table('user_login_details')->insert([
+            'user_name' => 'STU' . now()->year . '2',
+            'user_password' => '000766070349',
+            'user_role' => '2',
+            'name' => 'Blackpink Rose',
+            'email' => 'rose@gmail.com',
+        ]);
     }
 }
