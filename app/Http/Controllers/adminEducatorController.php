@@ -119,4 +119,18 @@ class adminEducatorController extends Controller
         return redirect('adminAddEducator')->with('error_status', 'Educator Information Updated Failed, Duplicated Information Found! ');
 
     }
+
+    public function filterEducator(Request $request){
+        $edu_id = $request->input('edu_id');
+        
+        $educators = DB::table('educator_list')->where('edu_id',[$edu_id])->get();  //To fetch the filtered data from database 
+        $count = count($educators);
+
+        if($count == 1){
+            return view('admin/adminAddEducator',compact('educators'));
+        }
+        if($count == 0){
+            return redirect('adminAddEducator')->with('error_status', 'Invalid Educator ID! ');
+        }
+    }
 }

@@ -258,6 +258,29 @@
         <p style="text-align:center; color:green;"><b>{{ session('delete_status') }}</b></p>
         @endif
 
+        <table style=' width:29%;'>
+            <tr>
+                <th style='text-align: left;'>
+                    <form action="{{route('filterStudent')}}" method="post" class="form-group">
+                        <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+
+                        <input type="form_name" name="stu_id" class="field_search" placeholder="Student ID" autocomplete="off" required>
+                </th>
+                <th>
+                    <button class="button login_submit">
+                        <span class="button_text">Search</span>
+                    </button>
+                    </form>
+                </th>
+                <th style='text-align: right;'>
+
+                    <form action="adminAddStudent">
+                        <button class="button login_submit">
+                            <span class="button_text">Display All</span>
+                    </form>
+                </th>
+            </tr>
+
         <table class='sortable' style='text-align: center; margin-top:2%'>
 
             <tr>

@@ -118,6 +118,7 @@ Route::get('/adminAddEducator', function () {
 });
 Route::post('/addEducator', [App\Http\Controllers\adminEducatorController::class, 'addEducator'])->name("addEducator");
 Route::post('/deleteEducator', [App\Http\Controllers\adminEducatorController::class, 'deleteEducator'])->name("deleteEducator");
+Route::post('/filterEducator', [App\Http\Controllers\adminEducatorController::class, 'filterEducator'])->name("filterEducator");
 
 Route::get('/adminEditEducator', function () {
     if (Session::get('username') == null) {
@@ -152,6 +153,7 @@ Route::post('/addStudent', [App\Http\Controllers\adminStudentController::class, 
 Route::post('/editStudentRoute', [App\Http\Controllers\adminStudentController::class, 'editStudentRoute'])->name("editStudentRoute");
 Route::post('/editStudent', [App\Http\Controllers\adminStudentController::class, 'editStudent'])->name("editStudent");
 Route::post('/deleteStudent', [App\Http\Controllers\adminStudentController::class, 'deleteStudent'])->name("deleteStudent");
+Route::post('/filterStudent', [App\Http\Controllers\adminStudentController::class, 'filterStudent'])->name("filterStudent");
 
 //Admin Find user and Update User Password 
 Route::get('/adminUpdatePassword', function () {

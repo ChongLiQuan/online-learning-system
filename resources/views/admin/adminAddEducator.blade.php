@@ -129,83 +129,107 @@
         <p style="text-align:center; color:green;"><b>{{ session('delete_status') }}</b></p>
         @endif
 
-        <table class='sortable' style='text-align: center; margin-top:2%'>
-
+        <table style=' width:29%;'>
             <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>IC no.</th>
-                <th>Teaching Experience</th>
-                <th>Age</th>
-                <th>Address</th>
-                <th>Email</th>
-                <th>Gender</th>
-                <th>D.O.B</th>
-                <th>Edit</th>
-                <th>Delete</th>
+                <th style='text-align: left;'>
+                    <form action="{{route('filterEducator')}}" method="post" class="form-group">
+                        <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+
+                        <input type="form_name" name="edu_id" class="field_search" placeholder="Educator ID" autocomplete="off" required>
+                </th>
+                <th>
+                    <button class="button login_submit">
+                        <span class="button_text">Search</span>
+                    </button>
+                    </form>
+                </th>
+                <th style='text-align: right;'>
+
+                    <form action="adminAddEducator">
+                        <button class="button login_submit">
+                            <span class="button_text">Display All</span>
+                    </form>
+                </th>
             </tr>
 
-            @foreach($educators as $educator)
+            <table class='sortable' style='text-align: center; margin-top:2%'>
 
-            <tr>
-                <td>
-                    <h4> {{ $educator->edu_id }} </h4>
-                </td>
 
-                <td>
-                    <h4> {{ $educator->edu_name}} </h4>
-                </td>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>IC no.</th>
+                    <th>Teaching Experience</th>
+                    <th>Age</th>
+                    <th>Address</th>
+                    <th>Email</th>
+                    <th>Gender</th>
+                    <th>D.O.B</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
 
-                <td>
-                    <h4> {{ $educator->edu_IC }} </h4>
-                </td>
+                @foreach($educators as $educator)
 
-                <td>
-                    <h4> {{ $educator->edu_year }} </h4>
-                </td>
+                <tr>
+                    <td>
+                        <h4> {{ $educator->edu_id }} </h4>
+                    </td>
 
-                <td>
-                    <h4> {{ $educator->edu_age }} </h4>
-                </td>
+                    <td>
+                        <h4> {{ $educator->edu_name}} </h4>
+                    </td>
 
-                <td>
-                    <h4> {{ $educator->edu_address }} </h4>
-                </td>
+                    <td>
+                        <h4> {{ $educator->edu_IC }} </h4>
+                    </td>
 
-                <td>
-                    <h4> {{ $educator->edu_email }} </h4>
-                </td>
+                    <td>
+                        <h4> {{ $educator->edu_year }} </h4>
+                    </td>
 
-                <td>
-                    <h4> {{ $educator->edu_gender }} </h4>
-                </td>
+                    <td>
+                        <h4> {{ $educator->edu_age }} </h4>
+                    </td>
 
-                <td>
-                    <h4> {{ $educator->edu_dob }} </h4>
-                </td>
+                    <td>
+                        <h4> {{ $educator->edu_address }} </h4>
+                    </td>
 
-                <td>
-                    <form action="{{route('editEducatorRoute')}}" method="post" class="form-group">
-                        <input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'>
-                        <input type='hidden' name='edu_id' value="{{ $educator->edu_id }}">
-                        <button class="button login_submit">
-                            <span class="button_text">Edit</span>
-                        </button>
-                    </form>
-                </td>
+                    <td>
+                        <h4> {{ $educator->edu_email }} </h4>
+                    </td>
 
-                <td>
-                    <form action="{{route('deleteEducator')}}" method="post" class="form-group">
-                        <input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'>
-                        <input type='hidden' name='delete_edu' value="{{ $educator->edu_id }}">
-                        <button class="button login_submit">
-                            <span class="button_text">Remove</span>
-                        </button>
-                    </form>
-                </td>
-            </tr>
+                    <td>
+                        <h4> {{ $educator->edu_gender }} </h4>
+                    </td>
 
-            @endforeach
+                    <td>
+                        <h4> {{ $educator->edu_dob }} </h4>
+                    </td>
 
-        </table>
+                    <td>
+                        <form action="{{route('editEducatorRoute')}}" method="post" class="form-group">
+                            <input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'>
+                            <input type='hidden' name='edu_id' value="{{ $educator->edu_id }}">
+                            <button class="button login_submit">
+                                <span class="button_text">Edit</span>
+                            </button>
+                        </form>
+                    </td>
+
+                    <td>
+                        <form action="{{route('deleteEducator')}}" method="post" class="form-group">
+                            <input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'>
+                            <input type='hidden' name='delete_edu' value="{{ $educator->edu_id }}">
+                            <button class="button login_submit">
+                                <span class="button_text">Remove</span>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+
+                @endforeach
+
+            </table>
 </div>

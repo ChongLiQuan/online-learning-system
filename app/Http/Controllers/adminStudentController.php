@@ -162,4 +162,19 @@ class adminStudentController extends Controller
         DB::table('student_list')->where('student_id', [$delete_student])->delete();
         return redirect('adminAddStudent')->with('delete_status', 'Student Removed successfully! ');
     }
+
+    public function filterStudent(Request $request){
+        $stu_id = $request->input('stu_id');
+        
+        $students = DB::table('student_list')->where('student_id',[$stu_id])->get();  //To fetch the filtered data from database 
+        $count = count($students);
+
+        if($count == 1){
+            $class = DB::table('class_list')->orderBy('class_id')->get();
+            return view('admin/adminAddStudent',compact('students','class'));
+        }
+        if($count == 0){
+            return redirect('adminAddStudent')->with('error_status', 'Invalid Student ID! ');
+        }
+    }
 }
