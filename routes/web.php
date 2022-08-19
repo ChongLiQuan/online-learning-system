@@ -8,6 +8,8 @@ use App\Http\Controllers\adminClassController;
 use App\Http\Controllers\adminSubjectController;
 use App\Http\Controllers\adminEducatorController;
 use App\Http\Controllers\adminStudentController;
+use App\Http\Controllers\adminPasswordController;
+
 
 //General both party page
 Route::get('/', function () {
@@ -133,7 +135,8 @@ Route::get('/adminAddStudent', function () {
         return view('admin/adminInvalidSession');
     } else {
         $students = DB::table('student_list')->orderBy('student_id')->get();
-        return view('admin/adminAddStudent', compact('students'));
+        $class = DB::table('class_list')->orderBy('class_id')->get();
+        return view('admin/adminAddStudent', compact('students','class'));
     }
 });
 Route::get('/adminEditStudent', function () {
@@ -141,13 +144,25 @@ Route::get('/adminEditStudent', function () {
         return view('admin/adminInvalidSession');
     } else {
         $students = DB::table('student_list')->orderBy('student_id')->get();
-        return view('admin/adminEditStudent', compact('students'));
+        $class = DB::table('class_list')->orderBy('class_id')->get();
+        return view('admin/adminAddStudent', compact('students','class'));
     }
 });
 Route::post('/addStudent', [App\Http\Controllers\adminStudentController::class, 'addStudent'])->name("addStudent");
 Route::post('/editStudentRoute', [App\Http\Controllers\adminStudentController::class, 'editStudentRoute'])->name("editStudentRoute");
 Route::post('/editStudent', [App\Http\Controllers\adminStudentController::class, 'editStudent'])->name("editStudent");
 Route::post('/deleteStudent', [App\Http\Controllers\adminStudentController::class, 'deleteStudent'])->name("deleteStudent");
+
+//Admin Find user and Update User Password 
+Route::get('/adminUpdatePassword', function () {
+    if (Session::get('username') == null) {
+        return view('admin/adminInvalidSession');
+    } else {
+        return view('admin/adminUpdatePassword');
+    }
+});
+Route::post('/updatePassword', [App\Http\Controllers\adminPasswordController::class, 'updatePassword'])->name("updatePassword");
+
 
 //Student pages route
 Auth::routes();

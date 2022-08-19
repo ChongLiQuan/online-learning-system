@@ -78,7 +78,8 @@ class adminStudentController extends Controller
         $stu_id = $request->input('student_id');
 
         $student = DB::table('student_list')->where('student_id', $stu_id)->get();
-        return view('admin/adminEditStudent', compact('student'));
+        $class = DB::table('class_list')->orderBy('class_id')->get();
+        return view('admin/adminEditStudent', compact('student','class'));
     }
 
     public function editStudent(Request $request)
@@ -88,6 +89,7 @@ class adminStudentController extends Controller
         $stu_IC = $request->input('stu_IC');
         $stu_form = $request->input('stu_form');
         $stu_age = $request->input('stu_age');
+        $stu_class = $request->input('stu_class');
         $stu_address = $request->input('stu_address');
         $stu_email = $request->input('stu_email');
         $stu_gender = $request->input('stu_gender');
@@ -106,6 +108,7 @@ class adminStudentController extends Controller
             'stu_IC' => 'required|digits:12',
             'stu_form' => 'required|integer|between:0,6',
             'stu_age' => 'required|integer|between:13,18',
+            'stu_class' => 'required',
             'stu_address' => 'required',
             'stu_email' => 'required',
             'stu_gender' => 'required',
@@ -125,6 +128,7 @@ class adminStudentController extends Controller
             'student_name' => $stu_name,
             'student_IC' =>  $stu_IC,
             'student_form' => $stu_form,
+            'student_class' => $stu_class,
             'student_age' => $stu_age,
             'student_address' => $stu_address,
             'student_email' => $stu_email,

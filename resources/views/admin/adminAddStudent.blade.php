@@ -110,6 +110,16 @@
                     </tr>
 
                     <tr>
+                        <th> <label>Student Class:</label>
+                            <select name='stu_class'>
+                                @foreach($class as $class)
+                                <option name="form_name" value="{{ $class->class_name }}">{{ $class->class_name }}</option>
+                                @endforeach
+                            </select>
+                        </th>
+                    </tr>
+
+                    <tr>
                         <th>&nbsp;</th>
                     </tr>
 
@@ -255,6 +265,7 @@
                 <th>Name</th>
                 <th>IC no.</th>
                 <th>Form</th>
+                <th>Class</th>
                 <th>Age</th>
                 <th>Address</th>
                 <th>Email</th>
@@ -281,6 +292,10 @@
 
                 <td>
                     <h4> {{ $student->student_form }} </h4>
+                </td>
+
+                <td>
+                    <h4> {{ $student->student_class }} </h4>
                 </td>
 
                 <td>

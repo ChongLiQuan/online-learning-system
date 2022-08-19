@@ -10,7 +10,7 @@
 
             <div class='login_field'>
                 <table style='width:40%; text-align:right; margin-right:10%'>
-                <input type="hidden" name="student_id" value="{{ $s->student_id }}" >
+                    <input type="hidden" name="student_id" value="{{ $s->student_id }}">
                     <tr>
                         <th>
                             <h4>
@@ -111,6 +111,18 @@
                                 <label for="birthday">Student Birthday:</label>
                                 <input type="date" value="{{ $s->student_dob }}" max="2022-01-01" id="birthday" name="stu_dob" required>
                             </h4>
+                        </th>
+                    </tr>
+
+                    <tr>
+                        <th> <label>Student Class:</label>
+                            <select name='stu_class'>
+                                @foreach($class as $class)
+                                <option name="form_name" value="{{ $class->class_name }}" <?php if ($s->student_class == $class->class_name) {
+                                                                                                echo ("selected");
+                                                                                            } ?>>{{ $class->class_name }}</option>
+                                @endforeach
+                            </select>
                         </th>
                     </tr>
 
@@ -235,7 +247,7 @@
                 <div class="list_container">
 
                     <button class="button login_submit">
-                        <span class="button_text">Register Now</span>
+                        <span class="button_text">Update Now</span>
                         <i class="button_icon fa fa-caret-right fa-2x" aria-hidden="true"></i>
                     </button>
 

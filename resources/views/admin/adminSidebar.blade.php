@@ -40,9 +40,9 @@
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="/adminUpdatePassword">
             <i class='bx bx-user' ></i>
-            <span class="links_name">Team</span>
+            <span class="links_name">Update Password</span>
           </a>
         </li>
         <li>

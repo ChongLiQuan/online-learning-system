@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('student_email');
             $table->string('student_gender');
             $table->date('student_dob');
+            $table->string('student_class')->nullable();
 
             $table->string('parent_name')->nullable();
             $table->string('parent_IC'); 
