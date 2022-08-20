@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 
 class adminClassController extends Controller
@@ -17,9 +18,10 @@ class adminClassController extends Controller
             ]);
 
         $check_duplicate = DB::select('select * from class_list where class_name = ?', [$class_name]);
+        $check_duplicate2 = DB::select('select * from class_list where class_name = ? and form_id = ?', [$class_name, $form_name]);
 
-        if($check_duplicate != null){  
-            return redirect('adminAddClass')->with('error_status', 'Failed, please try again with different class name!');      
+        if($check_duplicate != null || $check_duplicate2 != null){  
+            return redirect('adminAddClass')->with('error_status', 'Failed, please try again with different class name or class form!');      
         }else{
             $form_id = DB::table('form_list')->where('form_name', $form_name)->pluck('form_id')->first();
             DB::select('insert into class_list (class_name, form_id) values (?,?)' , [$class_name, $form_id]);

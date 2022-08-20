@@ -17,25 +17,25 @@
         </li>
         <li>
           <a href="/adminAddClass">
-            <i class='bx bx-list-ul' ></i>
+            <i class='bx bx-note' ></i>
             <span class="links_name">Add Class</span>
           </a>
         </li>
         <li>
           <a href="/adminAddSubject">
-            <i class='bx bx-book-alt' ></i>
+            <i class='bx bx-book-reader' ></i>
             <span class="links_name">Add Subject</span>
           </a>
         </li>
         <li>
           <a href="/adminAddEducator">
-            <i class='bx bx-pie-chart-alt-2' ></i>
+            <i class='bx bx-user' ></i>
             <span class="links_name">Register Educator</span>
           </a>
         </li>
         <li>
           <a href="/adminAddStudent">
-            <i class='bx bx-coin-stack' ></i>
+            <i class='bx bx-user-plus' ></i>
             <span class="links_name">Register Student</span>
           </a>
         </li>
@@ -46,23 +46,12 @@
           </a>
         </li>
         <li>
-          <a href="#">
-            <i class='bx bx-message' ></i>
-            <span class="links_name">Messages</span>
+          <a href="/adminAssignSubject">
+            <i class='bx bx-book-bookmark' ></i>
+            <span class="links_name">Assign Subject</span>
           </a>
         </li>
-        <li>
-          <a href="#">
-            <i class='bx bx-heart' ></i>
-            <span class="links_name">Favrorites</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <i class='bx bx-cog' ></i>
-            <span class="links_name">Setting</span>
-          </a>
-        </li>
+       
         <li class="log_out">
           <a href="adminLogout">
             <i class='bx bx-log-out'></i>
