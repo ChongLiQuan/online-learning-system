@@ -1,21 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\adminLoginController;
-use App\Http\Controllers\adminLogoutController;
-use App\Http\Controllers\adminFormController;
-use App\Http\Controllers\adminClassController;
-use App\Http\Controllers\adminSubjectController;
-use App\Http\Controllers\adminEducatorController;
-use App\Http\Controllers\adminStudentController;
-use App\Http\Controllers\adminPasswordController;
-use App\Http\Controllers\admin\adminAssignSubjectController;
-
 
 //General both party page
 Route::get('/', function () {
     return view('welcome');
 });
+Route::post('/userLogin', [App\Http\Controllers\homeLoginController::class, 'userLogin'])->name("userLogin");
 
 //Admin pages route
 //Admin login and logout route and check invalid session
@@ -55,7 +46,7 @@ Route::get('/adminEditForm', function () {
 });
 Route::post('/editFormRoute', [App\Http\Controllers\admin\adminFormController::class, 'editFormRoute'])->name('editFormRoute');
 Route::post('/editForm', [App\Http\Controllers\admin\adminFormController::class, 'editForm'])->name('editForm');
-Route::post('/', [App\Http\Controllers\admin\adminFormController::class, 'deleteForm'])->name('deleteForm');
+Route::post('/deleteForm', [App\Http\Controllers\admin\adminFormController::class, 'deleteForm'])->name('deleteForm');
 
 //Admin add class route
 Route::get('/adminAddClass', function () {

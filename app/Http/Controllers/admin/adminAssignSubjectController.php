@@ -21,9 +21,10 @@ class adminAssignSubjectController extends Controller
         ]);
 
         $check_duplicate = DB::select('select * from class_subject_list where subject_code = ? and class_name = ? and educator_id = ?', [$subject, $class, $educator]);
+        $check_duplicate2 = DB::select('select * from class_subject_list where subject_code = ? and class_name = ?', [$subject, $class]);
 
-        if ($check_duplicate != null) {
-            return redirect('adminAssignSubject')->with('error_status', 'Failed, please try again with different subject name or code!');
+        if ($check_duplicate != null || $check_duplicate2 != null) {
+            return redirect('adminAssignSubject')->with('error_status', 'Failed, please try again with different subject name or class, Subject might be taken!');
         } else {
             DB::select('insert into class_subject_list (subject_code, class_name, educator_id) values (?,?,?)', [$subject, $class, $educator]);
             return redirect('adminAssignSubject')->with('pass_status', 'Subject Assigned Successfully!');
@@ -35,6 +36,6 @@ class adminAssignSubjectController extends Controller
         $delete = $request->input('delete');
 
         DB::table('class_subject_list')->where('id', [$delete])->delete();
-        return redirect('adminAddEducator')->with('delete_status', 'Class Removed successfully! ');
+        return redirect('adminAssignSubject')->with('delete_status', 'Removed successfully! ');
     }
 }
