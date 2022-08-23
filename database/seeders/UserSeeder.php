@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use DB;
+use Illuminate\Support\Facades\Hash;
+
 
 class UserSeeder extends Seeder
 {
@@ -42,7 +44,7 @@ class UserSeeder extends Seeder
 
         DB::table('user_login_details')->insert([
             'user_name' => 'EDU_' . now()->year . '1',
-            'user_password' => '690506070475',
+            'user_password' => Hash::make('690506070475'),
             'user_role' => '1',
             'name' => 'Shawn Tan Cheng',
             'email' => 'shawn@gmail.com.my',
@@ -51,7 +53,7 @@ class UserSeeder extends Seeder
 
         DB::table('user_login_details')->insert([
             'user_name' => 'EDU_' . now()->year . '2',
-            'user_password' => '000506070473',
+            'user_password' => Hash::make('000506070473'),
             'user_role' => '1',
             'name' => 'Kelly Khoo Shin',
             'email' => 'kelly@gmail.com.my',
@@ -80,7 +82,7 @@ class UserSeeder extends Seeder
 
         DB::table('user_login_details')->insert([
             'user_name' => 'STU_' . now()->year . '1',
-            'user_password' => '000506070475',
+            'user_password' => Hash::make('000506070475'),
             'user_role' => '2',
             'name' => 'Marry Lim Teng Shen',
             'email' => 'marry@gmail.com',
@@ -109,8 +111,16 @@ class UserSeeder extends Seeder
 
         DB::table('user_login_details')->insert([
             'user_name' => 'STU_' . now()->year . '2',
-            'user_password' => '000766070349',
+            'user_password' => Hash::make('000766070349'),
             'user_role' => '2',
+            'name' => 'Blackpink Rose',
+            'email' => 'rose@gmail.com',
+        ]);
+
+        DB::table('user_login_details')->insert([
+            'user_name' => 'edu',
+            'user_password' => Hash::make('edu'),
+            'user_role' => '1',
             'name' => 'Blackpink Rose',
             'email' => 'rose@gmail.com',
         ]);

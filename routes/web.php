@@ -3,8 +3,8 @@
 use Illuminate\Support\Facades\Route;
 
 //General both party page
-Route::get('/', function () {
-    return view('welcome');
+Route::get('userLogin', function () {
+    return view('userLogin');
 });
 Route::post('/userLogin', [App\Http\Controllers\homeLoginController::class, 'userLogin'])->name("userLogin");
 
@@ -172,7 +172,15 @@ Route::get('/adminAssignSubject', function () {
 Route::post('/assignSubject', [App\Http\Controllers\admin\adminAssignSubjectController::class, 'assignSubject'])->name("assignSubject");
 Route::post('/deleteAssign', [App\Http\Controllers\admin\adminAssignSubjectController::class, 'deleteAssign'])->name("deleteAssign");
 
+//Educator Pages Route
+Route::get('/educatorHomepage', function () {
+    if (Session::get('username') == null) {
+        return view('admin/adminInvalidSession');
+    } else {
+        return view('educator/educatorHomepage');
+    }
+});
 
-//Student pages route
+//Student Pages Route
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

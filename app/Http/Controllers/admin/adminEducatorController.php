@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Crypt;
 
 class adminEducatorController extends Controller
 {
@@ -45,7 +46,7 @@ class adminEducatorController extends Controller
                 DB::table('educator_list')->where('edu_IC', $edu_IC)->update(['edu_id' => 'EDU_' . $new_id]);
 
                 $user_name =  DB::table('educator_list')->where('edu_IC', $edu_IC)->pluck('edu_id')->first();
-                $user_password = $edu_IC;
+                $user_password =  Crypt::encryptString($edu_IC);
                 $user_role = 1;
 
                 DB::select('insert into user_login_details (user_name, user_password, user_role, name, email) values (?,?,?,?,?)', [

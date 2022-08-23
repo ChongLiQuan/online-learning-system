@@ -24,7 +24,7 @@ class adminLoginController extends Controller
         if($result != null){
             session()->start();
             Session::put('username', $username);            
-            return redirect('adminHomepage');
+            return redirect('adminAddForm');
         }else{
             return redirect('adminLogin')->with('status', 'Incorrect username or password !');
         }

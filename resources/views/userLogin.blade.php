@@ -1,7 +1,7 @@
 <title>Login Page</title>
 <link rel="stylesheet" href="<?php echo asset('css/login.css') ?>" type="text/css">
 <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet" type='text/css'>
-<link rel="icon" href="{!! asset('images/school_logo.png') !!}" />
+<link rel="icon" href="{!! asset('images/login_logo.jpeg') !!}" />
 
 <style>
     body {
