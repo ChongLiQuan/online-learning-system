@@ -117,6 +117,19 @@ class UserSeeder extends Seeder
             'email' => 'rose@gmail.com',
         ]);
 
+
+        DB::table('educator_list')->insert([
+            'edu_id' =>  'edu',
+            'edu_name' => 'edu',
+            'edu_IC' => '690506099999',
+            'edu_year' => '1',
+            'edu_age' => '22',
+            'edu_address' => 'Edu Condo Jalan Emas',
+            'edu_email' => 'edu@gmail.com.my',
+            'edu_gender' => 'male',
+            'edu_dob' => '1970-10-23'
+        ]);
+
         DB::table('user_login_details')->insert([
             'user_name' => 'edu',
             'user_password' => Hash::make('edu'),

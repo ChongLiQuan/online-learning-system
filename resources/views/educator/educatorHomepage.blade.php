@@ -1,14 +1,33 @@
 @include('educator/educatorHeader')
 
-<div class="header">
-  <a href="#default" class="logo">CompanyLogo</a>
-  <div class="header-right">
-    <a class="active" href="#home">Home</a>
-    <a href="#contact">Contact</a>
-    <a href="#about">About</a>
-  </div>
+
+<article id="mainArticle">Article
+
+</article>
+
+<nav id="mainNav">
+    <p><b>Navigation Menu</b></p>
+    <p><a>Subjects Area:</a></p>
+
+    <p class='course-list'>
+        @foreach($subjects as $s)
+        <!-- <p>&nbsp;&nbsp;&nbsp;<a href="/educatorCourseHome/{{ $s->subject_code }}">{{ $s->subject_code }} {{ $s->class_name }} </a></p> -->
+    <p>&nbsp;&nbsp;&nbsp; <a href="{{ route('courseHome',['subject_code' => $s->subject_code]) }}">{{ $s->subject_code }} {{ $s->class_name }} </a></p>
+
+    @endforeach
+    </p>
+
+    <p><a href="/makeAnnoucement">Make Annoucement</a></p>
+
+
+</nav>
+
+<div id="siteAds">
+    <p><b>Annoucement</b></p>
+
 </div>
 
-<span class="dashboard">Educator Dashboard</span>
+<footer id="pageFooter">
+    @include('educator/educatorFooter')
 
-<span class="admin_name">Welcome back, {{ Session::get('username') }}.</span>
+</footer>s

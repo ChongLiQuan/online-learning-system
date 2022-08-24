@@ -98,7 +98,7 @@
                                 <input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'>
                                 <input type='hidden' name='delete' value="{{ $l->id }}">
                                 <button class="button login_submit">
-                                    <span class="button_text" onclick="return confirm('Are you sure?')">Delete</span>
+                                    <span class="button_text" onclick="return confirm('Are you sure? All Study Content Will Be Erased!')">Delete</span>
                                 </button>
                             </form>
                         </td>

@@ -38,10 +38,17 @@ class homeLoginController extends Controller
                 return redirect('/educatorHomepage');
             }
             if ($user_role == 2) {
-                //return redirect('/educatorHomepage');
+                //return redirect('/studentHomepage');
             }
         } else {
             return redirect('/userLogin')->with('status', 'Incorrect username or password !');
         }
+    }
+
+    public function logout(Request $request){
+
+        Session::flush();
+        return redirect('/userLogin')->with('alert', 'Logged out successfully !');
+
     }
 }

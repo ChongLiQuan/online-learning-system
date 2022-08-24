@@ -129,7 +129,7 @@ Route::get('/adminAddStudent', function () {
     } else {
         $students = DB::table('student_list')->orderBy('student_id')->get();
         $class = DB::table('class_list')->orderBy('class_id')->get();
-        return view('admin/adminAddStudent', compact('students','class'));
+        return view('admin/adminAddStudent', compact('students', 'class'));
     }
 });
 Route::get('/adminEditStudent', function () {
@@ -138,7 +138,7 @@ Route::get('/adminEditStudent', function () {
     } else {
         $students = DB::table('student_list')->orderBy('student_id')->get();
         $class = DB::table('class_list')->orderBy('class_id')->get();
-        return view('admin/adminAddStudent', compact('students','class'));
+        return view('admin/adminAddStudent', compact('students', 'class'));
     }
 });
 Route::post('/addStudent', [App\Http\Controllers\admin\adminStudentController::class, 'addStudent'])->name("addStudent");
@@ -175,11 +175,28 @@ Route::post('/deleteAssign', [App\Http\Controllers\admin\adminAssignSubjectContr
 //Educator Pages Route
 Route::get('/educatorHomepage', function () {
     if (Session::get('username') == null) {
-        return view('admin/adminInvalidSession');
+        return view('userInvalidSession');
     } else {
-        return view('educator/educatorHomepage');
+        $username = Session::get('username');
+        $subjects = DB::table('class_subject_list')->where('educator_id', $username)->orderBy('id')->get();
+        return view('educator/educatorHomepage', compact('subjects'));
     }
 });
+
+Route::get('/{subject_code}', function ($subject_code) {
+    if (Session::get('username') == null) {
+        return view('userInvalidSession');
+    } else {
+        $username = Session::get('username');
+        $subjects = DB::table('subject_list')->where('subject_code', $subject_code)->get();
+        //Display All Information According to the Specific Course Code
+
+        return view('educator/educatorCourseHome', compact('subjects'))->with('subject_code', $subject_code);
+    }
+})->name('courseHome');
+
+Route::get('/logout', [App\Http\Controllers\homeLoginController::class, 'logout']);
+
 
 //Student Pages Route
 Auth::routes();
