@@ -17,9 +17,12 @@
   <header id="pageHeader">
     <a href='/educatorHomepage'><img src='images/login_logo.jpeg' height=30 width=30></a><b>Online E-Learning System</b>
     <div class="header-right">
-    <a href="/educatorHomepage">Home</a>
-      <a href="/educatorProfile">Profile</a>
-      <a href="/educatorProfile">Annoucement</a>
-      <a href="/logout">Logout</a>
+      <b>
+        <a href="/educatorHomepage">Home</a>
+        <a href="/educatorProfile">Profile</a>
+        <a href="/educatorEditAnnoucement">Annoucement</a>
+        <a href="/logout">Logout</a>
+      </b>
     </div>
   </header>
+</body>

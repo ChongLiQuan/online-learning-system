@@ -183,7 +183,7 @@ Route::get('/educatorHomepage', function () {
     }
 });
 
-Route::get('/{subject_code}', function ($subject_code) {
+Route::get('courseHome/{subject_code}', function ($subject_code) {
     if (Session::get('username') == null) {
         return view('userInvalidSession');
     } else {
@@ -196,6 +196,32 @@ Route::get('/{subject_code}', function ($subject_code) {
 })->name('courseHome');
 
 Route::get('/logout', [App\Http\Controllers\homeLoginController::class, 'logout']);
+
+Route::get('/educatorAddAnnoucement', function () {
+    if (Session::get('username') == null) {
+        return view('userInvalidSession');
+    } else {
+        $username = Session::get('username');
+        $subjects = DB::table('class_subject_list')->where('educator_id', $username)->groupBy('subject_code')->get();
+        $classes = DB::table('class_subject_list')->where('educator_id', $username)->groupBy('class_name')->get();
+        return view('educator/educatorAddAnnoucement', compact('subjects','classes'));
+        
+    }
+});
+
+Route::post('/uploadImage', [App\Http\Controllers\educator\educatorAnnoucementController::class, 'uploadImage'])->name('uploadImage');
+Route::post('/addAnnoucement', [App\Http\Controllers\educator\educatorAnnoucementController::class, 'addAnnoucement'])->name('addAnnoucement');
+
+Route::get('/educatorEditAnnoucement', function () {
+    if (Session::get('username') == null) {
+        return view('userInvalidSession');
+    } else {
+        $username = Session::get('username');
+        $list = DB::table('annoucement_list')->where('annouce_educator', $username)->orderBy('created_at', 'DESC')->get();
+        return view('educator/educatorEditAnnoucement', compact('list'));
+    }
+});
+Route::post('/deleteAnnoucement', [App\Http\Controllers\educator\educatorAnnoucementController::class, 'deleteAnnoucement'])->name('deleteAnnoucement');
 
 
 //Student Pages Route

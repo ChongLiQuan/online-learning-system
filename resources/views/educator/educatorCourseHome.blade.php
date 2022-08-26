@@ -1,7 +1,7 @@
 @include('educator/educatorHeader')
 <link rel="icon" href="{!! asset('educator/images/login_logo.jpeg') !!}" />
 
-<article id="mainArticle">Article
+<article id="mainArticle"><b>Article</b>
 
 </article>
 
@@ -12,7 +12,7 @@
     <p><a href="/studyMaterial">Study Material</a></p>
     </p>
 
-    <p><a href="/makeAnnoucement">Make Annoucement</a></p>
+    <p><a href="/educatorAddAnnoucement">Make Annoucement</a></p>
 
     @endforeach
 </nav>
