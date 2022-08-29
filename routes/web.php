@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 //General both party page
-Route::get('userLogin', function () {
+Route::get('/userLogin', function () {
     return view('userLogin');
 });
 Route::post('/userLogin', [App\Http\Controllers\homeLoginController::class, 'userLogin'])->name("userLogin");
@@ -204,8 +204,7 @@ Route::get('/educatorAddAnnoucement', function () {
         $username = Session::get('username');
         $subjects = DB::table('class_subject_list')->where('educator_id', $username)->groupBy('subject_code')->get();
         $classes = DB::table('class_subject_list')->where('educator_id', $username)->groupBy('class_name')->get();
-        return view('educator/educatorAddAnnoucement', compact('subjects','classes'));
-        
+        return view('educator/educatorAddAnnoucement', compact('subjects', 'classes'));
     }
 });
 
@@ -223,7 +222,20 @@ Route::get('/educatorEditAnnoucement', function () {
 });
 Route::post('/deleteAnnoucement', [App\Http\Controllers\educator\educatorAnnoucementController::class, 'deleteAnnoucement'])->name('deleteAnnoucement');
 
-
 //Student Pages Route
-Auth::routes();
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/studentHomepage', function () {
+    if (Session::get('username') == null) {
+        return view('userInvalidSession');
+    } else {
+        return view('student/studentHomepage');
+    }
+});
+Route::get('/studentAnnoucement', function () {
+    if (Session::get('username') == null) {
+        return view('userInvalidSession');
+    } else {
+        $username = Session::get('username');
+        $list = DB::table('annoucement_list')->orderBy('created_at', 'DESC')->get();
+        return view('student/studentAnnoucement', compact('list'));
+    }
+});

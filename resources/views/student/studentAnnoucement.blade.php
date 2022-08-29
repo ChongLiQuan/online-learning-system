@@ -1,4 +1,4 @@
-@include('educator/educatorHeader')
+@include('student/studentHeader')
 
 <script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
 <script src="js/ckeditor.js"></script>
@@ -45,17 +45,17 @@
                 </td>
             </tr>
 
-                <tr>
-                    <td colspan="4" style='text-align:right'>
-                        <form action="{{route('deleteAnnoucement')}}" method='POST' class='form-group' action='/' enctype='multipart/form-data'>
-                            <input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'>
-                            <input type='hidden' name='delete_id' value="{{ $l->id }}">
-                            <button class="button login_submit">
-                                <span class="button_text" onclick="return confirm('Are you sure?')">Delete</span>
-                            </button>
-                        </form>
-                    </td>
-                </tr>
+            <tr>
+                <td colspan="4" style='text-align:right'>
+                    <form action="{{route('deleteAnnoucement')}}" method='POST' class='form-group' action='/' enctype='multipart/form-data'>
+                        <input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'>
+                        <input type='hidden' name='delete_id' value="{{ $l->id }}">
+                        <button class="button login_submit">
+                            <span class="button_text">Read</span>
+                        </button>
+                    </form>
+                </td>
+            </tr>
 
         </table>
         <br /> <br />

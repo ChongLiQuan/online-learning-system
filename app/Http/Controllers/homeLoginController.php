@@ -32,14 +32,15 @@ class homeLoginController extends Controller
 
             session()->start();
             Session::put('username', $username);
-            Session::put('role', $user_role);
+            Session::put('user_role', $user_role);
 
             if ($user_role == 1) {
                 return redirect('/educatorHomepage');
             }
             if ($user_role == 2) {
-                //return redirect('/studentHomepage');
+                return redirect('/studentHomepage');
             }
+            
         } else {
             return redirect('/userLogin')->with('status', 'Incorrect username or password !');
         }

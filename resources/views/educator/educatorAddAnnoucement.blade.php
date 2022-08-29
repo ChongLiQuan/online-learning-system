@@ -36,6 +36,10 @@
             <p style="text-align:center; color:green;"><b>{{ session('pass_status') }}</b></p>
             @endif
 
+            @if (session('error_status'))
+            <p style="text-align:center; color:red;"><b>{{ session('error_status') }}</b></p>
+            @endif
+
             <button class="button submit">
                 <span class="button_text">Publish Now</span>
                 <i class="button_icon fa fa-caret-right fa-2x" aria-hidden="true"></i>

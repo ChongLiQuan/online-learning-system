@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
 
-  <title>Educator Dashboard</title>
+  <title>Student Dashboard</title>
   <script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
   <link rel="stylesheet" href="<?php echo asset('css/homepage.css') ?>" type="text/css">
   <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
@@ -16,14 +16,16 @@
 
   <header id="pageHeader">
     <div class="header-left">
-      <a href='/educatorHomepage'><b>Online E-Learning System</b></a>
+      <a href='/studentHomepage'><b>Online E-Learning System</b></a>
     </div>
 
     <div class="header-right">
       <b>
-        <a href="/educatorHomepage">Home</a>
-        <a href="/educatorProfile">Profile</a>
-        <a href="/educatorEditAnnoucement">Annoucement</a>
+        <a href="/studentHomepage">Home</a>
+        <a href="/">Profile</a>
+        <a href="/studentAnnoucement" class='notification'>Annoucement
+          <span class="badge">3</span>
+        </a>
         <a href="/logout">Logout</a>
       </b>
     </div>
