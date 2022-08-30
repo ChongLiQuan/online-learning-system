@@ -23,7 +23,7 @@
       <b>
         <a href="/educatorHomepage">Home</a>
         <a href="/educatorProfile">Profile</a>
-        <a href="/educatorEditAnnoucement">Annoucement</a>
+        <a href="/educatorEditAnnouncement">Announcement</a>
         <a href="/logout">Logout</a>
       </b>
     </div>

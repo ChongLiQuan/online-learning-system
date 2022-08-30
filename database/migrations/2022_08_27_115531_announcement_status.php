@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('annoucement_status', function (Blueprint $table) {
+        Schema::create('announcement_status', function (Blueprint $table) {
             $table->increments('id');
 
             $table->string('student_name');
 
             $table->integer('annouce_id')->unsigned();
-            $table->foreign('annouce_id')->references('id')->on('annoucement_list')->onDelete('cascade'); 
+            $table->foreign('annouce_id')->references('id')->on('announcement_list')->onDelete('cascade'); 
             
             $table->boolean('status');
         });
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('annoucement_status');
+        Schema::dropIfExists('announcement_status');
     }
 };

@@ -5,7 +5,7 @@
 
 <div class='fullContent'>
     <center>
-        <h3>All Annoucement</h3>
+        <h3>All Announcement</h3>
 
         @if (session('delete_status'))
         <p style="text-align:center; color:green;"><b>{{ session('delete_status') }}</b></p>
@@ -13,7 +13,7 @@
 
         @foreach($list as $l)
         <br />
-        <table class='annoucement' border='0'>
+        <table class='announcement' border='0'>
 
             <colgroup>
                 <col span="1" style="width: 60%;">
@@ -47,7 +47,7 @@
 
                 <tr>
                     <td colspan="4" style='text-align:right'>
-                        <form action="{{route('deleteAnnoucement')}}" method='POST' class='form-group' action='/' enctype='multipart/form-data'>
+                        <form action="{{route('deleteAnnouncement')}}" method='POST' class='form-group' action='/' enctype='multipart/form-data'>
                             <input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'>
                             <input type='hidden' name='delete_id' value="{{ $l->id }}">
                             <button class="button login_submit">
@@ -64,7 +64,7 @@
         @endforeach
         
         <script type="text/javascript">
-            CKEDITOR.replace('annoucement_content', {
+            CKEDITOR.replace('announcement_content', {
                 filebrowserUploadUrl: "{{route('uploadImage', ['_token' => csrf_token() ])}}",
                 filebrowserUploadMethod: 'form'
             });

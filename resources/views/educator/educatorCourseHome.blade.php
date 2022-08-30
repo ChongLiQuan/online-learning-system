@@ -12,13 +12,13 @@
     <p><a href="/studyMaterial">Study Material</a></p>
     </p>
 
-    <p><a href="/educatorAddAnnoucement">Make Annoucement</a></p>
+    <p><a href="/educatorAddAnnouncement">Make Announcement</a></p>
 
     @endforeach
 </nav>
 
 <div id="siteAds">
-    <p><b>Annoucement</b></p>
+    <p><b>Announcement</b></p>
 
 </div>
 

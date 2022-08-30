@@ -17,16 +17,16 @@
     @endforeach
     </p>
 
-    <p> <i class='bx bxs-right-arrow'></i> &nbsp;&nbsp; <a href="/educatorAddAnnoucement">Make Annoucement</a></p>
+    <p> <i class='bx bxs-right-arrow'></i> &nbsp;&nbsp; <a href="/educatorAddAnnouncement">Make Announcement</a></p>
 
 
 </nav>
 
 <div id="siteAds">
-    <p><b>Annoucement</b></p>
+    <p><b>Announcement</b></p>
 
     @foreach($announcement as $a)
-    <p>&nbsp;-</i> <a href="/educatorEditAnnoucement">{{ $a->annouce_title }}</a> </p>
+    <p>&nbsp;-</i> <a href="/educatorEditAnnouncement">{{ $a->annouce_title }}</a> </p>
     @endforeach
 
 </div>

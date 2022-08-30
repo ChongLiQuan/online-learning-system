@@ -6,10 +6,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 
-class educatorAnnoucementController extends Controller
+class educatorAnnouncementController extends Controller
 {
 
-    public function addAnnoucement(Request $request)
+    public function addAnnouncement(Request $request)
     {
         $annouce_educator = $request->input('annouce_edu');
         $annouce_title = $request->input('annouce_title');
@@ -22,12 +22,12 @@ class educatorAnnoucementController extends Controller
         $checker = DB::select('select * from class_subject_list where subject_code = ? and class_name = ?', [$annouce_subject, $annouce_class]);
 
         if ($checker == NULL) {
-            return redirect('educatorAddAnnoucement')->with('error_status', 'Error! Selected Subject or Class Name Does Not Exist!');
+            return redirect('educatorAddAnnouncement')->with('error_status', 'Error! Selected Subject or Class Name Does Not Exist!');
         } else {
-            DB::select('insert into annoucement_list (annouce_title, annouce_subject, annouce_class, annouce_content, annouce_educator, created_at) 
+            DB::select('insert into announcement_list (annouce_title, annouce_subject, annouce_class, annouce_content, annouce_educator, created_at) 
             values (?,?,?,?,?,?)', [$annouce_title, $annouce_subject, $annouce_class, $annouce_content, $annouce_educator, $annouce_date]);
 
-            $annouce_id = DB::table('annoucement_list')->where('created_at', $annouce_date)->pluck('id')->first();
+            $annouce_id = DB::table('announcement_list')->where('created_at', $annouce_date)->pluck('id')->first();
 
             $count = DB::table('student_list')->select('student_name')->where('student_class', $annouce_class)->get();
             
@@ -39,19 +39,19 @@ class educatorAnnoucementController extends Controller
                 ];
             }
 
-            DB::table('annoucement_status')->insert($dataSet);
+            DB::table('announcement_status')->insert($dataSet);
 
 
-            return redirect('educatorAddAnnoucement')->with('pass_status', 'Annoucement Published Successfully For Course ' . $annouce_subject . ' ' . $annouce_class);
+            return redirect('educatorAddAnnouncement')->with('pass_status', 'Announcement Published Successfully For Course ' . $annouce_subject . ' ' . $annouce_class);
         }
     }
 
-    public function deleteAnnoucement(Request $request)
+    public function deleteAnnouncement(Request $request)
     {
         $id = $request->input('delete_id');
 
-        DB::table('annoucement_list')->where('id', [$id])->delete();
-        return redirect('educatorEditAnnoucement')->with('delete_status', 'Annoucement Deleted Successfully! ');
+        DB::table('announement_list')->where('id', [$id])->delete();
+        return redirect('educatorEditAnnouncement')->with('delete_status', 'Announcement Deleted Successfully! ');
     }
 
     public function uploadImage(Request $request)

@@ -12,6 +12,13 @@
   <link rel="icon" href="{!! asset('/images/login_logo.jpeg') !!}" />
 </head>
 
+<?php
+    $username = Session::get('username');
+    $announcement = DB::table('announcement_status')->where('student_name', $username)->where('status', 0)->get();
+    $announcementCount = count($announcement);
+    Session::put('announcement', $announcementCount);
+?>
+
 <body>
 
   <header id="pageHeader">
@@ -23,8 +30,8 @@
       <b>
         <a href="/studentHomepage">Home</a>
         <a href="/">Profile</a>
-        <a href="/studentAnnoucement" class='notification'>Annoucement
-          <span class="badge">3</span>
+        <a href="/studentAnnouncement" class='notification'>Announcement
+          <span class="badge">{{ Session::get('announcement') }}</span>
         </a>
         <a href="/logout">Logout</a>
       </b>

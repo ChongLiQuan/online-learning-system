@@ -4,14 +4,14 @@
 
 <div class='fullContent'>
     <center>
-        <h3>Make An Annoucement</h3>
+        <h3>Make An Announcement</h3>
         <br />
 
-        <form action="{{route('addAnnoucement')}}" method="post" class="form-group">
+        <form action="{{route('addAnnouncement')}}" method="post" class="form-group">
             <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>"> @csrf
 
             <input type="hidden" name="annouce_edu" value=" {{ Session::get('username') }}">
-            <input type="text" name="annouce_title" class="annoucement_title" placeholder="Annoucement Title" autocomplete="off" align='left' size='40%' required>
+            <input type="text" name="annouce_title" class="announcement_title" placeholder="Annonucement Title" autocomplete="off" align='left' size='40%' required>
             <label>Choose a Subject:</label>
 
             <select name='annouce_subject'>

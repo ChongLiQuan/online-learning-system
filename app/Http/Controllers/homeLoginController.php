@@ -27,7 +27,7 @@ class homeLoginController extends Controller
 
         $result = DB::select('select * from user_login_details where user_name = ? AND user_password = ?', [$username, $hash_password]);
         $user_role =  DB::table('user_login_details')->where('user_name', $username)->pluck('user_role')->first();
-        
+
         if (Hash::check($password, $password_database)) {
 
             session()->start();
@@ -38,6 +38,9 @@ class homeLoginController extends Controller
                 return redirect('/educatorHomepage');
             }
             if ($user_role == 2) {
+                $user_class =  DB::table('student_list')->where('student_id', $username)->pluck('student_class')->first();
+                Session::put('user_class', $user_class);
+
                 return redirect('/studentHomepage');
             }
             

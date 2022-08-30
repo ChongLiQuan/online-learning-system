@@ -13,13 +13,13 @@
 
     </p>
 
-    <p> <i class='bx bxs-right-arrow'></i> &nbsp;&nbsp; <a href="/studentAnnoucement">Check Annoucement</a></p>
+    <p> <i class='bx bxs-right-arrow'></i> &nbsp;&nbsp; <a href="/studentAnnouncement">Check Announcement</a></p>
 
 
 </nav>
 
 <div id="siteAds">
-    <p><b>Annoucement</b></p>
+    <p><b>Announcement</b></p>
 
 </div>
 
