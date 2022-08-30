@@ -40,7 +40,7 @@ div {
   margin-bottom: 5%;
 }
 
-table.annoucement{
+table.annoucement {
   text-align: left;
   border: 1;
   background: rgb(255, 255, 255);
@@ -95,23 +95,18 @@ table.annoucement{
   grid-area: nav;
 }
 
-#mainNav a {
-  text-decoration: none;
-  color: rgb(0, 24, 161);
-}
-
 #pageHeader a:hover {
   text-decoration: underline;
   background: rgb(0, 138, 150);
   color: rgb(255, 252, 252);
 }
 
-#pageHeader a {
+#pageHeader a, #siteAds a, #mainNav a {
   text-decoration: none;
   color: rgb(0, 24, 161);
 }
 
-#mainNav a:hover {
+#mainNav a:hover, #siteAds a:hover {
   text-decoration: underline;
   color: rgb(0, 1, 7);
 }
@@ -155,3 +150,15 @@ table.annoucement{
   color: white;
 }
 
+/* Editor Container */
+.editor_container {
+  width: 1000px;
+  height: fit-content;
+  margin: 20px auto;
+}
+
+/* CK Editor Textbox Configuration */
+.ck-editor__editable[role="textbox"] {
+  /* User entering content area */
+  min-height: 450px;
+}

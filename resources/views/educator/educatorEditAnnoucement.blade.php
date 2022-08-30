@@ -62,7 +62,7 @@
 
         <hr />
         @endforeach
-
+        
         <script type="text/javascript">
             CKEDITOR.replace('annoucement_content', {
                 filebrowserUploadUrl: "{{route('uploadImage', ['_token' => csrf_token() ])}}",

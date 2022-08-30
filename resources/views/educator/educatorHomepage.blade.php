@@ -25,9 +25,12 @@
 <div id="siteAds">
     <p><b>Annoucement</b></p>
 
+    @foreach($announcement as $a)
+    <p>&nbsp;-</i> <a href="/educatorEditAnnoucement">{{ $a->annouce_title }}</a> </p>
+    @endforeach
+
 </div>
 
 <footer id="pageFooter">
     @include('educator/educatorFooter')
-
 </footer>s

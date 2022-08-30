@@ -179,7 +179,8 @@ Route::get('/educatorHomepage', function () {
     } else {
         $username = Session::get('username');
         $subjects = DB::table('class_subject_list')->where('educator_id', $username)->orderBy('id')->get();
-        return view('educator/educatorHomepage', compact('subjects'));
+        $announcement = DB::table('annoucement_list')->where('annouce_educator', $username)->orderBy('id','DESC')->get();
+        return view('educator/educatorHomepage', compact('subjects','announcement'));
     }
 });
 
