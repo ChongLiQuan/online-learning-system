@@ -23,7 +23,3 @@
 
 </div>
 
-<footer id="pageFooter">
-    @include('educator/educatorFooter')
-
-</footer>s

@@ -12,8 +12,7 @@
     <p class='course-list'>
         @foreach($subjects as $s)
         <!-- <p>&nbsp;&nbsp;&nbsp;<a href="/educatorCourseHome/{{ $s->subject_code }}">{{ $s->subject_code }} {{ $s->class_name }} </a></p> -->
-    <p>&nbsp;&nbsp;&nbsp; <i class='bx bxs-right-arrow'></i> &nbsp;&nbsp;<a href="{{ route('courseHome',['subject_code' => $s->subject_code]) }}">{{ $s->subject_code }} {{ $s->class_name }} </a></p>
-
+    <p>&nbsp;&nbsp;&nbsp; <i class='bx bxs-right-arrow'></i> &nbsp;&nbsp;<a href="{{ route('courseHome',['id' => $s->id]) }}">{{ $s->subject_code }} {{ $s->class_name }} </a></p>
     @endforeach
     </p>
 
@@ -26,11 +25,7 @@
     <p><b>Announcement</b></p>
 
     @foreach($announcement as $a)
-    <p>&nbsp;-</i> <a href="/educatorEditAnnouncement">{{ $a->annouce_title }}</a> </p>
+    <p>&nbsp;-</i> <a href="/educatorEditAnnouncement#{{ $a->id }}">{{ $a->annouce_title }}</a> </p>
     @endforeach
 
 </div>
-
-<footer id="pageFooter">
-    @include('educator/educatorFooter')
-</footer>s

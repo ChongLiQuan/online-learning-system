@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use DB;
 
@@ -55,6 +54,27 @@ class ClassSeeder extends Seeder
             'class_id' => '6',
             'class_name' => '3 Bestari',
             'form_id' => '3',
+        ]);
+
+        DB::table('class_subject_list')->insert([
+            'id' => '1',
+            'subject_code' => 'ENG1',
+            'class_name' => '1 Ariff',
+            'educator_id' => 'edu',
+        ]);
+
+        DB::table('class_subject_list')->insert([
+            'id' => '2',
+            'subject_code' => 'ENG1',
+            'class_name' => '1 Bestari',
+            'educator_id' => 'edu',
+        ]);
+
+        DB::table('class_subject_list')->insert([
+            'id' => '3',
+            'subject_code' => 'ENG2',
+            'class_name' => '2 Bestari',
+            'educator_id' => 'edu',
         ]);
 
     }

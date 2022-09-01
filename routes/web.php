@@ -184,15 +184,17 @@ Route::get('/educatorHomepage', function () {
     }
 });
 
-Route::get('courseHome/{subject_code}', function ($subject_code) {
+Route::get('courseHome/{id}', function ($id) {
     if (Session::get('username') == null) {
         return view('userInvalidSession');
     } else {
         $username = Session::get('username');
-        $subjects = DB::table('subject_list')->where('subject_code', $subject_code)->get();
+        $subjects = DB::table('class_subject_list')->where('id', $id)->get('subject_code');
+        $class_name = DB::table('class_subject_list')->where('id', $id)->pluck('class_name')->first();
+
         //Display All Information According to the Specific Course Code
 
-        return view('educator/educatorCourseHome', compact('subjects'))->with('subject_code', $subject_code);
+        return view('educator/educatorCourseHome', compact('subjects'))->with('class_name', $class_name);
     }
 })->name('courseHome');
 

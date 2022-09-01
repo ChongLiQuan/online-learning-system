@@ -46,7 +46,7 @@ class adminEducatorController extends Controller
                 DB::table('educator_list')->where('edu_IC', $edu_IC)->update(['edu_id' => 'EDU_' . $new_id]);
 
                 $user_name =  DB::table('educator_list')->where('edu_IC', $edu_IC)->pluck('edu_id')->first();
-                $user_password =  Crypt::encryptString($edu_IC);
+                $user_password =  Hash::make($edu_IC);
                 $user_role = 1;
 
                 DB::select('insert into user_login_details (user_name, user_password, user_role, name, email) values (?,?,?,?,?)', [
@@ -115,23 +115,22 @@ class adminEducatorController extends Controller
         } catch (\Illuminate\Database\QueryException $e) {
             $errorCode = $e->getCode();
             if ($errorCode == 1062) {
-         
             }
         }
         return redirect('adminAddEducator')->with('error_status', 'Educator Information Updated Failed, Duplicated Information Found! ');
-
     }
 
-    public function filterEducator(Request $request){
+    public function filterEducator(Request $request)
+    {
         $edu_id = $request->input('edu_id');
-        
-        $educators = DB::table('educator_list')->where('edu_id',[$edu_id])->get();  //To fetch the filtered data from database 
+
+        $educators = DB::table('educator_list')->where('edu_id', [$edu_id])->get();  //To fetch the filtered data from database 
         $count = count($educators);
 
-        if($count == 1){
-            return view('admin/adminAddEducator',compact('educators'));
+        if ($count == 1) {
+            return view('admin/adminAddEducator', compact('educators'));
         }
-        if($count == 0){
+        if ($count == 0) {
             return redirect('adminAddEducator')->with('error_status', 'Invalid Educator ID! ');
         }
     }

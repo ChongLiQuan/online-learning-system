@@ -38,6 +38,7 @@
             </tr>
 
             <tr>
+                <a id='{{ $l->id }}'></a>
                 <td colspan="4">
                     <hr />
 
@@ -45,24 +46,24 @@
                 </td>
             </tr>
 
-                <tr>
-                    <td colspan="4" style='text-align:right'>
-                        <form action="{{route('deleteAnnouncement')}}" method='POST' class='form-group' action='/' enctype='multipart/form-data'>
-                            <input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'>
-                            <input type='hidden' name='delete_id' value="{{ $l->id }}">
-                            <button class="button login_submit">
-                                <span class="button_text" onclick="return confirm('Are you sure?')">Delete</span>
-                            </button>
-                        </form>
-                    </td>
-                </tr>
+            <tr>
+                <td colspan="4" style='text-align:right'>
+                    <form action="{{route('deleteAnnouncement')}}" method='POST' class='form-group' action='/' enctype='multipart/form-data'>
+                        <input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'>
+                        <input type='hidden' name='delete_id' value="{{ $l->id }}">
+                        <button class="button login_submit">
+                            <span class="button_text" onclick="return confirm('Are you sure?')">Delete</span>
+                        </button>
+                    </form>
+                </td>
+            </tr>
 
         </table>
         <br /> <br />
 
         <hr />
         @endforeach
-        
+
         <script type="text/javascript">
             CKEDITOR.replace('announcement_content', {
                 filebrowserUploadUrl: "{{route('uploadImage', ['_token' => csrf_token() ])}}",

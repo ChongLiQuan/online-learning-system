@@ -40,8 +40,6 @@
 </center>
 </html>
 
-@include('footer')
-
 <script>
         var msg = '{{Session::get('alert')}}';
         var exist = '{{Session::has('alert')}}';

@@ -13,10 +13,10 @@
 </head>
 
 <?php
-    $username = Session::get('username');
-    $announcement = DB::table('announcement_status')->where('student_name', $username)->where('status', 0)->get();
-    $announcementCount = count($announcement);
-    Session::put('announcement', $announcementCount);
+$username = Session::get('username');
+$announcement = DB::table('announcement_status')->where('student_name', $username)->where('status', 0)->get();
+$announcementCount = count($announcement);
+Session::put('announcement', $announcementCount);
 ?>
 
 <body>
@@ -31,7 +31,11 @@
         <a href="/studentHomepage">Home</a>
         <a href="/">Profile</a>
         <a href="/studentAnnouncement" class='notification'>Announcement
-          <span class="badge">{{ Session::get('announcement') }}</span>
+
+          <?php if (Session::get('announcement') > 0) { ?>
+            <span class="badge">{{ Session::get('announcement') }}</span>
+          <?php } ?>
+
         </a>
         <a href="/logout">Logout</a>
       </b>

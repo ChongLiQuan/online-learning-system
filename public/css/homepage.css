@@ -2,19 +2,17 @@ body {
   display: grid;
   grid-template-areas:
     "header header header"
-    "nav article ads"
-    "nav footer footer";
+    "nav article ads";
   grid-template-rows: 80px 1fr 70px;
   grid-template-columns: 20% 1fr 15%;
   grid-row-gap: 10px;
   grid-column-gap: 10px;
-  height: 100vh;
+  height: 107vh;
   margin: 0;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 header,
-footer,
 article,
 nav,
 div {
@@ -82,11 +80,6 @@ table.announcement {
   grid-area: header;
 }
 
-#pageFooter {
-  grid-area: footer;
-  font-size: 12px;
-}
-
 #mainArticle {
   grid-area: article;
 }
@@ -101,12 +94,15 @@ table.announcement {
   color: rgb(255, 252, 252);
 }
 
-#pageHeader a, #siteAds a, #mainNav a {
+#pageHeader a,
+#siteAds a,
+#mainNav a {
   text-decoration: none;
   color: rgb(0, 24, 161);
 }
 
-#mainNav a:hover, #siteAds a:hover {
+#mainNav a:hover,
+#siteAds a:hover {
   text-decoration: underline;
   color: rgb(0, 1, 7);
 }
@@ -122,8 +118,7 @@ table.announcement {
       "header"
       "article"
       "ads"
-      "nav"
-      "footer";
+      "nav";
     grid-template-rows: 80px 1fr 70px 1fr 70px;
     grid-template-columns: 1fr;
   }
