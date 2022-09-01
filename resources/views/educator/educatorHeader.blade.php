@@ -15,8 +15,18 @@
 <body>
 
   <header id="pageHeader">
+
     <div class="header-left">
-      <a href='/educatorHomepage'><b>Online E-Learning System</b></a>
+      <table>
+        <tr>
+          <th>
+          <a href='/educatorHomepage'><img src="{{URL::asset('/images/login_logo.jpeg')}}" height='50px' width='50px' /></a>
+          </th>
+          <th>
+          <a href='/educatorHomepage'><b>Online E-Learning System</b></a>
+          </th>
+        </tr>
+      </table>
     </div>
 
     <div class="header-right">

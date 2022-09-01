@@ -19,4 +19,14 @@ body {
     padding: 1.2em;
     background: rgb(243, 243, 243);
   }
+
+  table.folder{
+    text-align: left;
+    border: 1;
+    background: rgb(255, 255, 255);
+    width: 99%;
+    height: fit-content;
+    padding-top:2%;
+    margin-top:1%
+  }
   

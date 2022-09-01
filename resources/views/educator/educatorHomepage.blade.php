@@ -2,6 +2,7 @@
 
 
 <article id="mainArticle">Article
+He;;p{{ Session::get('countFolder') }}
 
 </article>
 

@@ -51,7 +51,7 @@
                     <form action="{{route('deleteAnnouncement')}}" method='POST' class='form-group' action='/' enctype='multipart/form-data'>
                         <input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'>
                         <input type='hidden' name='delete_id' value="{{ $l->id }}">
-                        <button class="button login_submit">
+                        <button class="button delete_button">
                             <span class="button_text" onclick="return confirm('Are you sure?')">Delete</span>
                         </button>
                     </form>
