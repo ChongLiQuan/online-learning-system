@@ -179,8 +179,8 @@ Route::get('/educatorHomepage', function () {
     } else {
         $username = Session::get('username');
         $subjects = DB::table('class_subject_list')->where('educator_id', $username)->orderBy('id')->get();
-        $announcement = DB::table('announcement_list')->where('annouce_educator', $username)->orderBy('id','DESC')->get();
-        return view('educator/educatorHomepage', compact('subjects','announcement'));
+        $announcement = DB::table('announcement_list')->where('annouce_educator', $username)->orderBy('id', 'DESC')->get();
+        return view('educator/educatorHomepage', compact('subjects', 'announcement'));
     }
 });
 
@@ -192,9 +192,9 @@ Route::get('/courseHome/{id}', function ($id) {
         $subjects = DB::table('class_subject_list')->where('id', $id)->get('subject_code');
         $class_name = DB::table('class_subject_list')->where('id', $id)->pluck('class_name')->first();
         $folders = DB::table('folder_list')->where('class_subject_id', $id)->where('subFolder', 0)->get();
-        //Display All Information According to the Specific Course Code
+        //Display All Information According t2o the Specific Course Code
 
-        return view('educator/educatorCourseHome', compact('subjects','folders'))->with('class_name', $class_name);
+        return view('courseHome', compact('subjects', 'folders'))->with('class_name', $class_name);
     }
 })->name('courseHome');
 
@@ -214,15 +214,28 @@ Route::get('/educatorAddAnnouncement', function () {
 Route::post('/uploadImage', [App\Http\Controllers\educator\educatorAnnounementController::class, 'uploadImage'])->name('uploadImage');
 Route::post('/addAnnouncement', [App\Http\Controllers\educator\educatorAnnouncementController::class, 'addAnnouncement'])->name('addAnnouncement');
 
-Route::get('/educatorEditAnnouncement', function () {
+Route::get('/educatorAnnouncement', function () {
     if (Session::get('username') == null) {
         return view('userInvalidSession');
     } else {
         $username = Session::get('username');
         $list = DB::table('announcement_list')->where('annouce_educator', $username)->orderBy('created_at', 'DESC')->get();
-        return view('educator/educatorEditAnnouncement', compact('list'));
+        return view('educator/educatorAnnouncement', compact('list'));
     }
 });
+
+Route::get('/educatorEditAnnouncement', function () {
+    if (Session::get('username') == null) {
+        return view('userInvalidSession');
+    } else {
+        $username = Session::get('username');
+        $subjects = DB::table('class_subject_list')->where('educator_id', $username)->groupBy('subject_code')->get();
+        $classes = DB::table('class_subject_list')->where('educator_id', $username)->groupBy('class_name')->get();
+        return view('educator/educatorEditAnnouncement', compact('subjects', 'classes'));
+    }
+});
+
+Route::post('/editAnnouncement', [App\Http\Controllers\educator\educatorAnnouncementController::class, 'editAnnouncement'])->name('editAnnouncement');
 Route::post('/deleteAnnouncement', [App\Http\Controllers\educator\educatorAnnouncementController::class, 'deleteAnnouncement'])->name('deleteAnnouncement');
 
 Route::get('/educatorAddFolder', function () {
@@ -237,18 +250,29 @@ Route::get('/educatorAddFolder', function () {
 Route::post('/addFolder', [App\Http\Controllers\educator\educatorFolderController::class, 'addFolder'])->name('addFolder');
 Route::post('/deleteFolder', [App\Http\Controllers\educator\educatorFolderController::class, 'deleteFolder'])->name('deleteFolder');
 
-Route::get('/educatorCourseContent/{folder_id}', function ($folder_id) {
+Route::get('/educatorEditFolder', function () {
+    if (Session::get('username') == null) {
+        return view('userInvalidSession');
+    } else {
+        $class_subject_id = DB::table('class_subject_list')->where('subject_code', Session::get('current_subject_code'))->where('class_name', Session::get('current_class_name'))->pluck('id')->first();
+        $list = DB::table('folder_list')->where('class_subject_id', $class_subject_id)->where('subFolder', 0)->get();
+        return view('educator/educatorEditFolder', compact('list'));
+    }
+});
+Route::post('/editFolder', [App\Http\Controllers\educator\educatorFolderController::class, 'editFolder'])->name('editFolder');
+
+Route::get('/courseContent/{folder_id}', function ($folder_id) {
     if (Session::get('username') == null) {
         return view('userInvalidSession');
     } else {
         $subjects = DB::table('class_subject_list')->where('id', $folder_id)->get('subject_code');
         $class_subject_id = DB::table('class_subject_list')->where('subject_code', Session::get('current_subject_code'))->where('class_name', Session::get('current_class_name'))->pluck('id')->first();
-        
+
         $folders = DB::table('folder_list')->where('class_subject_id', $class_subject_id)->where('subFolder', $folder_id)->get();
         $list = DB::table('folder_list')->where('class_subject_id', $class_subject_id)->where('subFolder', $folder_id)->get();
         $content_list = DB::table('folder_content_list')->where('folder_id', $folder_id)->get();
 
-        return view('educator/educatorCourseContent', compact('list','subjects', 'folders','content_list'));
+        return view('courseContent', compact('list', 'subjects', 'folders', 'content_list'));
     }
 })->name('courseContent');
 
@@ -257,12 +281,23 @@ Route::get('/educatorAddContent', function () {
         return view('userInvalidSession');
     } else {
         $class_subject_id = DB::table('class_subject_list')->where('subject_code', Session::get('current_subject_code'))->where('class_name', Session::get('current_class_name'))->pluck('id')->first();
-        $list = DB::table('folder_list')->where('class_subject_id', $class_subject_id)->where('subFolder','>',0)->get();
+        $list = DB::table('folder_list')->where('class_subject_id', $class_subject_id)->get();
         return view('educator/educatorAddContent', compact('list'));
     }
 });
 
+Route::get('/educatorEditContent', function () {
+    if (Session::get('username') == null) {
+        return view('userInvalidSession');
+    } else {
+        $class_subject_id = DB::table('class_subject_list')->where('subject_code', Session::get('current_subject_code'))->where('class_name', Session::get('current_class_name'))->pluck('id')->first();
+        $list = DB::table('folder_list')->where('class_subject_id', $class_subject_id)->get();
+        return view('educator/educatorEditContent', compact('list'));
+    }
+});
+Route::post('/editContent', [App\Http\Controllers\educator\educatorContentController::class, 'editContent'])->name('editContent');
 Route::post('/addContent', [App\Http\Controllers\educator\educatorContentController::class, 'addContent'])->name('addContent');
+Route::post('/deleteContent', [App\Http\Controllers\educator\educatorContentController::class, 'deleteContent'])->name('deleteContent');
 
 
 //Student Pages Route
@@ -270,7 +305,10 @@ Route::get('/studentHomepage', function () {
     if (Session::get('username') == null) {
         return view('userInvalidSession');
     } else {
-        return view('student/studentHomepage');
+        $username = Session::get('username');
+        $subjects = DB::table('class_subject_list')->where('class_name', Session::get('user_class'))->orderBy('id')->get();
+        $announcement = DB::table('announcement_list')->where('annouce_class', Session::get('user_class'))->orderBy('created_at', 'DESC')->get();
+        return view('student/studentHomepage', compact('subjects', 'announcement'));
     }
 });
 Route::get('/studentAnnouncement', function () {

@@ -65,13 +65,20 @@ class ClassSeeder extends Seeder
 
         DB::table('class_subject_list')->insert([
             'id' => '2',
+            'subject_code' => 'BM1',
+            'class_name' => '1 Ariff',
+            'educator_id' => 'edu',
+        ]);
+
+        DB::table('class_subject_list')->insert([
+            'id' => '3',
             'subject_code' => 'ENG1',
             'class_name' => '1 Bestari',
             'educator_id' => 'edu',
         ]);
 
         DB::table('class_subject_list')->insert([
-            'id' => '3',
+            'id' => '4',
             'subject_code' => 'ENG2',
             'class_name' => '2 Bestari',
             'educator_id' => 'edu',

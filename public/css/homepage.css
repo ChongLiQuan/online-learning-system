@@ -131,6 +131,22 @@ table.announcement {
   transition: .2s;
 }
 
+.edit_button {
+  background: rgb(210, 218, 228);
+  font-size: 12px;
+  padding: 10px 10px;
+  border-radius: 26px;
+  border: 1px solid #D4D3E8;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: right;
+  width: fit-content;
+  color: #43425a;
+  box-shadow: 0px 2px 2px #5C5696;
+  cursor: pointer;
+  transition: .2s;
+}
+
 /* Stack the layout on small devices/viewports. */
 @media all and (max-width: 575px) {
   body {

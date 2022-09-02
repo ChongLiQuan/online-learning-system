@@ -20,25 +20,34 @@ Session::put('announcement', $announcementCount);
 ?>
 
 <body>
+<header id="pageHeader">
 
-  <header id="pageHeader">
-    <div class="header-left">
-      <a href='/studentHomepage'><b>Online E-Learning System</b></a>
-    </div>
+  <div class="header-left">
+    <table>
+      <tr>
+        <th>
+          <a href='/studentHomepage'><img src="{{URL::asset('/images/login_logo.jpeg')}}" height='50px' width='50px' /></a>
+        </th>
+        <th>
+          <a href='/studentHomepage'><b>Online E-Learning System</b></a>
+        </th>
+      </tr>
+    </table>
+  </div>
 
-    <div class="header-right">
-      <b>
-        <a href="/studentHomepage">Home</a>
-        <a href="/">Profile</a>
-        <a href="/studentAnnouncement" class='notification'>Announcement
+  <div class="header-right">
+    <b>
+      <a href="/studentHomepage">Home</a>
+      <a href="/">Profile</a>
+      <a href="/studentAnnouncement" class='notification'>Announcement
 
-          <?php if (Session::get('announcement') > 0) { ?>
-            <span class="badge">{{ Session::get('announcement') }}</span>
-          <?php } ?>
+        <?php if (Session::get('announcement') > 0) { ?>
+          <span class="badge">{{ Session::get('announcement') }}</span>
+        <?php } ?>
 
-        </a>
-        <a href="/logout">Logout</a>
-      </b>
-    </div>
+      </a>
+      <a href="/logout">Logout</a>
+    </b>
+  </div>
   </header>
 </body>

@@ -25,17 +25,13 @@
 
         <br />
         <br />Insert into Folder:
-        <select name='folder_id'>
-            <option name="folder_id" value="0">None</option>
+        <select name='folder_id' required>
+            <option name="folder_id" selected disabled>None</option>
             @foreach($list as $s)
             <option name="folder_id" value="{{ $s->folder_id }}">{{ $s->folder_name  }}</option>
             @endforeach
         </select>
 
-        <br />
-        <div class='editor_container'>
-            <textarea name="content" id="editor"></textarea>
-        </div>
 
         @if (session('pass_status'))
         <p style="text-align:center; color:green;"><b>{{ session('pass_status') }}</b></p>
@@ -45,8 +41,13 @@
         <p style="text-align:center; color:red;"><b>{{ session('error_status') }}</b></p>
         @endif
 
+        <br />
+        <div class='editor_container'>
+            <textarea name="content" id="editor"></textarea>
+        </div>
+
         <button class="button submit">
-            <span class="button_text">Add Folder</span>
+            <span class="button_text">Add Content</span>
             <i class="button_icon fa fa-caret-right fa-2x" aria-hidden="true"></i>
         </button>
     </form>

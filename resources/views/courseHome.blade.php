@@ -1,4 +1,11 @@
+@if(Session::get('user_role') == 1)
 @include('educator/educatorHeader')
+@endif
+
+@if(Session::get('user_role') == 2)
+@include('student/studentHeader')
+@endif
+
 <link rel="icon" href="{!! asset('educator/images/login_logo.jpeg') !!}" />
 <link rel="stylesheet" href="<?php echo asset('css/courseHomepage.css') ?>" type="text/css">
 
@@ -19,9 +26,12 @@
     <p><a href="">Course Home Page</a></p>
     <p><a href="https://app.videosdk.live/rooms/classroom/Educator_631069fab54dda634645d36d/bpjw-zv9r-dzi8">Online Classroom</a></p>
     </p>
+
+    @if(Session::get('user_role') == 1)
     <p><a href="/educatorAddFolder">Add New Folder</a></p>
     <p><a href="/educatorAddContent">Add Content</a></p>
     <p><a href="/educatorAddAnnouncement">Make Announcement</a></p>
+    @endif
 </nav>
 
 <article id="mainArticle"><b>Class Hall</b>
@@ -39,17 +49,27 @@
             </th>
 
             <th>
-            <a href="{{ route('courseContent', ['folder_id' => $f->folder_id]) }}">{{ $f->folder_name }}</u></a>
+                <a href="{{ route('courseContent', ['folder_id' => $f->folder_id]) }}">{{ $f->folder_name }}</u></a>
             </th>
-        </tr>
 
-        <tr>
-            <td colspan="2">
-                <hr>
-                <p>{!! $f->folder_content !!} Ok </p>
+            <td colspan="2" style='text-align:right'>
+                <form action="/educatorEditFolder" method='get' class='form-group' action='/' enctype='multipart/form-data'>
+                    <input type='hidden' name='edit_id' value="{{ $f->folder_id }}">
+                    <button class="button edit_button">
+                        <span class="button_text" onclick="return confirm('Are you sure?')">Edit</span>
+                    </button>
+                </form>
             </td>
         </tr>
 
+        <tr>
+            <td colspan="3">
+                <hr>
+                <p>{!! $f->folder_content !!}</p>
+            </td>
+        </tr>
+
+        @if(Session::get('user_role') == 1)
         <tr>
             <td colspan="4" style='text-align:right'>
                 <form action="{{route('deleteFolder')}}" method='POST' class='form-group' action='/' enctype='multipart/form-data'>
@@ -61,6 +81,7 @@
                 </form>
             </td>
         </tr>
+        @endif
     </table>
     <hr>
     @endforeach

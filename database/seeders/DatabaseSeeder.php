@@ -21,7 +21,8 @@ class DatabaseSeeder extends Seeder
             SubjectSeeder::class,
             ClassSeeder::class,
             AnnouncementSeeder::class,
-            FolderSeeder::class
+            FolderSeeder::class,
+            ContentSeeder::class,
         ]);
     }
 }

@@ -1,4 +1,4 @@
-@include('student/studentHeader')
+@include('educator/educatorHeader')
 
 <script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
 <script src="js/ckeditor.js"></script>
@@ -28,7 +28,7 @@
                     <h3><u>{{ $l->annouce_title }}</u></h3>
                 </td>
                 <td>
-                    <p> {{ $l->created_at }} </p>
+                    <p>Posted: {{ $l->created_at }} </p>
                 </td>
                 <td>
                     <p>Updated: {{ $l->updated_at }} </p>
@@ -42,6 +42,7 @@
             </tr>
 
             <tr>
+                <a id='{{ $l->id }}'></a>
                 <td colspan="5">
                     <hr />
 
@@ -50,15 +51,21 @@
             </tr>
 
             <tr>
-                <td colspan="5" style='text-align:right'>
-                    <form action="{{route('readAnnouncement')}}" method='POST' class='form-group' action='/' enctype='multipart/form-data'>
+                <td colspan="4" style='text-align:right'>
+                    <form action="/educatorEditAnnouncement" method='get' class='form-group' action='/' enctype='multipart/form-data'>
+                        <input type='hidden' name='edit_id' value="{{ $l->id }}">
+                        <button class="button edit_button">
+                            <span class="button_text" onclick="return confirm('Are you sure?')">&nbsp;&nbsp;&nbsp;Edit&nbsp;&nbsp;&nbsp; </span>
+                        </button>
+                    </form>
+                </td>
+
+                <td colspan="5" style='text-align:center'>
+                    <form action="{{route('deleteAnnouncement')}}" method='POST' class='form-group' action='/' enctype='multipart/form-data'>
                         <input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'>
-                        <input type='hidden' name='announcement_id' value="{{ $l->id }}">
-                        <?php
-                        $status = DB::table('announcement_status')->where('annouce_id', $l->id)->where('student_name', Session::get('username'))->pluck('status')->first();
-                        ?>
-                        <button class="button login_submit" <?php if ($status == '1') { ?> disabled <?php   } ?>>
-                            <span class="button_text">Read</span>
+                        <input type='hidden' name='delete_id' value="{{ $l->id }}">
+                        <button class="button delete_button">
+                            <span class="button_text" onclick="return confirm('Are you sure?')">Delete</span>
                         </button>
                     </form>
                 </td>

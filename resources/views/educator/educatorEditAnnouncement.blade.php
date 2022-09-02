@@ -1,72 +1,62 @@
 @include('educator/educatorHeader')
 
-<script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
-<script src="js/ckeditor.js"></script>
+<article id="mainArticle">Article</article>
 
 <div class='fullContent'>
     <center>
-        <h3>All Announcement</h3>
-
-        @if (session('delete_status'))
-        <p style="text-align:center; color:green;"><b>{{ session('delete_status') }}</b></p>
-        @endif
-
-        @foreach($list as $l)
+        <h3>Edit An Announcement</h3>
         <br />
-        <table class='announcement' border='0'>
+        <?php
+        $edit_id = app('request')->input('edit_id');
+        $announcement = DB::table('announcement_list')->where('id', $edit_id)->get();
+        ?>
 
-            <colgroup>
-                <col span="1" style="width: 60%;">
-                <col span="1" style="width: 10%;">
-                <col span="1" style="width: 10%;">
-                <col span="1" style="width: 10%;">
-            </colgroup>
 
-            <tr>
-                <td>
-                    <h3><u>{{ $l->annouce_title }}</u></h3>
-                </td>
-                <td>
-                    <p> {{ $l->created_at }} </p>
-                </td>
-                <td>
-                    <p> {{ $l->annouce_subject }} </p>
-                </td>
-                <td>
-                    <p> {{ $l->annouce_class }} </p>
-                </td>
-            </tr>
+        @foreach($announcement as $a)
 
-            <tr>
-                <a id='{{ $l->id }}'></a>
-                <td colspan="4">
-                    <hr />
+        <form action="{{route('editAnnouncement')}}" method="post" class="form-group">
+            <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>"> @csrf
 
-                    <p> {!! $l->annouce_content !!} </p>
-                </td>
-            </tr>
+            <input type="hidden" name="edit_id" value=" {{ $a->id }}">
+            <input type="text" name="annouce_title" value="{{ $a->annouce_title }}" class="announcement_title" placeholder="Annonucement Title" autocomplete="off" align='left' size='40%' required>
+            <label>Choose a Subject:</label>
 
-            <tr>
-                <td colspan="4" style='text-align:right'>
-                    <form action="{{route('deleteAnnouncement')}}" method='POST' class='form-group' action='/' enctype='multipart/form-data'>
-                        <input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'>
-                        <input type='hidden' name='delete_id' value="{{ $l->id }}">
-                        <button class="button delete_button">
-                            <span class="button_text" onclick="return confirm('Are you sure?')">Delete</span>
-                        </button>
-                    </form>
-                </td>
-            </tr>
+            <select name='annouce_subject'>
+                @foreach($subjects as $s)
+                <option <?php if ($s->subject_code == $a->annouce_subject) {
+                            echo ("selected");
+                        } ?> name="annouce_subject" value="{{ $s->subject_code }}">{{ $s->subject_code }}</option>
+                @endforeach
+            </select>
 
-        </table>
-        <br /> <br />
+            <label>Choose a Class:</label>
 
-        <hr />
+            <select name='annouce_class'>
+                @foreach($classes as $c)
+                <option <?php if (($c->class_name) == $a->annouce_class) {
+                            echo ("selected");
+                        } ?> name="annouce_class" value="{{ $c->class_name }}">{{ $c->class_name }}</option>
+                @endforeach
+            </select>
+
+            <div class='editor_container'>
+                <textarea name="annouce_content" id="editor"> {{ $a->annouce_content}} </textarea>
+            </div>
+
+            @if (session('pass_status'))
+            <p style="text-align:center; color:green;"><b>{{ session('pass_status') }}</b></p>
+            @endif
+
+            @if (session('error_status'))
+            <p style="text-align:center; color:red;"><b>{{ session('error_status') }}</b></p>
+            @endif
+
+            <button class="button submit">
+                <span class="button_text">Edit Now</span>
+                <i class="button_icon fa fa-caret-right fa-2x" aria-hidden="true"></i>
+            </button>
+        </form>
         @endforeach
+</div>
 
-        <script type="text/javascript">
-            CKEDITOR.replace('announcement_content', {
-                filebrowserUploadUrl: "{{route('uploadImage', ['_token' => csrf_token() ])}}",
-                filebrowserUploadMethod: 'form'
-            });
-        </script>
+@include('ckEditor')
