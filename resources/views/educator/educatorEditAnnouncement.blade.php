@@ -4,11 +4,12 @@
 
 <div class='fullContent'>
     <center>
+        <img src="{{URL::asset('/images/announcement_logo.png')}}" height='50px' width='50px' />
         <h3>Edit An Announcement</h3>
         <br />
         <?php
         $edit_id = app('request')->input('edit_id');
-        $announcement = DB::table('announcement_list')->where('id', $edit_id)->get();
+        $announcement = DB::table('announcement_list')->where('annouce_id', $edit_id)->get();
         ?>
 
 
@@ -17,7 +18,7 @@
         <form action="{{route('editAnnouncement')}}" method="post" class="form-group">
             <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>"> @csrf
 
-            <input type="hidden" name="edit_id" value=" {{ $a->id }}">
+            <input type="hidden" name="edit_id" value=" {{ $a->annouce_id }}">
             <input type="text" name="annouce_title" value="{{ $a->annouce_title }}" class="announcement_title" placeholder="Annonucement Title" autocomplete="off" align='left' size='40%' required>
             <label>Choose a Subject:</label>
 

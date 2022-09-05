@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('class_subject_list', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('class_subject_id');
 
             $table->string('subject_code'); 
             $table->foreign('subject_code')->references('subject_code')->on('subject_list')->onDelete('cascade'); 

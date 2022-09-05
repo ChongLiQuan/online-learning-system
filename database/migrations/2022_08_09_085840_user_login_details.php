@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('user_name')->nullable()->unique();
             $table->string('user_password')->unique();; //Make sure username only exist in database once
             $table->integer('user_role');
-            $table->string('name');
-            $table->string('email');
+            $table->string('user_full_name');
+            $table->string('user_email');
         });
     }
 

@@ -9,6 +9,8 @@
 
 <nav id="mainNav">
     <p><b>Navigation Menu</b></p>
+    <hr />
+
     <p><b>Subjects Area:</b></p>
 
     <p class='course-list'>
@@ -24,6 +26,7 @@
 
 <div id="siteAds">
     <p><b>Announcement</b></p>
+    <hr />
 
     @foreach($announcement as $a)
     <p>&nbsp;-</i> <a href="/studentAnnouncement#{{ $a->id }}">{{ $a->annouce_title }}</a> </p>

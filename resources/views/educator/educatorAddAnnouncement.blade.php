@@ -4,6 +4,7 @@
 
 <div class='fullContent'>
     <center>
+        <img src="{{URL::asset('/images/announcement_logo.png')}}" height='50px' width='50px' />
         <h3>Make An Announcement</h3>
         <br />
 

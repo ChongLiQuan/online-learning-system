@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('admin_list', function (Blueprint $table) {
             $table->increments('admin_id');
-            $table->string('username')->unique(); //Make sure username only exist in database once
-            $table->string('password'); //Need Encrypt
-            $table->string('role');
-            $table->string('name');
-            $table->string('email')->unique();
+            $table->string('admin_username')->unique(); //Make sure username only exist in database once
+            $table->string('admin_password'); //Need Encrypt
+            $table->string('admin_role');
+            $table->string('admin_name');
+            $table->string('admin_email')->unique();
         });
     }
 

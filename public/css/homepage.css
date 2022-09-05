@@ -193,3 +193,28 @@ table.announcement {
   /* User entering content area */
   min-height: 450px;
 }
+
+.comment_button {
+  background: rgb(194, 222, 255);
+  font-size: 12px;
+  padding: 10px 10px;
+  border-radius: 26px;
+  border: 1px solid #D4D3E8;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: right;
+  width: fit-content;
+  color: #43425a;
+  box-shadow: 0px 2px 2px #5C5696;
+  cursor: pointer;
+  transition: .2s;
+}
+
+table.comment {
+  text-align: left;
+  border: 1;
+  background: rgb(232, 242, 255);
+  width: 99%;
+  height: fit-content;
+  font-size: 15px;
+}

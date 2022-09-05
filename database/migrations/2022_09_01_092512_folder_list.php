@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('folder_name');
 
             $table->integer('class_subject_id')->unsigned()->default(0);
-            $table->foreign('class_subject_id')->references('id')->on('class_subject_list')->onDelete('cascade'); 
+            $table->foreign('class_subject_id')->references('class_subject_id')->on('class_subject_list')->onDelete('cascade'); 
             
             $table->text('folder_content')->nullable();
 

@@ -30,21 +30,21 @@ class educatorAnnouncementController extends Controller
             DB::select('insert into announcement_list (annouce_title, annouce_subject, annouce_class, annouce_content, annouce_educator, created_at) 
             values (?,?,?,?,?,?)', [$annouce_title, $annouce_subject, $annouce_class, $annouce_content, $annouce_educator, $annouce_date]);
 
-            $annouce_id = DB::table('announcement_list')->where('created_at', $annouce_date)->pluck('id')->first();
+            //Fetch the current created auto incremented announcement id
+            $annouce_id = DB::table('announcement_list')->where('created_at', $annouce_date)->pluck('annouce_id')->first();
 
+            //Fetch the student name from the student list that are in this announcement class
             $count = DB::table('student_list')->select('student_name')->where('student_class', $annouce_class)->get();
 
+            //Add each student and status for this current announcement
             foreach ($count as $c) {
                 $dataSet[] = [
                     'student_name'  => $c->student_name,
                     'annouce_id'    => $annouce_id,
-                    'status'       => 0,
+                    'annouce_status'       => 0,
                 ];
             }
-
             DB::table('announcement_status')->insert($dataSet);
-
-
             return redirect('educatorAddAnnouncement')->with('pass_status', 'Announcement Published Successfully For Course ' . $annouce_subject . ' ' . $annouce_class);
         }
     }
@@ -53,8 +53,8 @@ class educatorAnnouncementController extends Controller
     {
         $id = $request->input('delete_id');
 
-        DB::table('announement_list')->where('id', [$id])->delete();
-        return redirect('educatorAnnouncement')->with('delete_status', 'Announcement Deleted Successfully! ');
+        DB::table('announcement_list')->where('annouce_id', [$id])->delete();
+        return redirect('educatorAnnouncement')->with('delete_pass_status', 'Announcement Deleted Successfully! ');
     }
 
     public function editAnnouncement(Request $request)
@@ -86,27 +86,32 @@ class educatorAnnouncementController extends Controller
         $checker = DB::select('select * from class_subject_list where subject_code = ? and class_name = ?', [$annouce_subject, $annouce_class]);
 
         if ($checker == NULL) {
-            return redirect('educatorAnnouncement')->with('delete_status', 'Error! Selected Subject or Class Name Does Not Exist!');
+            return redirect('educatorAnnouncement')->with('delete_error_status', 'Error! Selected Subject or Class Name Does Not Exist!');
         } else {
-            DB::table('announcement_list')->where('id', $edit_id)->update($data);
+            DB::table('announcement_list')->where('annouce_id', $edit_id)->update($data);
 
             DB::table('announcement_status')->where('annouce_id', [$edit_id])->delete();
 
             $count = DB::table('student_list')->select('student_name')->where('student_class', $annouce_class)->get();
+            $count_int = count($count); //Convert the dara into integer to do comparison for the validation below
+            
+            //Check if the selected class is empty 
+            if($count_int > 0){
+                foreach ($count as $c) {
+                    $dataSet[] = [
+                        'student_name'  => $c->student_name,
+                        'annouce_id'    => $edit_id,
+                        'annouce_status'       => 0,
+                    ];
+                }
 
-            foreach ($count as $c) {
-                $dataSet[] = [
-                    'student_name'  => $c->student_name,
-                    'annouce_id'    => $edit_id,
-                    'status'       => 0,
-                ];
+                DB::table('announcement_status')->insert($dataSet);
+
+            }else{ //Prompty error message for empty class
+                return redirect('educatorAnnouncement')->with('delete_error_status', 'Error! Selected Class is Empty!');
             }
 
-            DB::table('announcement_status')->insert($dataSet);
-
-
-
-            return redirect('educatorAnnouncement')->with('delete_status', 'Announcement Edited Successfully For Course ' . $annouce_subject . ' ' . $annouce_class);
+            return redirect('educatorAnnouncement')->with('delete_pass_status', 'Announcement Edited Successfully For Course ' . $annouce_subject . ' ' . $annouce_class);
         }
     }
 

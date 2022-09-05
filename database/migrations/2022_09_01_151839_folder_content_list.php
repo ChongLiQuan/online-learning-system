@@ -14,11 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('folder_content_list', function (Blueprint $table) {
-            $table->increments('content_id');
+            $table->increments('folder_content_id');
 
-            $table->string('content_title');
+            $table->string('folder_content_title');
 
-            $table->text('content')->nullable();
+            $table->text('folder_content')->nullable();
 
 
             $table->integer('folder_id')->unsigned()->default(0);

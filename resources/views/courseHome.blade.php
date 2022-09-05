@@ -25,11 +25,14 @@
 
     <p><a href="">Course Home Page</a></p>
     <p><a href="https://app.videosdk.live/rooms/classroom/Educator_631069fab54dda634645d36d/bpjw-zv9r-dzi8">Online Classroom</a></p>
+    <hr />
     </p>
 
     @if(Session::get('user_role') == 1)
     <p><a href="/educatorAddFolder">Add New Folder</a></p>
     <p><a href="/educatorAddContent">Add Content</a></p>
+    <p><a href="/educatorAddDiscussion">Add Discussion</a></p>
+    <hr />
     <p><a href="/educatorAddAnnouncement">Make Announcement</a></p>
     @endif
 </nav>
@@ -52,6 +55,7 @@
                 <a href="{{ route('courseContent', ['folder_id' => $f->folder_id]) }}">{{ $f->folder_name }}</u></a>
             </th>
 
+            @if(Session::get('user_role') == 1)
             <td colspan="2" style='text-align:right'>
                 <form action="/educatorEditFolder" method='get' class='form-group' action='/' enctype='multipart/form-data'>
                     <input type='hidden' name='edit_id' value="{{ $f->folder_id }}">
@@ -60,6 +64,7 @@
                     </button>
                 </form>
             </td>
+            @endif
         </tr>
 
         <tr>

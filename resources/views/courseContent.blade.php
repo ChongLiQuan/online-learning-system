@@ -23,11 +23,14 @@
 
     <p><a href="{{ Session::get('current_course_url') }}">Course Home Page</a></p>
     <p><a href="https://app.videosdk.live/rooms/classroom/Educator_631069fab54dda634645d36d/bpjw-zv9r-dzi8">Online Classroom</a></p>
+    <hr />
     </p>
 
     @if(Session::get('user_role') == 1)
     <p><a href="/educatorAddFolder">Add New Folder</a></p>
     <p><a href="/educatorAddContent">Add Content</a></p>
+    <p><a href="/educatorAddDiscussion">Add Discussion</a></p>
+    <hr />
     <p><a href="/educatorAddAnnouncement">Make Announcement</a></p>
     @endif
 </nav>
@@ -49,7 +52,7 @@
                 <a href="{{ route('courseContent', ['folder_id' => $f->folder_id]) }}">{{$f->folder_name}}</u>
             </th>
 
-
+            @if(Session::get('user_role') == 1)
             <td colspan="2" style='text-align:right'>
                 <form action="/educatorEditFolder" method='get' class='form-group' action='/' enctype='multipart/form-data'>
                     <input type='hidden' name='edit_id' value="{{ $f->folder_id }}">
@@ -58,6 +61,8 @@
                     </button>
                 </form>
             </td>
+            @endif
+
         </tr>
 
         <tr>
@@ -89,24 +94,26 @@
                 <img src="{{URL::asset('/images/paper_logo.png')}}" height='50px' width='50px' />
             </th>
             <th>
-                {{$c->content_title}}
+                {{$c->folder_content_title}}
             </th>
 
-
+            @if(Session::get('user_role') == 1)
             <td colspan="2" style='text-align:right'>
                 <form action="/educatorEditContent" method='get' class='form-group' action='/' enctype='multipart/form-data'>
-                    <input type='hidden' name='edit_id' value="{{ $c->content_id }}">
+                    <input type='hidden' name='edit_id' value="{{ $c->folder_content_id }}">
                     <button class="button edit_button">
                         <span class="button_text" onclick="return confirm('Are you sure?')">Edit</span>
                     </button>
                 </form>
             </td>
+            @endif
+
         </tr>
 
         <tr>
             <td colspan="3">
                 <hr>
-                <p>{!! $c->content !!}</p>
+                <p>{!! $c->folder_content !!}</p>
             </td>
         </tr>
         @if(Session::get('user_role') == 1)
@@ -114,7 +121,7 @@
             <td colspan="4" style='text-align:right'>
                 <form action="{{route('deleteContent')}}" method='POST' class='form-group' action='/' enctype='multipart/form-data'>
                     <input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'>
-                    <input type='hidden' name='delete_id' value="{{ $c->content_id }}">
+                    <input type='hidden' name='delete_id' value="{{ $c->folder_content_id }}">
                     <button class="button delete_button">
                         <span class="button_text" onclick="return confirm('Are you sure?')">Delete</span>
                     </button>
@@ -126,6 +133,51 @@
     @endforeach
 
     <hr>
+
+    @foreach($discussion as $d)
+    <table class='folder' border=0>
+        <tr>
+            <th width='5%'>
+                <img src="{{URL::asset('/images/discussion_logo.png')}}" height='50px' width='50px' />
+            </th>
+            <th>
+                <a href="{{ route('discussionBoard', ['discussion_id' => $d->discussion_id]) }}">{{$d->discussion_title}}</a>
+            </th>
+
+            @if(Session::get('user_role') == 1)
+            <td colspan="2" style='text-align:right'>
+                <form action="/educatorEditDiscussion" method='get' class='form-group' action='/' enctype='multipart/form-data'>
+                    <input type='hidden' name='edit_id' value="{{ $d->discussion_id }}">
+                    <button class="button edit_button">
+                        <span class="button_text" onclick="return confirm('Are you sure?')">Edit</span>
+                    </button>
+                </form>
+            </td>
+            @endif
+
+        </tr>
+
+        <tr>
+            <td colspan="3">
+                <hr>
+                <p>{!! $d->discussion_content !!}</p>
+            </td>
+        </tr>
+        @if(Session::get('user_role') == 1)
+        <tr>
+            <td colspan="4" style='text-align:right'>
+                <form action="{{route('deleteDiscussion')}}" method='POST' class='form-group' action='/' enctype='multipart/form-data'>
+                    <input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'>
+                    <input type='hidden' name='delete_id' value="{{ $d->discussion_id }}">
+                    <button class="button delete_button">
+                        <span class="button_text" onclick="return confirm('Are you sure?')">Delete</span>
+                    </button>
+                </form>
+            </td>
+        </tr>
+        @endif
+    </table>
+    @endforeach
 
 </article>
 

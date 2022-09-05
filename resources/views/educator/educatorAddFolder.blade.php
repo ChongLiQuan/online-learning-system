@@ -8,6 +8,7 @@
     </b>
 </div>
 <center>
+    <img src="{{URL::asset('/images/folder_logo.png')}}" height='50px' width='50px' />
     <h3>Add a New Folder</h3>
     <br />
 
@@ -38,7 +39,7 @@
         </div>
 
         <?php
-        $class_subject_id = DB::table('class_subject_list')->where('subject_code', Session::get('current_subject_code'))->where('class_name', Session::get('current_class_name'))->pluck('id')->first();
+        $class_subject_id = DB::table('class_subject_list')->where('subject_code', Session::get('current_subject_code'))->where('class_name', Session::get('current_class_name'))->pluck('class_subject_id')->first();
         ?>
 
         <input type="hidden" name="class_subject_id" value="{{ $class_subject_id }}">

@@ -4,7 +4,7 @@
 
 <?php
 $edit_id = app('request')->input('edit_id');
-$folder = DB::table('folder_content_list')->where('content_id', $edit_id)->get();
+$folder = DB::table('folder_content_list')->where('folder_content_id', $edit_id)->get();
 ?>
 
 @foreach($folder as $a)
@@ -28,9 +28,10 @@ $folder = DB::table('folder_content_list')->where('content_id', $edit_id)->get()
 
     <form action="{{route('editContent')}}" method="post" class="form-group">
         <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>"> @csrf
-        <input type="hidden" name="edit_id" value="{{ $a->content_id }}"> @csrf
+        <input type="hidden" name="edit_id" value="{{ $a->folder_content_id }}"> @csrf
 
-        <input type="text" name="content_title" class="folder_name" value="{{ $a->content_title}}" placeholder="Folder Name" autocomplete="off" align='left' size='40%' required>
+        <br />Content Title:
+        <input type="text" name="content_title" class="folder_name" value="{{ $a->folder_content_title}}" placeholder="Content Name" autocomplete="off" align='left' size='40%' required>
         <br />
         <br />Subject Code:
         <input type="text" name="subject_code" class="folder_subject_code" value="{{ Session::get('current_subject_code')}}" autocomplete="off" align='left' size='40%' disabled>
@@ -52,7 +53,7 @@ $folder = DB::table('folder_content_list')->where('content_id', $edit_id)->get()
 
         <br />
         <div class='editor_container'>
-            <textarea name="content" id="editor">{{ $a->content }}</textarea>
+            <textarea name="content" id="editor">{{ $a->folder_content }}</textarea>
         </div>
 
         <button class="button submit">

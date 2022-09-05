@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use DB;
 use Illuminate\Support\Facades\Hash;
@@ -46,8 +45,8 @@ class UserSeeder extends Seeder
             'user_name' => 'EDU_' . now()->year . '1',
             'user_password' => Hash::make('690506070475'),
             'user_role' => '1',
-            'name' => 'Shawn Tan Cheng',
-            'email' => 'shawn@gmail.com.my',
+            'user_full_name' => 'Shawn Tan Cheng',
+            'user_email' => 'shawn@gmail.com.my',
 
         ]);
 
@@ -55,8 +54,8 @@ class UserSeeder extends Seeder
             'user_name' => 'EDU_' . now()->year . '2',
             'user_password' => Hash::make('000506070473'),
             'user_role' => '1',
-            'name' => 'Kelly Khoo Shin',
-            'email' => 'kelly@gmail.com.my',
+            'user_full_name' => 'Kelly Khoo Shin',
+            'user_email' => 'kelly@gmail.com.my',
         ]);
 
         DB::table('student_list')->insert([
@@ -84,8 +83,8 @@ class UserSeeder extends Seeder
             'user_name' => 'STU_' . now()->year . '1',
             'user_password' => Hash::make('000506070475'),
             'user_role' => '2',
-            'name' => 'Marry Lim Teng Shen',
-            'email' => 'marry@gmail.com',
+            'user_full_name' => 'Marry Lim Teng Shen',
+            'user_email' => 'marry@gmail.com',
         ]);
 
         DB::table('student_list')->insert([
@@ -113,8 +112,8 @@ class UserSeeder extends Seeder
             'user_name' => 'STU_' . now()->year . '2',
             'user_password' => Hash::make('000766070349'),
             'user_role' => '2',
-            'name' => 'Blackpink Rose',
-            'email' => 'rose@gmail.com',
+            'user_full_name' => 'Blackpink Rose',
+            'user_email' => 'rose@gmail.com',
         ]);
 
         DB::table('student_list')->insert([
@@ -142,8 +141,8 @@ class UserSeeder extends Seeder
             'user_name' => 'STU_' . now()->year . '3',
             'user_password' => Hash::make('000504030303'),
             'user_role' => '2',
-            'name' => 'Marry Lim Teng Shen',
-            'email' => 'marry@gmail.com',
+            'user_full_name' => 'Marry Lim Teng Shen',
+            'user_email' => 'marry@gmail.com',
         ]);
 
 
@@ -163,8 +162,8 @@ class UserSeeder extends Seeder
             'user_name' => 'edu',
             'user_password' => Hash::make('edu'),
             'user_role' => '1',
-            'name' => 'Blackpink Rose',
-            'email' => 'rose@gmail.com',
+            'user_full_name' => 'Blackpink Rose',
+            'user_email' => 'rose@gmail.com',
         ]);
 
         DB::table('student_list')->insert([
@@ -192,8 +191,8 @@ class UserSeeder extends Seeder
             'user_name' => 'stu1',
             'user_password' => Hash::make('stu1'),
             'user_role' => '2',
-            'name' => 'Blackpink Rose',
-            'email' => 'rose@gmail.com',
+            'user_full_name' => 'Blackpink Rose',
+            'user_email' => 'rose@gmail.com',
         ]);
 
         DB::table('student_list')->insert([
@@ -221,8 +220,8 @@ class UserSeeder extends Seeder
             'user_name' => 'stu2',
             'user_password' => Hash::make('stu2'),
             'user_role' => '2',
-            'name' => 'Blackpink Rose',
-            'email' => 'rose@gmail.com',
+            'user_full_name' => 'Blackpink Rose',
+            'user_email' => 'rose@gmail.com',
         ]);
     }
 }

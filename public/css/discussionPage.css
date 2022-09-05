@@ -1,0 +1,48 @@
+body {
+    display: grid;
+    grid-template-areas:
+        "header header header"
+        "nav article ads";
+    grid-template-rows: 80px 1fr 70px;
+    grid-template-columns: 20% 1fr 15%;
+    grid-row-gap: 10px;
+    grid-column-gap: 10px;
+    height: 107vh;
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+div {
+    padding: 1.2em;
+    background: none;
+}
+
+header,
+article,
+nav {
+  padding: 1.2em;
+  background: rgb(243, 243, 243);
+}
+
+.discussion_container {
+    width: 100%;
+    height: 10%;
+}
+
+.fullContent {
+    background: rgb(243, 243, 243);
+    height: 100%;
+    width: 97vw;
+}
+
+.discussion_container {
+    width: 98%;
+    height: 10%;
+  }
+
+/* CK Editor Textbox Configuration */
+.ck-editor__editable[role="textbox"] {
+    /* User entering content area */
+    min-height: 100px;
+  }
+  

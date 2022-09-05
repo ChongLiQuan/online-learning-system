@@ -17,11 +17,11 @@ class AdminSeeder extends Seeder
     {
         DB::table('admin_list')->insert([
             'admin_id' => '0',
-            'username' => 'admin',
-            'password' => 'admin',
-            'role' => '0',
-            'name' => 'Admin Safar',
-            'email' => 'admin@gmail.com.my'
+            'admin_username' => 'admin',
+            'admin_password' => 'admin',
+            'admin_role' => '0',
+            'admin_name' => 'Admin Safar',
+            'admin_email' => 'admin@gmail.com.my'
         ]);
 
     }

@@ -71,60 +71,60 @@ class AnnouncementSeeder extends Seeder
         //For the announcement status 
 
         DB::table('announcement_status')->insert([
-            'id' => '1',
+            'annouce_id' => '1',
             'student_name' => 'Blackpink Rose',
             'annouce_id' => '1',
-            'status' => '0',
+            'annouce_status' => '0',
         ]);
 
         DB::table('announcement_status')->insert([
-            'id' => '2',
+            'annouce_id' => '2',
             'student_name' => 'stu1',
             'annouce_id' => '1',
-            'status' => '0',
+            'annouce_status' => '0',
         ]);
 
 
         DB::table('announcement_status')->insert([
-            'id' => '3',
+            'annouce_id' => '3',
             'student_name' => 'Blackpink Rose',
             'annouce_id' => '2',
-            'status' => '0',
+            'annouce_status' => '0',
         ]);
 
         DB::table('announcement_status')->insert([
-            'id' => '4',
+            'annouce_id' => '4',
             'student_name' => 'stu1',
             'annouce_id' => '2',
-            'status' => '0',
+            'annouce_status' => '0',
         ]);
 
         DB::table('announcement_status')->insert([
-            'id' => '5',
+            'annouce_id' => '5',
             'student_name' => 'Marry Lim Teng Shen',
             'annouce_id' => '3',
-            'status' => '0',
+            'annouce_status' => '0',
         ]);
 
         DB::table('announcement_status')->insert([
-            'id' => '6',
+            'annouce_id' => '6',
             'student_name' => 'stu2',
             'annouce_id' => '3',
-            'status' => '0',
+            'annouce_status' => '0',
         ]);
 
         DB::table('announcement_status')->insert([
-            'id' => '7',
+            'annouce_id' => '7',
             'student_name' => 'Marry Lim Teng Shen',
             'annouce_id' => '4',
-            'status' => '0',
+            'annouce_status' => '0',
         ]);
 
         DB::table('announcement_status')->insert([
-            'id' => '8',
+            'annouce_id' => '8',
             'student_name' => 'stu2',
             'annouce_id' => '4',
-            'status' => '0',
+            'annouce_status' => '0',
         ]);
     }
 }

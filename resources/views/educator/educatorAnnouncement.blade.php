@@ -7,8 +7,12 @@
     <center>
         <h3>All Announcement</h3>
 
-        @if (session('delete_status'))
-        <p style="text-align:center; color:green;"><b>{{ session('delete_status') }}</b></p>
+        @if (session('delete_pass_status'))
+        <p style="text-align:center; color:green;"><b>{{ session('delete_pass_status') }}</b></p>
+        @endif
+
+        @if (session('delete_error_status'))
+        <p style="text-align:center; color:red;"><b>{{ session('delete_error_status') }}</b></p>
         @endif
 
         @foreach($list as $l)
@@ -42,7 +46,7 @@
             </tr>
 
             <tr>
-                <a id='{{ $l->id }}'></a>
+                <a id='{{ $l->annouce_id }}'></a>
                 <td colspan="5">
                     <hr />
 
@@ -53,7 +57,7 @@
             <tr>
                 <td colspan="4" style='text-align:right'>
                     <form action="/educatorEditAnnouncement" method='get' class='form-group' action='/' enctype='multipart/form-data'>
-                        <input type='hidden' name='edit_id' value="{{ $l->id }}">
+                        <input type='hidden' name='edit_id' value="{{ $l->annouce_id }}">
                         <button class="button edit_button">
                             <span class="button_text" onclick="return confirm('Are you sure?')">&nbsp;&nbsp;&nbsp;Edit&nbsp;&nbsp;&nbsp; </span>
                         </button>
@@ -63,7 +67,7 @@
                 <td colspan="5" style='text-align:center'>
                     <form action="{{route('deleteAnnouncement')}}" method='POST' class='form-group' action='/' enctype='multipart/form-data'>
                         <input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'>
-                        <input type='hidden' name='delete_id' value="{{ $l->id }}">
+                        <input type='hidden' name='delete_id' value="{{ $l->annouce_id }}">
                         <button class="button delete_button">
                             <span class="button_text" onclick="return confirm('Are you sure?')">Delete</span>
                         </button>

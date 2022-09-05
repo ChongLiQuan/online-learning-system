@@ -8,14 +8,15 @@
     </b>
 </div>
 <center>
-    <img src="{{URL::asset('/images/paper_logo.png')}}" height='50px' width='50px' />
-    <h3>Add a New Content</h3>
+    <img src="{{URL::asset('/images/discussion_logo.png')}}" height='50px' width='50px' />
+    <h3>Add a New Discussion</h3>
     <br />
 
-    <form action="{{route('addContent')}}" method="post" class="form-group">
+    <form action="{{route('addDiscussion')}}" method="post" class="form-group">
         <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>"> @csrf
 
-        <input type="text" name="content_title" class="folder_name" placeholder="Content Name" autocomplete="off" align='left' size='40%' required>
+        <input type="hidden" name="discussion_educator" value="{{ Session::get('username') }}">
+        <input type="text" name="discussion_title" class="folder_name" placeholder="Discussion Title" autocomplete="off" align='left' size='40%' required>
         <br />
         <br />Subject Code:
         <input type="text" name="subject_code" class="folder_subject_code" value="{{ Session::get('current_subject_code')}}" autocomplete="off" align='left' size='40%' disabled>
@@ -33,6 +34,19 @@
             @endforeach
         </select>
 
+        <br />
+        <br />Student Reply:
+        <select name='student_reply'>
+            <option name="student_reply" value="1">Allow Reply</option>
+            <option name="student_reply" value="0">Not Allow Reply</option>
+        </select>
+
+        Student Edit:
+        <select name='student_edit'>
+            <option name="student_edit" value="1">Allow Edit</option>
+            <option name="student_edit" value="0">Not Allow Edit</option>
+        </select>
+
 
         @if (session('pass_status'))
         <p style="text-align:center; color:green;"><b>{{ session('pass_status') }}</b></p>
@@ -44,11 +58,11 @@
 
         <br />
         <div class='editor_container'>
-            <textarea name="content" id="editor"></textarea>
+            <textarea name="discussion_content" id="editor"></textarea>
         </div>
 
         <button class="button submit">
-            <span class="button_text">Add Content</span>
+            <span class="button_text">Add Discussion</span>
             <i class="button_icon fa fa-caret-right fa-2x" aria-hidden="true"></i>
         </button>
     </form>

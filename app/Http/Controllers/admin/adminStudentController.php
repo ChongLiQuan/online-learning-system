@@ -64,7 +64,7 @@ class adminStudentController extends Controller
                 $user_password = $stu_IC;
                 $user_role = 2;
 
-                DB::select('insert into user_login_details (user_name, user_password, user_role, name, email) values (?,?,?,?,?)', [
+                DB::select('insert into user_login_details (user_name, user_password, user_role, user_full_name, user_email) values (?,?,?,?,?)', [
                     $user_name, $user_password,
                     $user_role, $stu_name, $stu_email
                 ]);
