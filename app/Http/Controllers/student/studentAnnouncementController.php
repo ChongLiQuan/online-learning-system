@@ -14,7 +14,7 @@ class studentAnnouncementController extends Controller
         $id = $request->input('announcement_id');
 
         $data = array(
-            "status" => 1,
+            "annouce_status" => 1,
       );
 
         DB::table('announcement_status')->where('student_name', Session::get('username'))->where('annouce_id', $id)->update($data);

@@ -53,9 +53,9 @@
                 <td colspan="5" style='text-align:right'>
                     <form action="{{route('readAnnouncement')}}" method='POST' class='form-group' action='/' enctype='multipart/form-data'>
                         <input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'>
-                        <input type='hidden' name='announcement_id' value="{{ $l->id }}">
+                        <input type='hidden' name='announcement_id' value="{{ $l->annouce_id }}">
                         <?php
-                        $status = DB::table('announcement_status')->where('annouce_id', $l->id)->where('student_name', Session::get('username'))->pluck('status')->first();
+                        $status = DB::table('announcement_status')->where('annouce_id', $l->annouce_id)->where('student_name', Session::get('username'))->pluck('annouce_status')->first();
                         ?>
                         <button class="button login_submit" <?php if ($status == '1') { ?> disabled <?php   } ?>>
                             <span class="button_text">Read</span>

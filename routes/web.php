@@ -273,7 +273,7 @@ Route::get('/courseContent/{folder_id}', function ($folder_id) {
         $list = DB::table('folder_list')->where('class_subject_id', $class_subject_id)->where('subFolder', $folder_id)->get();
         $content_list = DB::table('folder_content_list')->where('folder_id', $folder_id)->get();
         $discussion = DB::table('discussion_list')->where('folder_id', $folder_id)->get();
-        return view('courseContent', compact('list', 'subjects', 'folders', 'content_list','discussion'));
+        return view('courseContent', compact('list', 'subjects', 'folders', 'content_list', 'discussion'));
     }
 })->name('courseContent');
 
@@ -324,13 +324,22 @@ Route::post('/addDiscussion', [App\Http\Controllers\educator\educatorDiscussionC
 Route::post('/editDiscussion', [App\Http\Controllers\educator\educatorDiscussionController::class, 'editDiscussion'])->name('editDiscussion');
 Route::post('/deleteDiscussion', [App\Http\Controllers\educator\educatorDiscussionController::class, 'deleteDiscussion'])->name('deleteDiscussion');
 
-Route::get('/discussionBoard/{discussion_id}', function ($discussion_id) {
+Route::get('/discussionBoard/{discussion_id}/{comment_id}', function ($discussion_id, $comment_id) {
     if (Session::get('username') == null) {
         return view('userInvalidSession');
     } else {
+        $username = Session::get(('username'));
         $discussion = DB::table('discussion_list')->where('discussion_id', $discussion_id)->get();
-        $comment = DB::table('comment_list')->where('discussion_id', $discussion_id)->get();
-        return view('educator/educatorDiscussion', compact('discussion','comment'));
+        $comment = DB::table('comment_list')->where('comment_username', $username)->where('discussion_id', $discussion_id)->where('sub_comment', NULL)->get();
+        $filtered_comment = DB::table('comment_list')->where('comment_id', $comment_id)->get();
+
+        $check_sub_comment = DB::table('comment_list')->where('comment_id', $comment_id)->pluck('sub_comment')->first();
+
+        Session::put('check_sub_comment', $check_sub_comment);
+
+        $sub_comment = DB::table('comment_list')->where('sub_comment', $comment_id)->get();
+
+        return view('educator/educatorDiscussion', compact('discussion', 'comment', 'filtered_comment', 'sub_comment'));
     }
 })->name('discussionBoard');
 
@@ -338,11 +347,21 @@ Route::get('/addComment', function () {
     if (Session::get('username') == null) {
         return view('userInvalidSession');
     } else {
-        $username = Session::get('username');
         return view('addComment');
     }
 });
-Route::post('/addComment', [App\Http\Controllers\commentController::class, 'addComment'])->name('addComment');
+
+Route::get('/editComment', function () {
+    if (Session::get('username') == null) {
+        return view('userInvalidSession');
+    } else {
+        return view('editComment');
+    }
+});
+
+Route::post('/addDiscussionComment', [App\Http\Controllers\commentController::class, 'addComment'])->name('addComment');
+Route::post('/editDiscussionComment', [App\Http\Controllers\commentController::class, 'editComment'])->name('editComment');
+Route::post('/deleteComment', [App\Http\Controllers\commentController::class, 'deleteComment'])->name('deleteComment');
 
 
 //Student Pages Route

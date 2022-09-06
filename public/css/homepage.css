@@ -44,6 +44,7 @@ table.announcement {
   background: rgb(255, 255, 255);
   width: 99%;
   height: fit-content;
+  border-collapse: collapse;
 }
 
 .fullContent {
@@ -216,5 +217,16 @@ table.comment {
   background: rgb(232, 242, 255);
   width: 99%;
   height: fit-content;
-  font-size: 15px;
+  font-size: 14px;
+  border-collapse: collapse;
+}
+
+table.discussion {
+  font-size: 14px;
+  text-align: left;
+  border: 1;
+  background: rgb(255, 255, 255);
+  width: 99%;
+  height: fit-content;
+  border-collapse: collapse;
 }

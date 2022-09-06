@@ -14,7 +14,7 @@
 
 <?php
 $username = Session::get('username');
-$announcement = DB::table('announcement_status')->where('student_name', $username)->where('status', 0)->get();
+$announcement = DB::table('announcement_status')->where('student_name', $username)->where('annouce_status', 0)->get();
 $announcementCount = count($announcement);
 Session::put('announcement', $announcementCount);
 ?>

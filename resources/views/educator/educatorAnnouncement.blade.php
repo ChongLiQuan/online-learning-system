@@ -65,8 +65,7 @@
                 </td>
 
                 <td colspan="5" style='text-align:center'>
-                    <form action="{{route('deleteAnnouncement')}}" method='POST' class='form-group' action='/' enctype='multipart/form-data'>
-                        <input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'>
+                    <form action="{{route('deleteComment')}}" method='POST' class='form-group' action='/' enctype='multipart/form-data'>
                         <input type='hidden' name='delete_id' value="{{ $l->annouce_id }}">
                         <button class="button delete_button">
                             <span class="button_text" onclick="return confirm('Are you sure?')">Delete</span>

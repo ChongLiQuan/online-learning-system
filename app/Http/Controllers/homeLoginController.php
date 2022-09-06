@@ -25,7 +25,7 @@ class homeLoginController extends Controller
         $password_database =  DB::table('user_login_details')->where('user_name', $username)->pluck('user_password')->first();
         $hash_password = Hash::make($password);
 
-        $result = DB::select('select * from user_login_details where user_name = ? AND user_password = ?', [$username, $hash_password]);
+        //$result = DB::select('select * from user_login_details where user_name = ? AND user_password = ?', [$username, $hash_password]);
         $user_role =  DB::table('user_login_details')->where('user_name', $username)->pluck('user_role')->first();
 
         if (Hash::check($password, $password_database)) {

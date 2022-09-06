@@ -5,7 +5,6 @@
 @if(Session::get('user_role') == 2)
 @include('student/studentHeader')
 @endif
-
 <link rel="icon" href="{!! asset('educator/images/login_logo.jpeg') !!}" />
 <link rel="stylesheet" href="<?php echo asset('css/courseHomepage.css') ?>" type="text/css">
 
@@ -17,13 +16,14 @@
     Session::put('current_subject_code', $s->subject_code);
     Session::put('current_class_name', $class_name);
     Session::put('current_course_url', URL::current());
+    Session::put('previous_url', URL::current());
     Session::put('current_course_name', $course_name);
     ?>
 
     <p><b>[{{$s->subject_code }}] {{Session::get('current_course_name')}} ({{ $class_name }})</b></p>
     @endforeach
 
-    <p><a href="">Course Home Page</a></p>
+    <p><a href="{{ Session::get('previous_url') }}">Course Home Page</a></p>
     <p><a href="https://app.videosdk.live/rooms/classroom/Educator_631069fab54dda634645d36d/bpjw-zv9r-dzi8">Online Classroom</a></p>
     <hr />
     </p>

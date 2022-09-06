@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('comment_list', function (Blueprint $table) {
         $table->increments('comment_id');
 
-        $table->string('comment_title');
+        $table->string('comment_title')->nullable();
 
         $table->text('comment_content')->nullable();
 

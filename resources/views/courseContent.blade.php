@@ -5,8 +5,8 @@
 @if(Session::get('user_role') == 2)
 @include('student/studentHeader')
 @endif
-
-
+<?php Session::put('current_course_url', URL::current()); ?>
+<?php Session::put('previous_url', URL::current()); ?>
 <link rel="icon" href="{!! asset('educator/images/login_logo.jpeg') !!}" />
 <link rel="stylesheet" href="<?php echo asset('css/courseHomepage.css') ?>" type="text/css">
 
@@ -21,7 +21,7 @@
     <p><b>[{{ Session::get('current_subject_code')}}] {{Session::get('current_course_name')}} ({{ Session::get('current_class_name') }})</b></p>
 
 
-    <p><a href="{{ Session::get('current_course_url') }}">Course Home Page</a></p>
+    <p><a href="{{ Session::get('previous_url') }}">Course Home Page</a></p>
     <p><a href="https://app.videosdk.live/rooms/classroom/Educator_631069fab54dda634645d36d/bpjw-zv9r-dzi8">Online Classroom</a></p>
     <hr />
     </p>
@@ -141,7 +141,7 @@
                 <img src="{{URL::asset('/images/discussion_logo.png')}}" height='50px' width='50px' />
             </th>
             <th>
-                <a href="{{ route('discussionBoard', ['discussion_id' => $d->discussion_id]) }}">{{$d->discussion_title}}</a>
+                <a href="{{ route('discussionBoard', ['discussion_id' => $d->discussion_id, 'comment_id' => 0]) }}">{{$d->discussion_title}}</a>
             </th>
 
             @if(Session::get('user_role') == 1)
