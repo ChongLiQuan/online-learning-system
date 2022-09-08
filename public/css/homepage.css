@@ -76,6 +76,17 @@ table.announcement {
   border-radius: 4px;
 }
 
+.header-right p {
+  float: center;
+  color: black;
+  text-align: center;
+  margin-left: 15px;
+  text-decoration: none;
+  font-size: 14px;
+  line-height: 20px;
+  border-radius: 4px;
+}
+
 .header-right a:hover {
   background: rgb(0, 138, 150);
   color: rgb(255, 255, 255);
@@ -211,22 +222,70 @@ table.announcement {
   transition: .2s;
 }
 
-table.comment {
+.add_folder_button {
+  background: rgb(194, 222, 255);
+  font-size: 12px;
+  padding: 6px 9px;
+  border-radius: 24px;
+  border: 1px solid #D4D3E8;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: right;
+  width: fit-content;
+  color: #43425a;
+  box-shadow: 0px 2px 2px #5C5696;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.student_input {
+  margin-top: 1%;
+  border: none;
+  border-bottom: 2px solid #D1D1D4;
+  background: #ffffff;
+  padding: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  width: 80%;
+  transition: .2s;
+  font-family: 'Arial', Helvetica, sans-serif;
+  border-radius: 10px;
+}
+
+.student_input_note_name {
+  margin-top: 1%;
+  border: none;
+  border-bottom: 2px solid #D1D1D4;
+  background: #ffffff;
+  padding: 10px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  width: 20%;
+  transition: .2s;
+  font-family: 'Arial', Helvetica, sans-serif;
+  border-radius: 10px;
+}
+
+table.student {
   text-align: left;
   border: 1;
-  background: rgb(232, 242, 255);
-  width: 99%;
+  width: 60%;
   height: fit-content;
-  font-size: 14px;
   border-collapse: collapse;
 }
 
-table.discussion {
+table.student td{
   font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  border-collapse: collapse;
+}
+
+table.student_folder_table {
   text-align: left;
   border: 1;
-  background: rgb(255, 255, 255);
-  width: 99%;
+  width: 100%;
   height: fit-content;
   border-collapse: collapse;
 }

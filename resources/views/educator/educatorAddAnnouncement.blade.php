@@ -3,6 +3,9 @@
 <article id="mainArticle">Article</article>
 
 <div class='fullContent'>
+    <b>
+        <div style="position:absolute; left:400px; top:100px;"> <a href="{{ Session::get('current_course_url') }}">Go Back</a>
+    </b>
     <center>
         <img src="{{URL::asset('/images/announcement_logo.png')}}" height='50px' width='50px' />
         <h3>Make An Announcement</h3>

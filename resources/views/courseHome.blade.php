@@ -23,7 +23,7 @@
     <p><b>[{{$s->subject_code }}] {{Session::get('current_course_name')}} ({{ $class_name }})</b></p>
     @endforeach
 
-    <p><a href="{{ Session::get('previous_url') }}">Course Home Page</a></p>
+    <p><a href="{{ Session::get('current_course_url') }}">Course Home Page</a></p>
     <p><a href="https://app.videosdk.live/rooms/classroom/Educator_631069fab54dda634645d36d/bpjw-zv9r-dzi8">Online Classroom</a></p>
     <hr />
     </p>
@@ -52,13 +52,13 @@
             </th>
 
             <th>
-                <a href="{{ route('courseContent', ['folder_id' => $f->folder_id]) }}">{{ $f->folder_name }}</u></a>
+                <a href="{{ route('courseContent', ['subject_folder_id' => $f->subject_folder_id]) }}">{{ $f->subject_folder_name }}</u></a>
             </th>
 
             @if(Session::get('user_role') == 1)
             <td colspan="2" style='text-align:right'>
                 <form action="/educatorEditFolder" method='get' class='form-group' action='/' enctype='multipart/form-data'>
-                    <input type='hidden' name='edit_id' value="{{ $f->folder_id }}">
+                    <input type='hidden' name='edit_id' value="{{ $f->subject_folder_id }}">
                     <button class="button edit_button">
                         <span class="button_text" onclick="return confirm('Are you sure?')">Edit</span>
                     </button>
@@ -70,7 +70,7 @@
         <tr>
             <td colspan="3">
                 <hr>
-                <p>{!! $f->folder_content !!}</p>
+                <p>{!! $f->subject_folder_content !!}</p>
             </td>
         </tr>
 
@@ -79,7 +79,7 @@
             <td colspan="4" style='text-align:right'>
                 <form action="{{route('deleteFolder')}}" method='POST' class='form-group' action='/' enctype='multipart/form-data'>
                     <input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'>
-                    <input type='hidden' name='delete_id' value="{{ $f->folder_id }}">
+                    <input type='hidden' name='delete_id' value="{{ $f->subject_folder_id }}">
                     <button class="button delete_button">
                         <span class="button_text" onclick="return confirm('Are you sure?')">Delete</span>
                     </button>

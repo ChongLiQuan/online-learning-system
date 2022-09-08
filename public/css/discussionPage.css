@@ -1,16 +1,16 @@
-body { 
+body {
     display: grid;
-    grid-template-areas: 
-      "header header header"
-      "article nav ads"
-      "footer footer footer";
-    grid-template-rows: 80px 1fr 70px;  
+    grid-template-areas:
+        "header header header"
+        "article nav ads"
+        "footer footer footer";
+    grid-template-rows: 80px 1fr 70px;
     grid-template-columns: 1fr 15%;
     grid-row-gap: 10px;
     grid-column-gap: 10px;
     height: 100vh;
     margin: 0;
-    }  
+}
 
 div {
     padding: 1.2em;
@@ -27,7 +27,7 @@ nav {
     grid-area: nav;
     height: 100%;
     width: 82vw;
-  }
+}
 
 .discussion_container {
     width: 100%;
@@ -51,8 +51,8 @@ nav {
     min-height: 100px;
 }
 
-#mainNav { 
-    grid-area: nav; 
+#mainNav {
+    grid-area: nav;
     background: rgb(243, 243, 243);
     height: 95%;
     width: 100%;
@@ -62,4 +62,34 @@ nav {
     background: rgb(243, 243, 243);
     height: 100vh;
     width: 82vw;
+}
+
+table.discussion {
+    font-size: 14px;
+    text-align: left;
+    border: 1;
+    background: rgb(255, 255, 255);
+    width: 99%;
+    height: fit-content;
+    border-collapse: collapse;
+}
+
+table.comment {
+    font-size: 14px;
+    text-align: left;
+    border: 1;
+    background: rgb(224, 229, 235);
+    width: 99%;
+    height: fit-content;
+    border-collapse: collapse;
+}
+
+table.sub_comment {
+    text-align: left;
+    border: 1;
+    background: rgb(236, 238, 240);
+    width: 99%;
+    height: fit-content;
+    font-size: 14px;
+    border-collapse: collapse;
 }

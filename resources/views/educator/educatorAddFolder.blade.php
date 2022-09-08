@@ -12,10 +12,10 @@
     <h3>Add a New Folder</h3>
     <br />
 
-    <form action="{{route('addFolder')}}" method="post" class="form-group">
+    <form action="{{route('addSubjectFolder')}}" method="post" class="form-group">
         <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>"> @csrf
 
-        <input type="text" name="folder_name" class="folder_name" placeholder="Folder Name" autocomplete="off" align='left' size='40%' required>
+        <input type="text" name="subject_folder_name" class="subject_folder_name" placeholder="Folder Name" autocomplete="off" align='left' size='40%' required>
         <br />
         <br />Subject Code:
         <input type="text" name="subject_code" class="folder_subject_code" value="{{ Session::get('current_subject_code')}}" autocomplete="off" align='left' size='40%' disabled>
@@ -26,16 +26,16 @@
 
         <br />
         <br />Sub-Folder of:
-        <select name='subFolder'>
-            <option name="subFolder" value="0">None</option>
+        <select name='subject_subFolder'>
+            <option name="subject_subFolder" value="0">None</option>
             @foreach($list as $s)
-            <option name="subFolder" value="{{ $s->folder_id }}">{{ $s->folder_name  }}</option>
+            <option name="subject_subFolder" value="{{ $s->subject_folder_id }}">{{ $s->subject_folder_name  }}</option>
             @endforeach
         </select>
 
         <br />
         <div class='editor_container'>
-            <textarea name="folder_content" id="editor"></textarea>
+            <textarea name="subject_folder_content" id="editor"></textarea>
         </div>
 
         <?php

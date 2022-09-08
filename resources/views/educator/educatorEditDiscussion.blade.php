@@ -11,7 +11,7 @@ $discussion = DB::table('discussion_list')->where('discussion_id', $edit_id)->ge
 
 <div class='fullContent'>
     <b>
-        <div style="position:absolute; left:400px; top:100px;"> <a href="{{ Session::get('current_course_url')}}">Go Back</a>
+        <div style="position:absolute; left:400px; top:100px;"> <a href="{{ Session::get('previous_url')}}">Go Back</a>
     </b>
 </div>
 <center>
@@ -32,7 +32,7 @@ $discussion = DB::table('discussion_list')->where('discussion_id', $edit_id)->ge
         <input type="hidden" name="edit_id" value="{{ $a->discussion_id }}"> @csrf
 
         <br />Content Title:
-        <input type="text" name="discussion_title" class="folder_name" value="{{ $a->discussion_title}}" placeholder="Content Name" autocomplete="off" align='left' size='40%' required>
+        <input type="text" name="discussion_title" class="subject_folder_name" value="{{ $a->discussion_title}}" placeholder="Content Name" autocomplete="off" align='left' size='40%' required>
         <br />
         <br />Subject Code:
         <input type="text" name="subject_code" class="folder_subject_code" value="{{ Session::get('current_subject_code')}}" autocomplete="off" align='left' size='40%' disabled>
@@ -43,22 +43,22 @@ $discussion = DB::table('discussion_list')->where('discussion_id', $edit_id)->ge
 
         <br />
         <br />Sub-Folder of:
-        <select name='folder_id'>
-            <option name="folder_id" value="0">None</option>
+        <select name='subject_folder_id'>
+            <option name="subject_folder_id" value="0">None</option>
             @foreach($list as $s)
-            <option <?php if ($s->folder_id == $a->folder_id) {
+            <option <?php if ($s->subject_folder_id == $a->subject_folder_id) {
                         echo ("selected");
-                    } ?> name="folder_id" value="{{ $s->folder_id }}">{{ $s->folder_name  }}</option>
+                    } ?> name="subject_folder_id" value="{{ $s->subject_folder_id }}">{{ $s->subject_folder_name  }}</option>
             @endforeach
         </select>
 
         <br />
         <br />Student Reply:
         <select name='student_reply'>
-            <option name="student_reply" value="1" <?php if ($a->discussion_student_reply == 1) {
+            <option name="student_reply" value="1" <?php if ($a->discussion_student_subcomment == 1) {
                                                         echo "selected";
                                                     } ?>>Allow Reply</option>
-            <option name="student_reply" value="0" <?php if ($a->discussion_student_reply == 0) {
+            <option name="student_reply" value="0" <?php if ($a->discussion_student_subcomment == 0) {
                                                         echo "selected";
                                                     } ?>>Not Allow Reply</option>
         </select>

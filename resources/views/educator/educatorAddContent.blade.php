@@ -15,7 +15,7 @@
     <form action="{{route('addContent')}}" method="post" class="form-group">
         <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>"> @csrf
 
-        <input type="text" name="content_title" class="folder_name" placeholder="Content Name" autocomplete="off" align='left' size='40%' required>
+        <input type="text" name="content_title" class="subject_folder_name" placeholder="Content Name" autocomplete="off" align='left' size='40%' required>
         <br />
         <br />Subject Code:
         <input type="text" name="subject_code" class="folder_subject_code" value="{{ Session::get('current_subject_code')}}" autocomplete="off" align='left' size='40%' disabled>
@@ -26,10 +26,10 @@
 
         <br />
         <br />Insert into Folder:
-        <select name='folder_id' required>
-            <option name="folder_id" selected disabled>None</option>
+        <select name='subject_folder_id' required>
+            <option name="subject_folder_id" selected disabled>None</option>
             @foreach($list as $s)
-            <option name="folder_id" value="{{ $s->folder_id }}">{{ $s->folder_name  }}</option>
+            <option name="subject_folder_id" value="{{ $s->subject_folder_id }}">{{ $s->subject_folder_name  }}</option>
             @endforeach
         </select>
 

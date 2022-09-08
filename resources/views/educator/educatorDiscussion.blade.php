@@ -1,6 +1,11 @@
+@if(Session::get('user_role') == 1)
 @include('educator/educatorHeader')
+@endif
+
+@if(Session::get('user_role') == 2)
+@include('student/studentHeader')
+@endif
 <link rel="stylesheet" href="<?php echo asset('css/discussionPage.css') ?>" type="text/css">
-<?php Session::put('current_course_url', URL::current()); ?>
 
 <nav id="article">
     <b>
@@ -24,7 +29,9 @@
             <tr>
                 <td>
                     <h3><u>{{ $d->discussion_title }}</u></h3>
-                    <?php Session::put('current_discussion', $d->discussion_id); ?>
+                    <?php
+                    Session::put('current_discussion', $d->discussion_id);
+                    Session::put('current_discussion_url', URL::current()); ?>
                 </td>
                 <td>
                     <p>Published By: {{ $d->discussion_educator }}</p>
@@ -47,7 +54,7 @@
 
             <tr>
                 <td colspan="5">
-                    <a href='/addComment'>
+                    <a href='/userAddComment'>
                         <button class="comment_button" style="float: right;">Add Comment</button>
                     </a>
                 </td>
@@ -61,7 +68,7 @@
         @foreach($filtered_comment as $c)
         <br />
 
-        <table class='comment' border='0'>
+        <table class='comment' border='1'>
             <colgroup>
                 <col span="1" style="width: 40%;">
                 <col span="1" style="width: 20%;">
@@ -75,7 +82,7 @@
                     <h3><u> {{ $c->comment_title }}</u></h3>
                 </td>
                 <td>
-                    <p>Commented By: {{ $c->comment_username }}</p>
+                    <p>Submitted By: {{ $c->comment_username }}</p>
                 </td>
                 <td>
                     <p>Created: {{ $c->created_at }} </p>
@@ -83,14 +90,21 @@
                 <td>
                     <p>Updated: {{ $c->updated_at }} </p>
                 </td>
-                <td colspan="4" style='text-align:right'>
-                    <form action="/editComment" method='get' class='form-group' action='/' enctype='multipart/form-data'>
-                        <input type='hidden' name='edit_id' value="{{ $c->comment_id }}">
-                        <button class="button edit_button">
-                            <span class="button_text" onclick="return confirm('Are you sure?')">Edit</span>
-                        </button>
-                    </form>
-                </td>
+
+                <?php if ($d->discussion_student_edit == 1) { ?>
+                    <?php if ($c->comment_username == Session::get('username')) { ?>
+
+                        <td colspan="4" style='text-align:right'>
+                            <form action="/userEditComment" method='get' class='form-group' action='/' enctype='multipart/form-data'>
+                                <input type='hidden' name='edit_id' value="{{ $c->comment_id }}">
+                                <button class="button edit_button">
+                                    <span class="button_text" onclick="return confirm('Are you sure?')">Edit</span>
+                                </button>
+                            </form>
+                        </td>
+                    <?php } ?>
+                <?php } ?>
+
             </tr>
 
             <tr>
@@ -100,31 +114,76 @@
                 </td>
 
             </tr>
-
             <tr>
 
-                <td colspan="4" style='text-align:right'>
-                    <form action="/addComment" method='get' class='form-group' action='/' enctype='multipart/form-data'>
-                        <input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'>
-                        <input type='hidden' name='sub_comment' value="{{ $c->comment_id }}">
-                        <button class="button comment_button">
-                            <span class="button_text">Add Comment</span>
-                        </button>
-                    </form>
-                </td>
+                <?php if ($d->discussion_student_subcomment == 1) { ?>
 
-                <td colspan="5" style='text-align:right'>
-                    <form action="{{ route('deleteComment') }}" method='POST' class='form-group' action='/' enctype='multipart/form-data'>
-                        <input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'>
-                        <input type='hidden' name='delete_id' value="{{ $c->comment_id }}">
-                        <button class="button delete_button">
-                            <span class="button_text" onclick="return confirm('Are you sure?')">Delete</span>
-                        </button>
-                    </form>
-                </td>
+                    <?php if ($c->comment_username == Session::get('username')) { ?>
+                        <td colspan="4" style='text-align:right'>
+                            <form action="/userAddComment" method='get' class='form-group' action='/' enctype='multipart/form-data'>
+                                <input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'>
+                                <input type='hidden' name='sub_comment' value="{{ $c->comment_id }}">
+                                <button class="button comment_button">
+                                    <span class="button_text">Add Comment</span>
+                                </button>
+                            </form>
+                        </td>
+                    <?php } else { ?>
+                        <td colspan="5" style='text-align:right'>
+                            <form action="/userAddComment" method='get' class='form-group' action='/' enctype='multipart/form-data'>
+                                <input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'>
+                                <input type='hidden' name='sub_comment' value="{{ $c->comment_id }}">
+                                <button class="button comment_button">
+                                    <span class="button_text">Add Comment</span>
+                                </button>
+                            </form>
+                        </td>
+                    <?php } ?>
 
+
+                    <?php if ($c->comment_username == Session::get('username')) { ?>
+                        <td colspan="5" style='text-align:right'>
+                            <form action="{{ route('deleteComment') }}" method='POST' class='form-group' action='/' enctype='multipart/form-data'>
+                                <input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'>
+                                <input type='hidden' name='delete_id' value="{{ $c->comment_id }}">
+                                <button class="button delete_button">
+                                    <span class="button_text" onclick="return confirm('Are you sure?')">Delete</span>
+                                </button>
+                            </form>
+                        </td>
+                    <?php } ?>
             </tr>
-            </form>
+
+        <?php } else { ?>
+            <tr>
+                <?php if ($d->discussion_student_subcomment == 1) { ?>
+                    <td colspan="5" style='text-align:right'>
+                        <form action="/userAddComment" method='get' class='form-group' action='/' enctype='multipart/form-data'>
+                            <input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'>
+                            <input type='hidden' name='sub_comment' value="{{ $c->comment_id }}">
+                            <button class="button comment_button">
+                                <span class="button_text">Add Comment</span>
+                            </button>
+                        </form>
+                    </td>
+                <?php } ?>
+
+                <?php if ($c->comment_username == Session::get('username')) { ?>
+                    <td colspan="5" style='text-align:right'>
+                        <form action="{{ route('deleteComment') }}" method='POST' class='form-group' action='/' enctype='multipart/form-data'>
+                            <input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'>
+                            <input type='hidden' name='delete_id' value="{{ $c->comment_id }}">
+                            <button class="button delete_button">
+                                <span class="button_text" onclick="return confirm('Are you sure?')">Delete</span>
+                            </button>
+                        </form>
+                    </td>
+                <?php } ?>
+            </tr>
+
+        <?php } ?>
+
+        </form>
         </table>
         @endforeach
 
@@ -133,7 +192,7 @@
             @foreach($sub_comment as $c)
             <br />
 
-            <table class='comment' border='0'>
+            <table class='sub_comment' border='0'>
                 <colgroup>
                     <col span="1" style="width: 40%;">
                     <col span="1" style="width: 20%;">
@@ -164,18 +223,21 @@
                     </td>
 
                 </tr>
-                <tr>
-                    <td colspan="5" style='text-align:right'>
-                        <form action="{{ route('deleteComment') }}" method='POST' class='form-group' action='/' enctype='multipart/form-data'>
-                            <input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'>
-                            <input type='hidden' name='delete_id' value="{{ $c->comment_id }}">
-                            <button class="button delete_button">
-                                <span class="button_text" onclick="return confirm('Are you sure?')">Delete</span>
-                            </button>
-                        </form>
-                    </td>
+                <?php if ($c->comment_username == Session::get('username')) { ?>
 
-                </tr>
+                    <tr>
+                        <td colspan="5" style='text-align:right'>
+                            <form action="{{ route('deleteComment') }}" method='POST' class='form-group' action='/' enctype='multipart/form-data'>
+                                <input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'>
+                                <input type='hidden' name='delete_id' value="{{ $c->comment_id }}">
+                                <button class="button delete_button">
+                                    <span class="button_text" onclick="return confirm('Are you sure?')">Delete</span>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+
+                <?php } ?>
                 </form>
             </table>
             @endforeach

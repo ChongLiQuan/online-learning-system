@@ -15,116 +15,116 @@ class FolderSeeder extends Seeder
     public function run()
     {
         
-        DB::table('folder_list')->insert([
-            'folder_id' => '1',
-            'folder_name' => 'Week 1',
+        DB::table('subject_folder_list')->insert([
+            'subject_folder_id' => '1',
+            'subject_folder_name' => 'Week 1',
             'class_subject_id' => '1',
-            'folder_content' => '<p>The first week of content, exercise and powerpoint slides will be inside this folder.</p>',
-            'subFolder' => 0
+            'subject_folder_content' => '<p>The first week of content, exercise and powerpoint slides will be inside this folder.</p>',
+            'subject_subFolder' => 0
         ]);
 
-        DB::table('folder_list')->insert([
-            'folder_id' => '2',
-            'folder_name' => 'Week 2',
+        DB::table('subject_folder_list')->insert([
+            'subject_folder_id' => '2',
+            'subject_folder_name' => 'Week 2',
             'class_subject_id' => '1',
-            'folder_content' => '<p>Topics to be covered: Poem, Past Tense and Present Tense.</p>',
-            'subFolder' => 0
+            'subject_folder_content' => '<p>Topics to be covered: Poem, Past Tense and Present Tense.</p>',
+            'subject_subFolder' => 0
         ]);
 
-        DB::table('folder_list')->insert([
-            'folder_id' => '3',
-            'folder_name' => 'Week 3',
+        DB::table('subject_folder_list')->insert([
+            'subject_folder_id' => '3',
+            'subject_folder_name' => 'Week 3',
             'class_subject_id' => '1',
-            'folder_content' => null,
-            'subFolder' => 0
+            'subject_folder_content' => null,
+            'subject_subFolder' => 0
         ]);
 
-        DB::table('folder_list')->insert([
-            'folder_id' => '4',
-            'folder_name' => 'Week 4',
+        DB::table('subject_folder_list')->insert([
+            'subject_folder_id' => '4',
+            'subject_folder_name' => 'Week 4',
             'class_subject_id' => '1',
-            'folder_content' => null,
-            'subFolder' => 0
+            'subject_folder_content' => null,
+            'subject_subFolder' => 0
         ]);
 
-        DB::table('folder_list')->insert([
-            'folder_id' => '5',
-            'folder_name' => 'Week 5',
+        DB::table('subject_folder_list')->insert([
+            'subject_folder_id' => '5',
+            'subject_folder_name' => 'Week 5',
             'class_subject_id' => '1',
-            'folder_content' => null,
-            'subFolder' => 0
+            'subject_folder_content' => null,
+            'subject_subFolder' => 0
         ]);
 
-        DB::table('folder_list')->insert([
-            'folder_id' => '6',
-            'folder_name' => 'Week 1',
+        DB::table('subject_folder_list')->insert([
+            'subject_folder_id' => '6',
+            'subject_folder_name' => 'Week 1',
             'class_subject_id' => '2',
-            'folder_content' => null,
-            'subFolder' => 0
+            'subject_folder_content' => null,
+            'subject_subFolder' => 0
         ]);
 
-        DB::table('folder_list')->insert([
-            'folder_id' => '7',
-            'folder_name' => 'Week 2',
+        DB::table('subject_folder_list')->insert([
+            'subject_folder_id' => '7',
+            'subject_folder_name' => 'Week 2',
             'class_subject_id' => '2',
-            'folder_content' => null,
-            'subFolder' => 0
+            'subject_folder_content' => null,
+            'subject_subFolder' => 0
         ]);
 
-        DB::table('folder_list')->insert([
-            'folder_id' => '8',
-            'folder_name' => 'Week 3',
+        DB::table('subject_folder_list')->insert([
+            'subject_folder_id' => '8',
+            'subject_folder_name' => 'Week 3',
             'class_subject_id' => '2',
-            'folder_content' => null,
-            'subFolder' => 0
+            'subject_folder_content' => null,
+            'subject_subFolder' => 0
         ]);
 
-        DB::table('folder_list')->insert([
-            'folder_id' => '9',
-            'folder_name' => 'Week 4',
+        DB::table('subject_folder_list')->insert([
+            'subject_folder_id' => '9',
+            'subject_folder_name' => 'Week 4',
             'class_subject_id' => '2',
-            'folder_content' => null,
-            'subFolder' => 0
+            'subject_folder_content' => null,
+            'subject_subFolder' => 0
         ]);
 
-        DB::table('folder_list')->insert([
-            'folder_id' => '10',
-            'folder_name' => 'Week 5',
+        DB::table('subject_folder_list')->insert([
+            'subject_folder_id' => '10',
+            'subject_folder_name' => 'Week 5',
             'class_subject_id' => '2',
-            'folder_content' => null,
-            'subFolder' => 0
+            'subject_folder_content' => null,
+            'subject_subFolder' => 0
         ]);
 
-        DB::table('folder_list')->insert([
-            'folder_id' => '11',
-            'folder_name' => 'Chapter 1 Material',
+        DB::table('subject_folder_list')->insert([
+            'subject_folder_id' => '11',
+            'subject_folder_name' => 'Chapter 1 Material',
             'class_subject_id' => '1',
-            'folder_content' => null,
-            'subFolder' => '1'
+            'subject_folder_content' => null,
+            'subject_subFolder' => '1'
         ]);
 
-        DB::table('folder_list')->insert([
-            'folder_id' => '12',
-            'folder_name' => 'Chapter 1 Reading Materials',
+        DB::table('subject_folder_list')->insert([
+            'subject_folder_id' => '12',
+            'subject_folder_name' => 'Chapter 1 Reading Materials',
             'class_subject_id' => '1',
-            'folder_content' => '<p>These are additional reading materials, please read it if you want a more in-depth understanding.</p>',
-            'subFolder' => '1'
+            'subject_folder_content' => '<p>These are additional reading materials, please read it if you want a more in-depth understanding.</p>',
+            'subject_subFolder' => '1'
         ]);
 
-        DB::table('folder_list')->insert([
-            'folder_id' => '13',
-            'folder_name' => 'Chapter 2 Material',
+        DB::table('subject_folder_list')->insert([
+            'subject_folder_id' => '13',
+            'subject_folder_name' => 'Chapter 2 Material',
             'class_subject_id' => '1',
-            'folder_content' => null,
-            'subFolder' => '2'
+            'subject_folder_content' => null,
+            'subject_subFolder' => '2'
         ]);
 
-        DB::table('folder_list')->insert([
-            'folder_id' => '14',
-            'folder_name' => 'Week 2 Reading Materials',
+        DB::table('subject_folder_list')->insert([
+            'subject_folder_id' => '14',
+            'subject_folder_name' => 'Week 2 Reading Materials',
             'class_subject_id' => '1',
-            'folder_content' => null,
-            'subFolder' => '2'
+            'subject_folder_content' => null,
+            'subject_subFolder' => '2'
         ]);
     }
 }

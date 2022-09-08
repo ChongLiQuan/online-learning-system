@@ -11,7 +11,7 @@ $folder = DB::table('folder_content_list')->where('folder_content_id', $edit_id)
 
 <div class='fullContent'>
     <b>
-        <div style="position:absolute; left:400px; top:100px;"> <a href="{{ Session::get('current_course_url')}}">Go Back</a>
+        <div style="position:absolute; left:400px; top:100px;"> <a href="{{ Session::get('previous_url')}}">Go Back</a>
     </b>
 </div>
 <center>
@@ -31,7 +31,7 @@ $folder = DB::table('folder_content_list')->where('folder_content_id', $edit_id)
         <input type="hidden" name="edit_id" value="{{ $a->folder_content_id }}"> @csrf
 
         <br />Content Title:
-        <input type="text" name="content_title" class="folder_name" value="{{ $a->folder_content_title}}" placeholder="Content Name" autocomplete="off" align='left' size='40%' required>
+        <input type="text" name="content_title" class="subject_folder_name" value="{{ $a->folder_content_title}}" placeholder="Content Name" autocomplete="off" align='left' size='40%' required>
         <br />
         <br />Subject Code:
         <input type="text" name="subject_code" class="folder_subject_code" value="{{ Session::get('current_subject_code')}}" autocomplete="off" align='left' size='40%' disabled>
@@ -42,18 +42,18 @@ $folder = DB::table('folder_content_list')->where('folder_content_id', $edit_id)
 
         <br />
         <br />Sub-Folder of:
-        <select name='folder_id'>
-            <option name="folder_id" value="0">None</option>
+        <select name='subject_folder_id'>
+            <option name="subject_folder_id" value="0">None</option>
             @foreach($list as $s)
-            <option <?php if ($s->folder_id == $a->folder_id){
+            <option <?php if ($s->subject_folder_id == $a->subject_folder_id){
                         echo ("selected");
-                    } ?> name="folder_id" value="{{ $s->folder_id }}" >{{ $s->folder_name  }}</option>
+                    } ?> name="subject_folder_id" value="{{ $s->subject_folder_id }}" >{{ $s->subject_folder_name  }}</option>
             @endforeach
         </select>
 
         <br />
         <div class='editor_container'>
-            <textarea name="content" id="editor">{{ $a->folder_content }}</textarea>
+            <textarea name="content" id="editor">{{ $a->subject_folder_content }}</textarea>
         </div>
 
         <button class="button submit">

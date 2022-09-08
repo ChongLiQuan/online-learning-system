@@ -1,13 +1,3 @@
-@include('educator/educatorHeader')
-
-
-<article id="mainArticle">
-    <p style="text-align:right">
-        <span class="admin_name">Welcome back, {{ Session::get('username') }}.</span>
-    </p>
-    <hr>
-</article>
-
 <nav id="mainNav">
     <p><b>Navigation Menu</b></p>
     <hr />
@@ -19,8 +9,8 @@
     <p>&nbsp;&nbsp;&nbsp; <i class='bx bxs-right-arrow'></i> &nbsp;&nbsp;<a href="{{ route('courseHome',['id' => $s->class_subject_id]) }}">{{ $s->subject_code }} {{ $s->class_name }} </a></p>
     @endforeach
     </p>
-    <hr />
-    <p> <i class='bx bxs-right-arrow'></i> &nbsp;&nbsp; <a href="/educatorAddAnnouncement">Make Announcement</a></p>
+
+    <p> <i class='bx bxs-right-arrow'></i> &nbsp;&nbsp; <a href="/studentAnnouncement">Check Announcement</a></p>
 
 
 </nav>
@@ -30,7 +20,7 @@
     <hr />
 
     @foreach($announcement as $a)
-    <p>&nbsp;-</i> <a href="/educatorAnnouncement#{{ $a->annouce_id }}">{{ $a->annouce_title }}</a> </p>
+    <p>&nbsp;-</i> <a href="/studentAnnouncement#{{ $a->annouce_id }}">{{ $a->annouce_title }}</a> </p>
     @endforeach
 
 </div>

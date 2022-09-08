@@ -4,7 +4,7 @@
 
 <?php
 $edit_id = app('request')->input('edit_id');
-$folder = DB::table('folder_list')->where('folder_id', $edit_id)->get();
+$folder = DB::table('subject_folder_list')->where('subject_folder_id', $edit_id)->get();
 ?>
 
 @foreach($folder as $a)
@@ -28,9 +28,9 @@ $folder = DB::table('folder_list')->where('folder_id', $edit_id)->get();
 
     <form action="{{route('editFolder')}}" method="post" class="form-group">
         <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>"> @csrf
-        <input type="hidden" name="edit_id" value="{{ $a->folder_id }}"> @csrf
+        <input type="hidden" name="edit_id" value="{{ $a->subject_folder_id }}"> @csrf
 
-        <input type="text" name="folder_name" class="folder_name" value="{{ $a->folder_name}}" placeholder="Folder Name" autocomplete="off" align='left' size='40%' required>
+        <input type="text" name="subject_folder_name" class="subject_folder_name" value="{{ $a->subject_folder_name}}" placeholder="Folder Name" autocomplete="off" align='left' size='40%' required>
         <br />
         <br />Subject Code:
         <input type="text" name="subject_code" class="folder_subject_code" value="{{ Session::get('current_subject_code')}}" autocomplete="off" align='left' size='40%' disabled>
@@ -41,18 +41,18 @@ $folder = DB::table('folder_list')->where('folder_id', $edit_id)->get();
 
         <br />
         <br />Sub-Folder of:
-        <select name='subFolder'>
-            <option name="subFolder" value="0">None</option>
+        <select name='subject_subFolder'>
+            <option name="subject_subFolder" value="0">None</option>
             @foreach($list as $s)
-            <option <?php if ($s->folder_id == $a->subFolder){
+            <option <?php if ($s->subject_folder_id == $a->subject_subFolder){
                         echo ("selected");
-                    } ?> name="subFolder" value="{{ $s->folder_id }}" >{{ $s->folder_name  }}</option>
+                    } ?> name="subject_subFolder" value="{{ $s->subject_folder_id }}" >{{ $s->subject_folder_name  }}</option>
             @endforeach
         </select>
 
         <br />
         <div class='editor_container'>
-            <textarea name="folder_content" id="editor">{{ $a->folder_content }}</textarea>
+            <textarea name="subject_folder_content" id="editor">{{ $a->subject_folder_content }}</textarea>
         </div>
 
         <button class="button submit">

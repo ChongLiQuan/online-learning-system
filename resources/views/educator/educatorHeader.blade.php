@@ -20,10 +20,10 @@
       <table>
         <tr>
           <th>
-          <a href='/educatorHomepage'><img src="{{URL::asset('/images/login_logo.jpeg')}}" height='50px' width='50px' /></a>
+            <a href='/educatorHomepage'><img src="{{URL::asset('/images/login_logo.jpeg')}}" height='50px' width='50px' /></a>
           </th>
           <th>
-          <a href='/educatorHomepage'><b>Online E-Learning System</b></a>
+            <a href='/educatorHomepage'><b>Online E-Learning System</b></a>
           </th>
         </tr>
       </table>
@@ -31,10 +31,12 @@
 
     <div class="header-right">
       <b>
+        <a>Welcome Back, {{ Session::get('username') }}.&nbsp;&nbsp; |</a>
         <a href="/educatorHomepage">Home</a>
         <a href="/educatorProfile">Profile</a>
         <a href="/educatorAnnouncement">Announcement</a>
         <a href="/logout">Logout</a>
+        <a>|</a>
       </b>
     </div>
   </header>
