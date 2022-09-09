@@ -10,16 +10,16 @@ class educatorFolderController extends Controller
 {
     public function addFolder(Request $request)
     {
-        $folder_name = $request->input('folder_name');
+        $subject_folder_name = $request->input('subject_folder_name');
         $class_subject_id = $request->input('class_subject_id');
-        $folder_content = $request->input('folder_content');
-        $subFolder = $request->input('subFolder');
+        $subject_folder_content = $request->input('subject_folder_content');
+        $subject_subFolder = $request->input('subject_subFolder');
 
-        if ($folder_name == NULL) {
+        if ($subject_folder_name == NULL) {
             return redirect('educatorAddFolder')->with('error_status', 'Please enter a folder name!');
         } else {
-            DB::select('insert into folder_list (folder_name, class_subject_id, folder_content, subFolder) 
-            values (?,?,?,?)', [$folder_name, $class_subject_id, $folder_content, $subFolder]);
+            DB::select('insert into subject_folder_list (subject_folder_name, class_subject_id, subject_folder_content, subject_subFolder) 
+            values (?,?,?,?)', [$subject_folder_name, $class_subject_id, $subject_folder_content, $subject_subFolder]);
 
 
             return redirect('educatorAddFolder')->with('pass_status', 'Folder Added Successfully.');
@@ -30,24 +30,24 @@ class educatorFolderController extends Controller
     {
         $edit_id = $request->input('edit_id');
 
-        $folder_name = $request->input('folder_name');
-        $folder_content = $request->input('folder_content');
-        $subFolder = $request->input('subFolder');
+        $subject_folder_name = $request->input('subject_folder_name');
+        $subject_folder_content = $request->input('subject_folder_content');
+        $subject_subFolder = $request->input('subject_subFolder');
 
         $this->validate($request, [
-            'folder_name' => 'required',
+            'subject_folder_name' => 'required',
         ]);
 
         $data = array(
-            "folder_name" => $folder_name,
-            "folder_content" => $folder_content,
-            "subFolder" => $subFolder,
+            "subject_folder_name" => $subject_folder_name,
+            "subject_folder_content" => $subject_folder_content,
+            "subject_subFolder" => $subject_subFolder,
         );
 
-        if ($folder_name == NULL) {
+        if ($subject_folder_name == NULL) {
             return redirect('educatorEditFolder')->with('error_status', 'Please enter a folder name!');
         } else {
-            DB::table('folder_list')->where('folder_id', $edit_id)->update($data);
+            DB::table('subject_folder_list')->where('subject_folder_id', $edit_id)->update($data);
             return back()->with('pass_status', 'Folder Edited Successfully.');
         }
     }
@@ -56,8 +56,8 @@ class educatorFolderController extends Controller
     {
         $id = $request->input('delete_id');
 
-        DB::table('folder_list')->where('folder_id', [$id])->delete();
-        DB::table('folder_list')->where('subFolder', [$id])->delete();
+        DB::table('subject_folder_list')->where('subject_folder_id', [$id])->delete();
+        DB::table('subject_folder_list')->where('subject_subFolder', [$id])->delete();
 
         return back()->with('delete_status', 'Folder Deleted Successfully! ');
     }

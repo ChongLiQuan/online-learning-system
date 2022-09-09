@@ -21,10 +21,10 @@ return new class extends Migration
             $table->text('discussion_content')->nullable();
             $table->text('discussion_educator')->nullable();
 
-            $table->integer('folder_id')->unsigned()->default(0);
-            $table->foreign('folder_id')->references('folder_id')->on('folder_list')->onDelete('cascade');
+            $table->integer('subject_folder_id')->unsigned()->default(0);
+            $table->foreign('subject_folder_id')->references('subject_folder_id')->on('subject_folder_list')->onDelete('cascade');
             
-            $table->boolean('discussion_student_reply');
+            $table->boolean('discussion_student_subcomment');
 
             $table->boolean('discussion_student_edit');
 

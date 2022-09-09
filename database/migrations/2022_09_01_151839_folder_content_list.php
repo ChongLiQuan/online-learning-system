@@ -18,11 +18,11 @@ return new class extends Migration
 
             $table->string('folder_content_title');
 
-            $table->text('folder_content')->nullable();
+            $table->text('subject_folder_content')->nullable();
 
 
-            $table->integer('folder_id')->unsigned()->default(0);
-            $table->foreign('folder_id')->references('folder_id')->on('folder_list')->onDelete('cascade'); 
+            $table->integer('subject_folder_id')->unsigned()->default(0);
+            $table->foreign('subject_folder_id')->references('subject_folder_id')->on('subject_folder_list')->onDelete('cascade'); 
             
         });
     }

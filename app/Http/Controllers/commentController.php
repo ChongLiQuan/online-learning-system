@@ -18,12 +18,12 @@ class commentController extends Controller
         $sub_comment = $request->input('sub_comment');
 
         if  ($discussion_id == NULL) {
-            return redirect('addComment')->with('error_status', 'Please relog and try again!');
+            return redirect('userAddComment')->with('error_status', 'Please relog and try again!');
         } else {
             DB::select('insert into comment_list (comment_title, comment_content, discussion_id, comment_username, created_at, sub_comment) 
             values (?,?,?,?,?,?)', [$comment_title, $comment_content, $discussion_id, $comment_username, $current_date_time, $sub_comment]);
 
-            return redirect('addComment')->with('pass_status', 'Comment Added Successfully.');
+            return redirect('userAddComment')->with('pass_status', 'Comment Added Successfully.');
         }
     }
 
@@ -31,7 +31,12 @@ class commentController extends Controller
     {
         $id = $request->input('delete_id');
 
+        //Delete the main comment
         DB::table('comment_list')->where('comment_id', [$id])->delete();
+        
+        //Delete all subcomments
+        DB::table('comment_list')->where('sub_comment', [$id])->delete();
+
         return back()->with('delete_pass_status', 'Comment Deleted Successfully! ');
     }
 
@@ -50,7 +55,7 @@ class commentController extends Controller
         );
 
         if ($comment_title == NULL || $comment_content == NULL) {
-            return redirect('editComment')->with('error_status', 'Please enter a comment title or a content!');
+            return redirect('userEditComment')->with('error_status', 'Please enter a comment title or a content!');
         } else {
             DB::table('comment_list')->where('comment_id', $comment_id)->update($data);
 
