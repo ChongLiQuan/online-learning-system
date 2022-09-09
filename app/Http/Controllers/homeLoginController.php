@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Hash;
 
 class homeLoginController extends Controller
 {
+    public function userLoginPage (){
+        return view('userLogin');
+    }
+
     public function userLogin(Request $request)
     {
         $username = $request->input('username');

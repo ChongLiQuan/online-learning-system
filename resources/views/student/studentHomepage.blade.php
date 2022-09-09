@@ -2,6 +2,13 @@
 
 <article id="mainArticle">
     <p><b>Notes Taking</b></p>
+    @if (session('error_status'))
+    <p style="text-align:center; color:red;"><b>{{ session('error_status') }}</b></p>
+    @endif
+
+    @if (session('pass_status'))
+    <p style="text-align:center; color:green;"><b>{{ session('pass_status') }}</b></p>
+    @endif
 
     <!-- Add New Note Folder -->
 
@@ -41,8 +48,8 @@
                 <td style="text-align:right;">
                     Sub-Folder of:
                     <select name='student_subFolder'>
-                        <option name="student_subFolder" value="0">None</option>
-                        @foreach($folders as $f)
+                        <option name="student_subFolder" value="">None</option>
+                        @foreach($folders_dropdown as $f)
                         <option name="subject_subFolder" value="{{ $f->student_folder_id }}">{{ $f->student_folder_name  }}</option>
                         @endforeach
                     </select>
@@ -89,9 +96,10 @@
             <td></td>
             <td style="text-align: left;"> &nbsp;
                 <button class="add_folder_button">
-                    <a href='studentAddNote'>
+                    <a href="studentAddNote">
                         <span class="button_text">Write New Note</span></a>
                 </button>
+                </form>
             </td>
         </tr>
     </table>
@@ -103,7 +111,7 @@
 
     <p><b>Notebook Category</b></p>
 
-    <table class='student_folder_table' border=1>
+    <table class='student_folder_table' border=0>
         <colgroup>
             <col span="1" style="width: 20%;">
             <col span="1" style="width: 20%;">
@@ -122,9 +130,11 @@
             <td>
                 <center>
                     <img src="{{URL::asset('/images/notes_taking_logo.png')}}" height='50px' width='50px' />
-                    <a href=''>
-                        <p>{{ $f->student_folder_name }}</p>
+
+                    <a href="{{ route('studentFolderContent', ['student_folder_id' => $f->student_folder_id]) }}">
+                        <p>{{$f->student_folder_name}}</u>
                     </a>
+
                     <?php $counter++ ?>
                 </center>
             </td>

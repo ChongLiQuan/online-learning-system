@@ -1,30 +1,32 @@
 @include('student/studentHeader')
 
+<?php Session::put('current_edit_note_url', URL::current()) ?>
+
 <article id="mainArticle">
-    <p><b><a href="studentHomepage">Go Back</a></b></p>
+    <p><b><a href="/studentHomepage">Go Back</a></b></p>
     <hr>
     <center>
-        <img src="{{URL::asset('/images/student_note_logo.png')}}" height='50px' width='50px' />
-        <h3>Write a New Note</h3>
+        @foreach($note as $n)
+        <h3>Edit on Existing Note</h3>
         <br />
 
-        <form action="{{route('studentAddNote')}}" method="POST" class="form-group">
+        <form action="{{ route('studentEditNote') }}" method="post" class="form-group">
             <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>"> @csrf
-
-            <input type="text" name="student_note_name" class="student_input_note_name" placeholder="Note Title" autocomplete="off" align='left' required>
+            <input type="hidden" name="student_note_id" value="{{ $n->student_note_id }}">
+            <input type="text" name="student_note_name" value="{{ $n->student_note_name }}" class="student_input_note_name" placeholder="Note Title" autocomplete="off" align='left' required>
 
             <label>Choose a Subject:</label>
             <select name='student_note_subject'>
                 <option name="student_note_subject" value="">None</option>
                 @foreach($subjects as $s)
-                <option name="student_note_subject" value="{{ $s->subject_code }}">{{ $s->subject_code  }}</option>
+                <option name="student_note_subject" <?php if ($s->subject_code == $n->student_note_subject) echo "selected" ?> value="{{ $s->subject_code }}">{{ $s->subject_code  }}</option>
                 @endforeach
             </select>
 
             <label>Choose a Folder:</label>
             <select name='student_note_subFolder'>
                 @foreach($folders as $f)
-                <option name="student_note_subFolder" value="{{ $f->student_folder_id }}">{{ $f->student_folder_name }}</option>
+                <option name="student_note_subFolder" <?php if ($f->student_folder_id == $n->student_note_subFolder) echo "selected" ?> value="{{ $f->student_folder_id }}">{{ $f->student_folder_name }}</option>
                 @endforeach
             </select>
 
@@ -35,7 +37,7 @@
             </select>
 
             <div class='editor_container'>
-                <textarea name="student_note_content" id="editor"></textarea>
+                <textarea name="student_note_content" id="editor">{{ $n->student_note_content }}</textarea>
             </div>
 
             @if (session('pass_status'))
@@ -47,10 +49,11 @@
             @endif
 
             <button class="button submit">
-                <span class="button_text">Add Notes Now</span>
+                <span class="button_text">Update Note Now</span>
                 <i class="button_icon fa fa-caret-right fa-2x" aria-hidden="true"></i>
             </button>
         </form>
+        @endforeach
 
         </div>
 </article>

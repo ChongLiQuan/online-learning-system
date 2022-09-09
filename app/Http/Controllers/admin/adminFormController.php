@@ -10,6 +10,16 @@ use Illuminate\Support\Facades\DB;
 
 class adminFormController extends Controller
 {
+    public function addFormPage()
+    {
+        if (Session::get('username') == null) {
+            return view('admin/adminInvalidSession');
+        } else {
+            $forms = DB::table('form_list')->orderBy('form_level')->get();
+            return view('admin/adminAddForm', compact('forms'));
+        }
+    }
+    
     public function addForm(Request $request)
     {
         $form_name = $request->input('form_name');
@@ -74,7 +84,5 @@ class adminFormController extends Controller
             }
         }
         return redirect('adminAddForm')->with('error_status', 'Form Information Updated Failed, Duplciated Information Found! ');
-
-
     }
 }

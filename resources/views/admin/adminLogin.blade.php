@@ -13,7 +13,7 @@
     &nbsp
 
     <h1> Adminstrator Login Page </h1>
-    <form action="/adminLogin" method="post" class="form-group"> 
+    <form action="/adminLoginPage" method="post" class="form-group"> 
     <input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>">
         
     <div class='login_field'>

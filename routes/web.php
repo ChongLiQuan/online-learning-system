@@ -3,39 +3,21 @@
 use Illuminate\Support\Facades\Route;
 
 //General both party page
-Route::get('/userLogin', function () {
-    return view('userLogin');
-});
-Route::post('/userLogin', [App\Http\Controllers\homeLoginController::class, 'userLogin'])->name("userLogin");
+Route::get('/userLogin', [App\Http\Controllers\homeLoginController::class, 'userLoginPage']);
+Route::post('/userLoginPage', [App\Http\Controllers\homeLoginController::class, 'userLogin'])->name("userLogin");
 
 //Admin pages route
 //Admin login and logout route and check invalid session
-Route::get('/adminLogin', function () {
-    return view('admin/adminLogin');
-});
-Route::post('/adminLogin', [App\Http\Controllers\admin\adminLoginController::class, 'validateLogin']);
+Route::get('/adminLogin', [App\Http\Controllers\admin\adminLoginController::class, 'adminLoginHomepage']);
 Route::get('/adminLogout', [App\Http\Controllers\admin\adminLogoutController::class, 'logout']);
+Route::post('/adminLoginPage', [App\Http\Controllers\admin\adminLoginController::class, 'validateLogin']);
 
 //Admin homepage route and check valid session 
-Route::get('/adminHomepage', function () {
-    if (Session::get('username') == null) {
-        return view('admin/adminInvalidSession');
-    } else {
-        return view('admin/adminHomepage');
-    }
-});
+Route::get('/adminHomepage', [App\Http\Controllers\admin\adminFormController::class, 'adminHomepage']);
 
 //Admin add form route and check invalid session
-Route::get('/adminAddForm', function () {
-    if (Session::get('username') == null) {
-        return view('admin/adminInvalidSession');
-    } else {
-        $forms = DB::table('form_list')->orderBy('form_level')->get();
-        return view('admin/adminAddForm', compact('forms'));
-    }
-});
-
-Route::post('/adminAddForm', [App\Http\Controllers\admin\adminFormController::class, 'addForm'])->name('addForm');
+Route::get('/adminAddForm', [App\Http\Controllers\admin\adminFormController::class, 'addFormPage']);
+Route::post('/adminAddFormPage', [App\Http\Controllers\admin\adminFormController::class, 'addForm'])->name('addForm');
 
 Route::get('/adminEditForm', function () {
     if (Session::get('username') == null) {
@@ -305,7 +287,7 @@ Route::get('/educatorAddDiscussion', function () {
         return view('userInvalidSession');
     } else {
         $class_subject_id = DB::table('class_subject_list')->where('subject_code', Session::get('current_subject_code'))->where('class_name', Session::get('current_class_name'))->pluck('class_subject_id')->first();
-        $list = DB::table('subject_folder_list')->where('class_subject_id', $class_subject_id)->get();
+        $list = DB::table('subject_folder_list')->where('class_subject_id', $class_subject_id)->orderBy('subject_folder_id', 'ASC')->get();
         return view('educator/educatorAddDiscussion', compact('list'));
     }
 });
@@ -365,16 +347,7 @@ Route::post('/deleteComment', [App\Http\Controllers\commentController::class, 'd
 
 
 //Student Pages Route
-Route::get('/studentHomepage', function () {
-    if (Session::get('username') == null) {
-        return view('userInvalidSession');
-    } else {
-        $subjects = DB::table('class_subject_list')->where('class_name', Session::get('user_class'))->orderBy('class_subject_id')->get();
-        $announcement = DB::table('announcement_list')->where('annouce_class', Session::get('user_class'))->orderBy('created_at', 'DESC')->get();
-        $folders = DB::table('student_notes_folder_list')->where('student_name', Session::get('username'))->where('student_subFolder', 0)->orderBy('student_folder_id', 'ASC')->get();
-        return view('student/studentHomepage', compact('subjects', 'announcement', 'folders'));
-    }
-});
+Route::get('/studentHomepage', [App\Http\Controllers\student\studentHomepageController::class, 'studentHomepage']);
 Route::get('/studentAnnouncement', function () {
     if (Session::get('username') == null) {
         return view('userInvalidSession');
@@ -385,17 +358,26 @@ Route::get('/studentAnnouncement', function () {
     }
 });
 
+Route::post('/readAnnouncement', [App\Http\Controllers\student\studentAnnouncementController::class, 'readAnnouncement'])->name('readAnnouncement');
+
 Route::get('/studentAddNote', function () {
     if (Session::get('username') == null) {
         return view('userInvalidSession');
     } else {
         $subjects = DB::table('class_subject_list')->where('class_name', Session::get('user_class'))->orderBy('class_subject_id')->get();
         $announcement = DB::table('announcement_list')->where('annouce_class', Session::get('user_class'))->orderBy('created_at', 'DESC')->get();
-        $folders = DB::table('student_notes_folder_list')->where('student_name', Session::get('username'))->where('student_subFolder', 0)->orderBy('student_folder_id', 'ASC')->get();
+        $folders = DB::table('student_note_folder_list')->where('student_name', Session::get('username'))->orderBy('student_folder_id', 'ASC')->get();
         return view('student/studentAddNote', compact('subjects', 'announcement', 'folders'));
     }
 });
+Route::get('/studentViewNote/{student_note_id}', [App\Http\Controllers\student\studentNoteController::class, 'studentViewNote'])->name('studentViewNote');
+Route::get('/studentEditNoteView/{student_note_id}', [App\Http\Controllers\student\studentNoteController::class, 'studentEditNoteView'])->name('studentEditNoteView');
+Route::post('/studentEditNote', [App\Http\Controllers\student\studentNoteController::class, 'studentEditNote'])->name('studentEditNote');
+Route::post('/studentSubmitNote', [App\Http\Controllers\student\studentNoteController::class, 'studentAddNote'])->name('studentAddNote');
+Route::post('/studentDeleteNote', [App\Http\Controllers\student\studentNoteController::class, 'studentDeleteNote'])->name('studentDeleteNote');
 
-Route::post('/readAnnouncement', [App\Http\Controllers\student\studentAnnouncementController::class, 'readAnnouncement'])->name('readAnnouncement');
+Route::post('/studentEditFolder/{student_folder_id}', [App\Http\Controllers\student\studentFolderController::class, 'studentEditFolderView'])->name('studentEditFolderView');
 Route::post('/addStudentFolder', [App\Http\Controllers\student\studentFolderController::class, 'addStudentFolder'])->name('addStudentFolder');
-
+Route::post('/editStudentFolder', [App\Http\Controllers\student\studentFolderController::class, 'editStudentFolder'])->name('editStudentFolder');
+Route::post('/deleteStudentFolder', [App\Http\Controllers\student\studentFolderController::class, 'deleteStudentFolder'])->name('deleteStudentFolder');
+Route::get('/studentFolderContent/student_folder_id={student_folder_id}', [App\Http\Controllers\student\studentFolderController::class, 'studentFolderContent'])->name('studentFolderContent');
