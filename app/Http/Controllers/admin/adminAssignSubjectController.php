@@ -35,7 +35,7 @@ class adminAssignSubjectController extends Controller
     {
         $delete = $request->input('delete');
 
-        DB::table('class_subject_list')->where('id', [$delete])->delete();
+        DB::table('class_subject_list')->where('class_subject_id', [$delete])->delete();
         return redirect('adminAssignSubject')->with('delete_status', 'Removed successfully! ');
     }
 }

@@ -147,7 +147,7 @@ Route::get('/adminAssignSubject', function () {
         $educators = DB::table('educator_list')->orderBy('edu_id')->get();
         $class = DB::table('class_list')->orderBy('class_id')->get();
         $subjects = DB::table('subject_list')->orderBy('form_id')->get();
-        $classSubject = DB::table('class_subject_list')->orderBy('id')->get();
+        $classSubject = DB::table('class_subject_list')->orderBy('class_subject_id')->get();
         return view('admin/adminAssignSubject', compact('educators', 'class', 'subjects', 'classSubject'));
     }
 });
@@ -366,18 +366,27 @@ Route::get('/studentAddNote', function () {
     } else {
         $subjects = DB::table('class_subject_list')->where('class_name', Session::get('user_class'))->orderBy('class_subject_id')->get();
         $announcement = DB::table('announcement_list')->where('annouce_class', Session::get('user_class'))->orderBy('created_at', 'DESC')->get();
-        $folders = DB::table('student_note_folder_list')->where('student_name', Session::get('username'))->orderBy('student_folder_id', 'ASC')->get();
+        $folders = DB::table('student_note_folder_list')->where('student_name', Session::get('username'))->where('active_status', 1)->orderBy('student_folder_id', 'ASC')->get();
         return view('student/studentAddNote', compact('subjects', 'announcement', 'folders'));
     }
 });
+
+//Student Note Controller
 Route::get('/studentViewNote/{student_note_id}', [App\Http\Controllers\student\studentNoteController::class, 'studentViewNote'])->name('studentViewNote');
 Route::get('/studentEditNoteView/{student_note_id}', [App\Http\Controllers\student\studentNoteController::class, 'studentEditNoteView'])->name('studentEditNoteView');
 Route::post('/studentEditNote', [App\Http\Controllers\student\studentNoteController::class, 'studentEditNote'])->name('studentEditNote');
+Route::post('/recoverStudentNote', [App\Http\Controllers\student\studentNoteController::class, 'recoverStudentNote'])->name('recoverStudentNote');
 Route::post('/studentSubmitNote', [App\Http\Controllers\student\studentNoteController::class, 'studentAddNote'])->name('studentAddNote');
 Route::post('/studentDeleteNote', [App\Http\Controllers\student\studentNoteController::class, 'studentDeleteNote'])->name('studentDeleteNote');
+Route::get('/studentDeletedNote', [App\Http\Controllers\student\studentNoteController::class, 'studentDeletedNote']);
+Route::post('/studentPermanentDeletedNote', [App\Http\Controllers\student\studentNoteController::class, 'studentPermanentDeletedNote'])->name('studentPermanentDeletedNote');
 
+//Student Folder Controller
+Route::get('/studentDeletedFolder', [App\Http\Controllers\student\studentFolderController::class, 'studentDeletedFolder']);
 Route::post('/studentEditFolder/{student_folder_id}', [App\Http\Controllers\student\studentFolderController::class, 'studentEditFolderView'])->name('studentEditFolderView');
 Route::post('/addStudentFolder', [App\Http\Controllers\student\studentFolderController::class, 'addStudentFolder'])->name('addStudentFolder');
 Route::post('/editStudentFolder', [App\Http\Controllers\student\studentFolderController::class, 'editStudentFolder'])->name('editStudentFolder');
+Route::post('/recoverStudentFolder', [App\Http\Controllers\student\studentFolderController::class, 'recoverStudentFolder'])->name('recoverStudentFolder');
 Route::post('/deleteStudentFolder', [App\Http\Controllers\student\studentFolderController::class, 'deleteStudentFolder'])->name('deleteStudentFolder');
+Route::post('/permanentDeleteStudentFolder', [App\Http\Controllers\student\studentFolderController::class, 'permanentDeleteStudentFolder'])->name('permanentDeleteStudentFolder');
 Route::get('/studentFolderContent/student_folder_id={student_folder_id}', [App\Http\Controllers\student\studentFolderController::class, 'studentFolderContent'])->name('studentFolderContent');

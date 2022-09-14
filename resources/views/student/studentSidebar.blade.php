@@ -1,5 +1,5 @@
 <nav id="mainNav">
-    <p><b>Navigation Menu</b></p>
+    <p class='stu_home_banner'><b>Navigation Menu</b></p>
     <hr />
 
     <p><b>Subjects Area:</b></p>
@@ -11,12 +11,19 @@
     </p>
 
     <p> <i class='bx bxs-right-arrow'></i> &nbsp;&nbsp; <a href="/studentAnnouncement">Check Announcement</a></p>
+    <p> <i class='bx bxs-right-arrow'></i> &nbsp;&nbsp; <a href="/studentHomepage">Write Notes</a></p>
+
+    <hr />
+    <p class='stu_home_banner'><b>Recycler Bin</b></p>
+
+    <p> <i class='bx bxs-right-arrow'></i> &nbsp;&nbsp; <a href="/studentDeletedFolder">Deleted Folders</a></p>
+    <p> <i class='bx bxs-right-arrow'></i> &nbsp;&nbsp; <a href="/studentDeletedNote">Deleted Notes</a></p>
 
 
 </nav>
 
 <div id="siteAds">
-    <p><b>Announcement</b></p>
+    <p class='stu_home_banner'><b>Announcement</b></p>
     <hr />
 
     @foreach($announcement as $a)

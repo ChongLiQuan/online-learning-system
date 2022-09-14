@@ -24,12 +24,16 @@ return new class extends Migration
 
             $table->string('student_note_subject')->nullable();
 
-            $table->integer('student_note_subFolder')->unsigned()->default(0);
+            $table->integer('student_note_subFolder')->unsigned()->default(0)->nullable();
             $table->foreign('student_note_subFolder')->references('student_folder_id')->on('student_note_folder_list')->onDelete('cascade');
 
             $table->boolean('share_status');
 
             $table->boolean('educator_approval_status');
+
+            $table->timestamp('deleted_date')->nullable();
+
+            $table->boolean('active_status');
         });
     }
 

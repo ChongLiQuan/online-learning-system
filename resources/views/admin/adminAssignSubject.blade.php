@@ -78,7 +78,7 @@
 
                     <tr>
                         <td>
-                            <h4> {{ $l->id }} </h4>
+                            <h4> {{ $l->class_subject_id }} </h4>
                         </td>
 
                         <td>
@@ -96,7 +96,7 @@
                         <td>
                             <form action="{{route('deleteAssign')}}" method="post" class="form-group">
                                 <input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'>
-                                <input type='hidden' name='delete' value="{{ $l->id }}">
+                                <input type='hidden' name='delete' value="{{ $l->class_subject_id }}">
                                 <button class="button login_submit">
                                     <span class="button_text" onclick="return confirm('Are you sure? All Study Content Will Be Erased!')">Delete</span>
                                 </button>

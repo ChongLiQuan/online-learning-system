@@ -238,6 +238,22 @@ table.announcement {
   transition: .2s;
 }
 
+.preview_folder_button {
+  background: rgb(188, 236, 234);
+  font-size: 12px;
+  padding: 6px 9px;
+  border-radius: 24px;
+  border: 1px solid #D4D3E8;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: right;
+  width: fit-content;
+  color: #43425a;
+  box-shadow: 0px 2px 2px #5C5696;
+  cursor: pointer;
+  transition: .2s;
+}
+
 .delete_folder_button {
   background: rgb(255, 175, 175);
   font-size: 12px;
@@ -299,11 +315,13 @@ table.student td{
 }
 
 table.student_folder_table {
-  text-align: left;
+  text-align: center;
   border: 1;
   width: 100%;
-  height: fit-content;
+  height: 10px;
   border-collapse: collapse;
+  overflow-y: auto;    /* Trigger vertical scroll    */
+  overflow-x: hidden;  /* Hide the horizontal scroll */
 }
 
 table.student_note {
@@ -322,4 +340,14 @@ table.student_note_nagivation {
   width: 100%;
   height: auto;
   border-collapse: collapse;
+}
+
+.stu_home_banner{
+  background-color: rgb(184, 217, 255);
+  padding: 3px;
+}
+
+.student_folder_scrollable{
+  height:38%;
+  overflow:auto;
 }

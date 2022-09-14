@@ -1,7 +1,8 @@
 @include('student/studentHeader')
 
 <article id="mainArticle">
-    <p><b>Notes Taking</b></p>
+    <p class='stu_home_banner'><b>Notes Taking</b></p>
+
     @if (session('error_status'))
     <p style="text-align:center; color:red;"><b>{{ session('error_status') }}</b></p>
     @endif
@@ -109,42 +110,80 @@
 
     <!-- Display Folders Category Table -->
 
-    <p><b>Notebook Category</b></p>
+    <p class='stu_home_banner'><b>Notebook Category</b></p>
 
-    <table class='student_folder_table' border=0>
-        <colgroup>
-            <col span="1" style="width: 20%;">
-            <col span="1" style="width: 20%;">
-            <col span="1" style="width: 20%;">
-            <col span="1" style="width: 20%;">
-            <col span="1" style="width: 20%;">
-        </colgroup>
+    <div class='student_folder_scrollable'>
 
-        <?php $counter = 0; ?>
+        <table class='student_folder_table' border=0>
+            <colgroup>
+                <col span="1" style="width: 20%;">
+                <col span="1" style="width: 20%;">
+                <col span="1" style="width: 20%;">
+                <col span="1" style="width: 20%;">
+                <col span="1" style="width: 20%;">
+            </colgroup>
 
-        @foreach($folders as $f)
-        @if($counter%5 == 0)
-        <tr>
+            <?php $counter = 0; ?>
+
+            @foreach($folders as $f)
+            @if($counter%5 == 0)
+            <tr>
+                @endif
+
+                <td>
+                    <center>
+                        <img src="{{URL::asset('/images/notes_taking_logo.png')}}" height='50px' width='50px' />
+
+                        <a href="{{ route('studentFolderContent', ['student_folder_id' => $f->student_folder_id]) }}">
+                            <p>{{$f->student_folder_name}}</u>
+                        </a>
+
+                        <?php $counter++ ?>
+                    </center>
+                </td>
+
+                @if($counter%5 == 0)
+            </tr>
             @endif
 
-            <td>
-                <center>
-                    <img src="{{URL::asset('/images/notes_taking_logo.png')}}" height='50px' width='50px' />
+            @endforeach
+        </table>
 
-                    <a href="{{ route('studentFolderContent', ['student_folder_id' => $f->student_folder_id]) }}">
-                        <p>{{$f->student_folder_name}}</u>
-                    </a>
+        <table class='student_folder_table' border=0>
+            <colgroup>
+                <col span="1" style="width: 20%;">
+                <col span="1" style="width: 20%;">
+                <col span="1" style="width: 20%;">
+                <col span="1" style="width: 20%;">
+                <col span="1" style="width: 20%;">
+            </colgroup>
 
-                    <?php $counter++ ?>
-                </center>
-            </td>
+            <?php $counter = 0; ?>
 
+            @foreach($notes as $n)
             @if($counter%5 == 0)
-        </tr>
-        @endif
+            <tr>
+                @endif
 
-        @endforeach
-    </table>
+                <td>
+                    <center>
+                        <img src="{{URL::asset('/images/student_note_logo.png')}}" height='50px' width='50px' />
+                        <a href="{{ route('studentViewNote', ['student_note_id' => $n->student_note_id]) }}">
+                            <p>{{ $n->student_note_name }}</p>
+                        </a>
+                        <?php $counter++ ?>
+                    </center>
+                </td>
+
+                @if($counter%5 == 0)
+            </tr>
+            @endif
+
+            @endforeach
+
+        </table>
+    </div>
+    <hr>
 </article>
 
 @include('student/studentSidebar')

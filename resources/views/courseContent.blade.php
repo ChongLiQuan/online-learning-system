@@ -10,14 +10,13 @@
 <link rel="stylesheet" href="<?php echo asset('css/courseHomepage.css') ?>" type="text/css">
 
 <nav id="mainNav_courseHome">
-    <br />
-
+    
     @foreach($subjects as $s)
     <?php $course_name = DB::table('subject_list')->where('subject_code', Session::get('current_subject_code'))->pluck('subject_name')->first();
     ?>
 
     @endforeach
-    <p><b>[{{ Session::get('current_subject_code')}}] {{Session::get('current_course_name')}} ({{ Session::get('current_class_name') }})</b></p>
+    <p class='stu_home_banner'><b>[{{ Session::get('current_subject_code')}}] {{Session::get('current_course_name')}} ({{ Session::get('current_class_name') }})</b></p>
 
 
     <p><a href="{{ Session::get('current_course_url') }}">Course Home Page</a></p>
@@ -34,7 +33,7 @@
     @endif
 </nav>
 
-<article id="mainArticle"><b>Class Hall</b>
+<article id="mainArticle"><p class='stu_home_banner'><b>Class Hall</b></p>
 
     @if (session('delete_status'))
     <p style="text-align:center; color:green;"><b>{{ session('delete_status') }}</b></p>

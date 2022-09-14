@@ -21,6 +21,10 @@ return new class extends Migration
             $table->string('student_name');
 
             $table->integer('student_subFolder')->nullable();
+
+            $table->timestamp('deleted_date')->nullable();
+
+            $table->boolean('active_status');
         });
     }
 
