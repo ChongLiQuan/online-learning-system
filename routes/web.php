@@ -161,8 +161,17 @@ Route::get('/educatorHomepage', function () {
     } else {
         $username = Session::get('username');
         $subjects = DB::table('class_subject_list')->where('educator_id', $username)->orderBy('class_subject_id')->get();
+        $username = Session::get('user_full_name');
         $announcement = DB::table('announcement_list')->where('annouce_educator', $username)->orderBy('annouce_id', 'DESC')->get();
-        return view('educator/educatorHomepage', compact('subjects', 'announcement'));
+        
+        $notes = DB::table('student_note_list')
+        ->join('class_subject_list', 'class_subject_list.class_subject_id', '=', 'student_note_list.student_note_subject_id')
+        ->where('class_subject_list.educator_id', Session::get('username'))
+        ->where('student_note_list.share_status', 1)
+        ->where('student_note_list.educator_approval_status', NULL)
+        ->get();
+
+        return view('educator/educatorHomepage', compact('subjects', 'announcement', 'notes'));
     }
 });
 
@@ -200,8 +209,8 @@ Route::get('/educatorAnnouncement', function () {
     if (Session::get('username') == null) {
         return view('userInvalidSession');
     } else {
-        $username = Session::get('username');
-        $list = DB::table('announcement_list')->where('annouce_educator', $username)->orderBy('created_at', 'DESC')->get();
+        $user_full_name = Session::get('user_full_name');
+        $list = DB::table('announcement_list')->where('annouce_educator', $user_full_name)->orderBy('created_at', 'DESC')->get();
         return view('educator/educatorAnnouncement', compact('list'));
     }
 });
@@ -370,6 +379,11 @@ Route::get('/studentAddNote', function () {
         return view('student/studentAddNote', compact('subjects', 'announcement', 'folders'));
     }
 });
+
+Route::get('/educatorViewNote/{student_note_id}', [App\Http\Controllers\educator\educatorContentController::class, 'educatorViewNote'])->name('educatorViewNote');
+Route::post('/educatorRejectNote', [App\Http\Controllers\educator\educatorContentController::class, 'rejectStudentNote'])->name('rejectStudentNote');
+Route::post('/educatorApprovetNote', [App\Http\Controllers\educator\educatorContentController::class, 'approveStudentNote'])->name('approveStudentNote');
+
 
 //Student Note Controller
 Route::get('/studentViewNote/{student_note_id}', [App\Http\Controllers\student\studentNoteController::class, 'studentViewNote'])->name('studentViewNote');

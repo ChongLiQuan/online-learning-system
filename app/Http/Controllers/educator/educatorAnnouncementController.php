@@ -78,7 +78,7 @@ class educatorAnnouncementController extends Controller
             "annouce_subject" => $annouce_subject,
             "annouce_class" => $annouce_class,
             "annouce_content" => $annouce_content,
-            'annouce_educator' => Session::get('username'),
+            'annouce_educator' => Session::get('user_full_name'),
             'updated_at' => NOW(),
         );
 

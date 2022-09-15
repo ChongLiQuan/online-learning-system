@@ -2,7 +2,7 @@
 @include('student/studentSidebar')
 
 <?php
-$active_status = DB::table('student_note_list')->where('student_name', Session::get('username'))->where('student_note_id', Session::get('current_note_id'))->pluck('active_status')->first();
+$active_status = DB::table('student_note_list')->where('student_id', Session::get('username'))->where('student_note_id', Session::get('current_note_id'))->pluck('active_status')->first();
 ?>
 
 <article id="mainArticle">

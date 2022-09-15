@@ -1,4 +1,5 @@
 @include('student/studentHeader')
+@include('student/studentSidebar')
 
 <article id="mainArticle">
     <p class='stu_home_banner'><b>Notes Taking</b></p>
@@ -185,5 +186,3 @@
     </div>
     <hr>
 </article>
-
-@include('student/studentSidebar')

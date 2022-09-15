@@ -55,7 +55,7 @@
                         <input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'>
                         <input type='hidden' name='announcement_id' value="{{ $l->annouce_id }}">
                         <?php
-                        $status = DB::table('announcement_status')->where('annouce_id', $l->annouce_id)->where('student_name', Session::get('username'))->pluck('annouce_status')->first();
+                        $status = DB::table('announcement_status')->where('annouce_id', $l->annouce_id)->where('student_name', Session::get('user_full_name'))->pluck('annouce_status')->first();
                         ?>
                         <button class="button login_submit" <?php if ($status == '1') { ?> disabled <?php   } ?>>
                             <span class="button_text">Read</span>

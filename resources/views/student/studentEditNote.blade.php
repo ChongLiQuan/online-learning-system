@@ -19,7 +19,7 @@
             <select name='student_note_subject'>
                 <option name="student_note_subject" value="">None</option>
                 @foreach($subjects as $s)
-                <option name="student_note_subject" <?php if ($s->subject_code == $n->student_note_subject) echo "selected" ?> value="{{ $s->subject_code }}">{{ $s->subject_code  }}</option>
+                <option name="student_note_subject" <?php if ($s->class_subject_id == $n->student_note_subject_id) echo "selected" ?> value="{{ $s->class_subject_id  }}">{{ $s->subject_code  }}</option>
                 @endforeach
             </select>
 

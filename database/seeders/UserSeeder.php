@@ -60,16 +60,16 @@ class UserSeeder extends Seeder
 
         DB::table('student_list')->insert([
             'student_id' => 'STU_' . now()->year . '1',
-            'student_name' => 'Marry Lim Teng Shen',
+            'student_name' => 'Roseane Kim',
             'student_IC' => '000506070475',
             'student_form' => '1',
-            'student_age' => '18',
+            'student_age' => '13',
             'student_address' => '3-Z, Raffle Tower Bukit Jambul',
-            'student_email' => 'marry@gmail.com',
+            'student_email' => 'rose@gmail.com',
             'student_gender' => 'female',
             'student_dob' => '2000-05-23',
-            'student_class' => '2 Bestari',
-            'parent_name' => 'Lim Yee Shang',
+            'student_class' => '1 Ariff',
+            'parent_name' => 'Kim Yee Shang',
             'parent_IC' => '690506070475',
             'parent_hp' => '0185661788',
             'parent_occupation' => 'Doctor',
@@ -83,18 +83,18 @@ class UserSeeder extends Seeder
             'user_name' => 'STU_' . now()->year . '1',
             'user_password' => Hash::make('000506070475'),
             'user_role' => '2',
-            'user_full_name' => 'Marry Lim Teng Shen',
-            'user_email' => 'marry@gmail.com',
+            'user_full_name' => 'Roseane Kim',
+            'user_email' => 'rose@gmail.com',
         ]);
 
         DB::table('student_list')->insert([
             'student_id' => 'STU_' . now()->year . '2',
-            'student_name' => 'Blackpink Rose',
+            'student_name' => 'Yee Ching Sin',
             'student_IC' => '000766070349',
             'student_form' => '1',
-            'student_age' => '18',
+            'student_age' => '13',
             'student_address' => 'Seoul, Korea Street',
-            'student_email' => 'rose@gmail.com',
+            'student_email' => 'yee@gmail.com',
             'student_gender' => 'female',
             'student_dob' => '1996-05-23',
             'student_class' => '1 Ariff',
@@ -112,16 +112,16 @@ class UserSeeder extends Seeder
             'user_name' => 'STU_' . now()->year . '2',
             'user_password' => Hash::make('000766070349'),
             'user_role' => '2',
-            'user_full_name' => 'Blackpink Rose',
-            'user_email' => 'rose@gmail.com',
+            'user_full_name' => 'Yee Ching Sin',
+            'user_email' => 'yee@gmail.com',
         ]);
 
         DB::table('student_list')->insert([
             'student_id' => 'STU_' . now()->year . '3',
             'student_name' => 'Jisoo Rabbit Kim',
             'student_IC' => '000504030303',
-            'student_form' => '1',
-            'student_age' => '18',
+            'student_form' => '2',
+            'student_age' => '13',
             'student_address' => 'Taman Jelutong Condominium',
             'student_email' => 'jisoo@gmail.com',
             'student_gender' => 'female',
@@ -141,87 +141,11 @@ class UserSeeder extends Seeder
             'user_name' => 'STU_' . now()->year . '3',
             'user_password' => Hash::make('000504030303'),
             'user_role' => '2',
-            'user_full_name' => 'Marry Lim Teng Shen',
-            'user_email' => 'marry@gmail.com',
+            'user_full_name' => 'Jisoo Rabbit Kim',
+            'user_email' => 'jisoo@gmail.com',
         ]);
 
 
-        DB::table('educator_list')->insert([
-            'edu_id' =>  'edu',
-            'edu_name' => 'edu',
-            'edu_IC' => '690506099999',
-            'edu_year' => '1',
-            'edu_age' => '22',
-            'edu_address' => 'Edu Condo Jalan Emas',
-            'edu_email' => 'edu@gmail.com.my',
-            'edu_gender' => 'male',
-            'edu_dob' => '1970-10-23'
-        ]);
 
-        DB::table('user_login_details')->insert([
-            'user_name' => 'edu',
-            'user_password' => Hash::make('edu'),
-            'user_role' => '1',
-            'user_full_name' => 'Blackpink Rose',
-            'user_email' => 'rose@gmail.com',
-        ]);
-
-        DB::table('student_list')->insert([
-            'student_id' => 'stu1',
-            'student_name' => 'stu1',
-            'student_IC' => '0005060704567',
-            'student_form' => '1',
-            'student_age' => '18',
-            'student_address' => '3-Z, Raffle Tower Bukit Jambul',
-            'student_email' => 'marry@gmail.com',
-            'student_gender' => 'female',
-            'student_dob' => '2000-05-23',
-            'student_class' => '1 Ariff',
-            'parent_name' => 'Lim Yee Shang',
-            'parent_IC' => '690599070475',
-            'parent_hp' => '0185661788',
-            'parent_occupation' => 'Doctor',
-            'parent_age' => '56',
-            'parent_address' => '3-Z, Raffle Tower Bukit Jambul',
-            'relationship' => 'father',
-            'parent_dob' => '1970-10-23'
-        ]);
-
-        DB::table('user_login_details')->insert([
-            'user_name' => 'stu1',
-            'user_password' => Hash::make('stu1'),
-            'user_role' => '2',
-            'user_full_name' => 'Blackpink Rose',
-            'user_email' => 'rose@gmail.com',
-        ]);
-
-        DB::table('student_list')->insert([
-            'student_id' => 'stu2',
-            'student_name' => 'stu2',
-            'student_IC' => '0005060704568',
-            'student_form' => '2',
-            'student_age' => '19',
-            'student_address' => '3-Z, Raffle Tower Bukit Jambul',
-            'student_email' => 'marry@gmail.com',
-            'student_gender' => 'female',
-            'student_dob' => '2000-05-23',
-            'student_class' => '2 Bestari',
-            'parent_name' => 'Lim Yee Shang',
-            'parent_IC' => '690599070475',
-            'parent_hp' => '0185661788',
-            'parent_occupation' => 'Doctor',
-            'parent_age' => '56',
-            'parent_address' => '3-Z, Raffle Tower Bukit Jambul',
-            'relationship' => 'father',
-            'parent_dob' => '1970-10-23'
-        ]);
-
-        DB::table('user_login_details')->insert([
-            'user_name' => 'stu2',
-            'user_password' => Hash::make('stu2'),
-            'user_role' => '2',
-            'user_full_name' => 'Blackpink Rose',
-            'user_email' => 'rose@gmail.com',
-        ]);
     }
 }

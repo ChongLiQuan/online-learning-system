@@ -20,6 +20,9 @@ return new class extends Migration
 
             $table->string('student_name');
 
+            $table->string('student_id')->nullable()->unique();
+            $table->foreign('student_id')->references('student_id')->on('student_list')->onDelete('cascade');
+
             $table->integer('student_subFolder')->nullable();
 
             $table->timestamp('deleted_date')->nullable();

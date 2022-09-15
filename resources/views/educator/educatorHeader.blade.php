@@ -31,7 +31,7 @@
 
     <div class="header-right">
       <b>
-        <a>Welcome Back, {{ Session::get('username') }}.&nbsp;&nbsp; |</a>
+        <a>Welcome Back, {{ Session::get('user_full_name') }}.&nbsp;&nbsp; |</a>
         <a href="/educatorHomepage">Home</a>
         <a href="/educatorProfile">Profile</a>
         <a href="/educatorAnnouncement">Announcement</a>

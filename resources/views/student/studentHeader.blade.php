@@ -13,7 +13,7 @@
 </head>
 
 <?php
-$username = Session::get('username');
+$username = Session::get('user_full_name');
 $announcement = DB::table('announcement_status')->where('student_name', $username)->where('annouce_status', 0)->get();
 $announcementCount = count($announcement);
 Session::put('announcement', $announcementCount);
@@ -38,7 +38,7 @@ Session::put('announcement', $announcementCount);
 
     <div class="header-right">
       <b>
-        <a>Welcome Back, {{ Session::get('username') }}. &nbsp;&nbsp; |</a>
+        <a>Welcome Back, {{ Session::get('user_full_name') }}. &nbsp;&nbsp; |</a>
         <a href="/studentHomepage">Home</a>
         <a href="/">Profile</a>
         <a href="/studentAnnouncement" class='notification'>Announcement

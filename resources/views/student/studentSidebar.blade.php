@@ -2,7 +2,7 @@
     <p class='stu_home_banner'><b>Navigation Menu</b></p>
     <hr />
 
-    <p><b>Subjects Area:</b></p>
+    <p class='stu_home_banner'><b>Subjects Area:</b></p>
 
     <p class='course-list'>
         @foreach($subjects as $s)

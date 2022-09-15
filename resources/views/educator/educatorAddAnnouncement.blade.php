@@ -14,7 +14,7 @@
         <form action="{{route('addAnnouncement')}}" method="post" class="form-group">
             <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>"> @csrf
 
-            <input type="hidden" name="annouce_edu" value=" {{ Session::get('username') }}">
+            <input type="hidden" name="annouce_edu" value=" {{ Session::get('user_full_name') }}">
             <input type="text" name="annouce_title" class="announcement_title" placeholder="Annonucement Title" autocomplete="off" align='left' size='40%' required>
             <label>Choose a Subject:</label>
 

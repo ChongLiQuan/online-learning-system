@@ -1,36 +1,84 @@
 @include('educator/educatorHeader')
+@include('educator/educatorHomeSideBar')
 
 
 <article id="mainArticle">
-    <p style="text-align:right">
-        <span class="admin_name">Welcome back, {{ Session::get('username') }}.</span>
-    </p>
+    <p class='edu_home_banner'><b>Student Notes Management</b></p>
+
     <hr>
+
+    @if (session('error_status'))
+    <p style="text-align:center; color:red;"><b>{{ session('error_status') }}</b></p>
+    @endif
+
+    @if (session('pass_status'))
+    <p style="text-align:center; color:green;"><b>{{ session('pass_status') }}</b></p>
+    @endif
+
+    @foreach($notes as $n)
+
+    <table border=0 width='100%'>
+        <colgroup>
+            <col span="1" style="width: 10%;">
+            <col span="1" style="width: 30%;">
+            <col span="1" style="width: 10%;">
+            <col span="1" style="width: 10%;">
+            <col span="1" style="width: 10%;">
+            <col span="1" style="width: 10%;">
+        </colgroup>
+
+        <th>
+            <p>ID</p>
+        </th>
+        <th>
+            <p>Note Title</p>
+        </th>
+        <th>
+            <p>Subject ID</p>
+        </th>
+        <th>
+            <p>Class </p>
+        </th>
+        <th>
+            <p>Student ID</p>
+        </th>
+        <th>
+            <p>Preview</p>
+        </th>
+
+        <tr>
+            <td style="text-align: center;">
+                <p>{{ $n->student_note_id }}</p>
+            </td>
+
+            <td style="text-align: center;">
+                <p>{{ $n->student_note_name }}</p>
+            </td>
+
+            <td style="text-align: center;">
+                <p>{{ $n->subject_code }}</p>
+            </td>
+
+            <td style="text-align: center;">
+                <p>{{ $n->class_name }}</p>
+            </td>
+
+            <td style="text-align: center;">
+                <p>{{ $n->student_id }}</p>
+            </td>
+
+            <td style="text-align: center;">
+                <button class="add_folder_button">
+                    <a href="{{ route('educatorViewNote', ['student_note_id' => $n->student_note_id]) }}">
+                        <span class="button_text">Preview</span></a>
+                </button>
+            </td>
+        </tr>
+        
+    </table>
+
+    @endforeach
+
 </article>
 
-<nav id="mainNav">
-    <p><b>Navigation Menu</b></p>
-    <hr />
-
-    <p><b>Subjects Area:</b></p>
-
-    <p class='course-list'>
-        @foreach($subjects as $s)
-    <p>&nbsp;&nbsp;&nbsp; <i class='bx bxs-right-arrow'></i> &nbsp;&nbsp;<a href="{{ route('courseHome',['id' => $s->class_subject_id]) }}">{{ $s->subject_code }} {{ $s->class_name }} </a></p>
-    @endforeach
-    </p>
-    <hr />
-    <p> <i class='bx bxs-right-arrow'></i> &nbsp;&nbsp; <a href="/educatorAddAnnouncement">Make Announcement</a></p>
-
-
-</nav>
-
-<div id="siteAds">
-    <p><b>Announcement</b></p>
-    <hr />
-
-    @foreach($announcement as $a)
-    <p>&nbsp;-</i> <a href="/educatorAnnouncement#{{ $a->annouce_id }}">{{ $a->annouce_title }}</a> </p>
-    @endforeach
-
-</div>
+@include('educator/educatorHomeAnnouncementBar')

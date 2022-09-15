@@ -17,7 +17,7 @@
             <select name='student_note_subject'>
                 <option name="student_note_subject" value="">None</option>
                 @foreach($subjects as $s)
-                <option name="student_note_subject" value="{{ $s->subject_code }}">{{ $s->subject_code  }}</option>
+                <option name="student_note_subject" value="{{ $s->class_subject_id }}">{{ $s->subject_code  }}</option>
                 @endforeach
             </select>
 

@@ -60,28 +60,28 @@ class ClassSeeder extends Seeder
             'class_subject_id' => '1',
             'subject_code' => 'ENG1',
             'class_name' => '1 Ariff',
-            'educator_id' => 'edu',
+            'educator_id' => 'EDU_20221',
         ]);
 
         DB::table('class_subject_list')->insert([
             'class_subject_id' => '2',
             'subject_code' => 'BM1',
             'class_name' => '1 Ariff',
-            'educator_id' => 'edu',
+            'educator_id' => 'EDU_20221',
         ]);
 
         DB::table('class_subject_list')->insert([
             'class_subject_id' => '3',
             'subject_code' => 'ENG1',
             'class_name' => '1 Bestari',
-            'educator_id' => 'edu',
+            'educator_id' => 'EDU_20222',
         ]);
 
         DB::table('class_subject_list')->insert([
             'class_subject_id' => '4',
             'subject_code' => 'ENG2',
             'class_name' => '2 Bestari',
-            'educator_id' => 'edu',
+            'educator_id' => 'EDU_20222',
         ]);
 
     }
