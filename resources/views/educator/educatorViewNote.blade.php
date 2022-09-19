@@ -61,4 +61,4 @@
 </article>
 
 @include('educator/educatorHomeAnnouncementBar')
-@include('ckEditor')
+@include('tinyEditor')

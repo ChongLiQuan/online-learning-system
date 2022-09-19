@@ -3,7 +3,7 @@
 <?php
 $folder_id = Session::get('current_student_folder_id');
 Session::put('previous_folder_page', URL::current());
-$active_status = DB::table('student_note_folder_list')->where('student_name', Session::get('username'))->where('student_folder_id', $folder_id)->pluck('active_status')->first();
+$active_status = DB::table('student_note_folder_list')->where('student_id', Session::get('username'))->where('student_folder_id', $folder_id)->pluck('active_status')->first();
 ?>
 
 <article id="mainArticle">

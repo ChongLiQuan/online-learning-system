@@ -72,4 +72,4 @@ $active_status = DB::table('student_note_list')->where('student_id', Session::ge
 
 </article>
 
-@include('ckEditor')
+@include('tinyEditor')

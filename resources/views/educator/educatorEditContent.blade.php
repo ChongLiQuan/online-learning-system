@@ -65,4 +65,4 @@ $folder = DB::table('folder_content_list')->where('folder_content_id', $edit_id)
 
     </div>
 
-    @include('ckEditor')
+    @include('tinyEditor')

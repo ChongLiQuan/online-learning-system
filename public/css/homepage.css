@@ -10,6 +10,7 @@ body {
   height: 107vh;
   margin: 0;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  transition: all 0.3s ease;
 }
 
 header,
@@ -323,7 +324,7 @@ table.student {
   border-collapse: collapse;
 }
 
-table.student td{
+table.student td {
   font-size: 14px;
   font-weight: 500;
   text-align: center;
@@ -336,8 +337,10 @@ table.student_folder_table {
   width: 100%;
   height: 10px;
   border-collapse: collapse;
-  overflow-y: auto;    /* Trigger vertical scroll    */
-  overflow-x: hidden;  /* Hide the horizontal scroll */
+  overflow-y: auto;
+  /* Trigger vertical scroll    */
+  overflow-x: hidden;
+  /* Hide the horizontal scroll */
 }
 
 table.student_note {
@@ -358,17 +361,56 @@ table.student_note_nagivation {
   border-collapse: collapse;
 }
 
-.stu_home_banner{
+.stu_home_banner {
   background-color: rgb(184, 217, 255);
   padding: 3px;
 }
 
-.edu_home_banner{
+.edu_home_banner {
   background-color: #ffc876;
   padding: 3px;
 }
 
-.student_folder_scrollable{
-  height:38%;
-  overflow:auto;
+.student_folder_scrollable {
+  height: 38%;
+  overflow: auto;
+}
+
+table.note_list {
+  text-align: center;
+  border: 1;
+  width: 100%;
+  height: auto;
+  border-collapse: collapse;
+}
+
+.note_list th {
+  border-bottom: 2px solid rgb(201, 201, 201);
+}
+
+.field_input {
+  margin-top: 1%;
+  border: none;
+  border-bottom: 2px solid #D1D1D4;
+  background: #ffffff;
+  padding: 10px;
+  padding-left: 24px;
+  font-size: 15px;
+  font-weight: 600;
+  width: 40%;
+  transition: .2s;
+  font-family: 'Arial', Helvetica, sans-serif;
+  border-radius: 10px;
+}
+
+.field_button{
+  color: rgb(24, 24, 24);
+  background: #eb7e3b;
+  padding: 4px 12px;
+  font-size: 15px;
+  font-weight: 400;
+  border-radius: 6px;
+  border-color: #eb7e3b;
+  text-decoration: none;
+  transition: all 0.3s ease;
 }

@@ -24,14 +24,14 @@ class studentFolderController extends Controller
         if (Session::get('username') == null) {
             return view('userInvalidSession');
         } else {
-            $current_student_folder_name = DB::table('student_note_folder_list')->where('student_folder_id', $student_folder_id)->where('student_name', Session::get('username'))->pluck('student_folder_name')->first();
+            $current_student_folder_name = DB::table('student_note_folder_list')->where('student_folder_id', $student_folder_id)->where('student_id', Session::get('username'))->pluck('student_folder_name')->first();
             Session::put('current_student_folder_name', $current_student_folder_name);
             Session::put('current_student_folder_id', $student_folder_id);
 
             $subjects = DB::table('class_subject_list')->where('class_name', Session::get('user_class'))->orderBy('class_subject_id')->get();
             $announcement = DB::table('announcement_list')->where('annouce_class', Session::get('user_class'))->orderBy('created_at', 'DESC')->get();
-            $folders = DB::table('student_note_folder_list')->where('student_name', Session::get('username'))->where('active_status', 1)->where('student_subFolder', $student_folder_id)->orderBy('student_folder_id', 'ASC')->get();
-            $deleted_folders = DB::table('student_note_folder_list')->where('student_name', Session::get('username'))->where('active_status', 0)->where('student_subFolder', $student_folder_id)->orderBy('student_folder_id', 'ASC')->get();
+            $folders = DB::table('student_note_folder_list')->where('student_id', Session::get('username'))->where('active_status', 1)->where('student_subFolder', $student_folder_id)->orderBy('student_folder_id', 'ASC')->get();
+            $deleted_folders = DB::table('student_note_folder_list')->where('student_id', Session::get('username'))->where('active_status', 0)->where('student_subFolder', $student_folder_id)->orderBy('student_folder_id', 'ASC')->get();
             $notes = DB::table('student_note_list')->where('student_id', Session::get('username'))->where('active_status', 1)->where('student_note_subFolder', $student_folder_id)->orderBy('student_note_id', 'ASC')->get();
             $deleted_notes = DB::table('student_note_list')->where('student_id', Session::get('username'))->where('active_status', 0)->where('student_note_subFolder', $student_folder_id)->orderBy('student_note_id', 'ASC')->get();
             return view('student/studentFolderContent', compact('subjects', 'announcement', 'notes', 'folders', 'deleted_folders', 'deleted_notes'));

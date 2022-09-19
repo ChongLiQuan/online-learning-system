@@ -60,4 +60,4 @@ $sub_comment = app('request')->input('sub_comment');
 
     </div>
 
-    @include('ckEditor')
+    @include('tinyEditor')

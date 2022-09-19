@@ -59,4 +59,4 @@
 </article>
 
 @include('student/studentSidebar')
-@include('ckEditor')
+@include('tinyEditor')

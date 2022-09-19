@@ -60,4 +60,4 @@
         @endforeach
 </div>
 
-@include('ckEditor')
+@include('tinyEditor')

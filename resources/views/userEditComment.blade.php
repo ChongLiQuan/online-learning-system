@@ -52,4 +52,4 @@ $comment = DB::table('comment_list')->where('comment_id', $edit_id)->get();
     </div>
     @endforeach
 
-    @include('ckEditor')
+    @include('tinyEditor')

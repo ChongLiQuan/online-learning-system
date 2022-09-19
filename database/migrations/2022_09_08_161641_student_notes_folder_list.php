@@ -18,9 +18,7 @@ return new class extends Migration
 
             $table->string('student_folder_name');
 
-            $table->string('student_name');
-
-            $table->string('student_id')->nullable()->unique();
+            $table->string('student_id')->nullable();
             $table->foreign('student_id')->references('student_id')->on('student_list')->onDelete('cascade');
 
             $table->integer('student_subFolder')->nullable();

@@ -18,7 +18,7 @@ class StudentNoteSeeder extends Seeder
         DB::table('student_note_folder_list')->insert([
             'student_folder_id' => '1',
             'student_folder_name' => 'Self Journal',
-            'student_name' => 'STU_20221',
+            'student_id' => 'STU_20221',
             'student_subFolder' => NULL,
             'deleted_date' => NULL,
             'active_status' => '1',
@@ -27,7 +27,7 @@ class StudentNoteSeeder extends Seeder
         DB::table('student_note_folder_list')->insert([
             'student_folder_id' => '2',
             'student_folder_name' => 'To-Do-List',
-            'student_name' => 'STU_20221',
+            'student_id' => 'STU_20221',
             'student_subFolder' => NULL,
             'deleted_date' => NULL,
             'active_status' => '1',
@@ -36,7 +36,7 @@ class StudentNoteSeeder extends Seeder
         DB::table('student_note_folder_list')->insert([
             'student_folder_id' => '3',
             'student_folder_name' => 'English',
-            'student_name' => 'STU_20221',
+            'student_id' => 'STU_20221',
             'student_subFolder' => NULL,
             'deleted_date' => NULL,
             'active_status' => '1',
@@ -45,7 +45,7 @@ class StudentNoteSeeder extends Seeder
         DB::table('student_note_folder_list')->insert([
             'student_folder_id' => '4',
             'student_folder_name' => 'Bahasa Melayu',
-            'student_name' => 'STU_20221',
+            'student_id' => 'STU_20221',
             'student_subFolder' => NULL,
             'deleted_date' => NULL,
             'active_status' => '1',
@@ -54,7 +54,7 @@ class StudentNoteSeeder extends Seeder
         DB::table('student_note_folder_list')->insert([
             'student_folder_id' => '5',
             'student_folder_name' => 'Sejarah',
-            'student_name' => 'STU_20221',
+            'student_id' => 'STU_20221',
             'student_subFolder' => NULL,
             'deleted_date' => NULL,
             'active_status' => '1',
@@ -63,7 +63,7 @@ class StudentNoteSeeder extends Seeder
         DB::table('student_note_folder_list')->insert([
             'student_folder_id' => '6',
             'student_folder_name' => 'September 2022',
-            'student_name' => 'STU_20221',
+            'student_id' => 'STU_20221',
             'student_subFolder' => '2',
             'deleted_date' => NULL,
             'active_status' => '1',
@@ -72,7 +72,7 @@ class StudentNoteSeeder extends Seeder
         DB::table('student_note_folder_list')->insert([
             'student_folder_id' => '7',
             'student_folder_name' => 'October 2022',
-            'student_name' => 'STU_20221',
+            'student_id' => 'STU_20221',
             'student_subFolder' => '2',
             'deleted_date' => NULL,
             'active_status' => '1',
@@ -81,7 +81,7 @@ class StudentNoteSeeder extends Seeder
         DB::table('student_note_folder_list')->insert([
             'student_folder_id' => '8',
             'student_folder_name' => 'November 2022',
-            'student_name' => 'STU_20221',
+            'student_id' => 'STU_20221',
             'student_subFolder' => '2',
             'deleted_date' => NULL,
             'active_status' => '1',
@@ -91,7 +91,7 @@ class StudentNoteSeeder extends Seeder
         DB::table('student_note_folder_list')->insert([
             'student_folder_id' => '9',
             'student_folder_name' => 'Chapter 1: Poem',
-            'student_name' => 'STU_20221',
+            'student_id' => 'STU_20221',
             'student_subFolder' => '3',
             'deleted_date' => NULL,
             'active_status' => '1',
@@ -100,8 +100,16 @@ class StudentNoteSeeder extends Seeder
         DB::table('student_note_folder_list')->insert([
             'student_folder_id' => '10',
             'student_folder_name' => 'Chapter 2: Past Tense',
-            'student_name' => 'STU_20221',
+            'student_id' => 'STU_20221',
             'student_subFolder' => '3',
+            'deleted_date' => NULL,
+            'active_status' => '1',
+        ]);
+
+        DB::table('student_note_folder_list')->insert([
+            'student_folder_name' => 'BM',
+            'student_id' => 'STU_20223',
+            'student_subFolder' => NULL,
             'deleted_date' => NULL,
             'active_status' => '1',
         ]);
@@ -179,6 +187,59 @@ class StudentNoteSeeder extends Seeder
             'share_status' => '1',
             'educator_approval_status' => NULL,
             'student_class' => '1 Ariff',
+            'deleted_date' => NULL,
+            'active_status' => '1',
+        ]);
+
+        DB::table('student_note_list')->insert([
+            'student_id' => 'STU_20221',
+            'student_note_name' => 'Past Tense Note: Part 2',
+            'student_note_content' => '<p>This is Testing</p>',
+            'student_note_subject_id' => '1',
+            'student_note_subFolder' => '10',
+            'share_status' => '1',
+            'educator_approval_status' => NULL,
+            'student_class' => '1 Ariff',
+            'deleted_date' => NULL,
+            'active_status' => '1',
+        ]);
+
+
+        DB::table('student_note_list')->insert([
+            'student_id' => 'STU_20221',
+            'student_note_name' => 'Ariff BM Note',
+            'student_note_content' => '<p>This is Testing</p>',
+            'student_note_subject_id' => '2',
+            'student_note_subFolder' => '4',
+            'share_status' => '1',
+            'educator_approval_status' => NULL,
+            'student_class' => '1 Ariff',
+            'deleted_date' => NULL,
+            'active_status' => '1',
+        ]);
+
+        DB::table('student_note_list')->insert([
+            'student_id' => 'STU_20223',
+            'student_note_name' => 'Eng Bestari Note: Part 1',
+            'student_note_content' => '<p>This is Testing</p>',
+            'student_note_subject_id' => '3',
+            'student_note_subFolder' => '11',
+            'share_status' => '1',
+            'educator_approval_status' => NULL,
+            'student_class' => '1 Bestari',
+            'deleted_date' => NULL,
+            'active_status' => '1',
+        ]);
+
+        DB::table('student_note_list')->insert([
+            'student_id' => 'STU_20223',
+            'student_note_name' => 'Eng Bestari Note: Part 2',
+            'student_note_content' => '<p>This is Testing</p>',
+            'student_note_subject_id' => '3',
+            'student_note_subFolder' => '11',
+            'share_status' => '1',
+            'educator_approval_status' => NULL,
+            'student_class' => '1 Bestari',
             'deleted_date' => NULL,
             'active_status' => '1',
         ]);

@@ -10,14 +10,20 @@
 <link rel="stylesheet" href="<?php echo asset('css/courseHomepage.css') ?>" type="text/css">
 
 <nav id="mainNav_courseHome">
-    
+
     @foreach($subjects as $s)
     <?php $course_name = DB::table('subject_list')->where('subject_code', Session::get('current_subject_code'))->pluck('subject_name')->first();
     ?>
 
     @endforeach
-    <p class='stu_home_banner'><b>[{{ Session::get('current_subject_code')}}] {{Session::get('current_course_name')}} ({{ Session::get('current_class_name') }})</b></p>
 
+    @if(Session::get('user_role') == 1)
+    <p class='edu_home_banner'><b>[{{ Session::get('current_subject_code')}}] {{Session::get('current_course_name')}} ({{ Session::get('current_class_name') }})</b></p>
+    @endif
+
+    @if(Session::get('user_role') == 2)
+    <p class='stu_home_banner'><b>[{{ Session::get('current_subject_code')}}] {{Session::get('current_course_name')}} ({{ Session::get('current_class_name') }})</b></p>
+    @endif
 
     <p><a href="{{ Session::get('current_course_url') }}">Course Home Page</a></p>
     <p><a href="https://app.videosdk.live/rooms/classroom/Educator_631069fab54dda634645d36d/bpjw-zv9r-dzi8">Online Classroom</a></p>
@@ -33,7 +39,15 @@
     @endif
 </nav>
 
-<article id="mainArticle"><p class='stu_home_banner'><b>Class Hall</b></p>
+<article id="mainArticle">
+
+    @if(Session::get('user_role') == 1)
+    <p class='edu_home_banner'><b>Class Hall</b></p>
+    @endif
+
+    @if(Session::get('user_role') == 2)
+    <p class='stu_home_banner'><b>Class Hall</b></p>
+    @endif
 
     @if (session('delete_status'))
     <p style="text-align:center; color:green;"><b>{{ session('delete_status') }}</b></p>

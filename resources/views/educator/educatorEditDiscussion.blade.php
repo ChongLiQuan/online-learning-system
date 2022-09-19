@@ -87,4 +87,4 @@ $discussion = DB::table('discussion_list')->where('discussion_id', $edit_id)->ge
 
     </div>
 
-    @include('ckEditor')
+    @include('tinyEditor')

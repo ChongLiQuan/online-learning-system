@@ -541,3 +541,12 @@ td{
 }
 
 .error {color: #ff0000; text-align: center;}
+
+table.note_list{
+  background: rgb(204, 110, 110);
+  text-align: center;
+  border: 1;
+  width: 100%;
+  height: auto;
+  border-collapse: collapse;
+}

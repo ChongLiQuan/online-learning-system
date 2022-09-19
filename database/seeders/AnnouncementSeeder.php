@@ -54,7 +54,7 @@ class AnnouncementSeeder extends Seeder
             'annouce_subject' => 'ENG2',
             'annouce_class' => '2 Bestari',
             'annouce_content' => '<p><p>Dear Student,</p><p>&nbsp;</p><p>It has came to my concern that many of you has been sending me email regarding the latest assignment.</p><p>&nbsp;</p><p><span style="background-color:hsl(30, 75%, 60%);"><strong><u>Here are some stuff that I want to clarify:</u></strong></span></p><ol><li><strong>Please do not </strong>use wikipedia as your source of information.<br>&nbsp;</li><li><strong>Do not use the same point</strong> as your friends.<br>&nbsp;</li><li>Please<strong> submit it on this Friday </strong>thru the submission link.</li></ol><p>Best Regards,<br>Ms Unidi&nbsp;</p></p>',
-            'annouce_educator' => 'Shawn Tan Cheng',
+            'annouce_educator' => 'Kelly Khoo Shin',
             'created_at' => NOW(),
         ]);
 
@@ -64,7 +64,7 @@ class AnnouncementSeeder extends Seeder
             'annouce_subject' => 'ENG2',
             'annouce_class' => '2 Bestari',
             'annouce_content' => '<p>Hi Student,</p><p>Please prepare the following for our <span style="background-color:hsl(180, 75%, 60%);">upcoming class next Monday 11:00AM - 3:00PM.</span></p><p>&nbsp;</p><ul><li>Self-introduction within 100 words.</li><li>Research on the Poem: Words of Flowers, Thorns like a bee.</li><li>Prepare a summary of the poem within 200 words in a group of 2 people.<br>&nbsp;</li></ul><p>Yours Sincerely,<br>Mr. Edmund&nbsp;</p>',
-            'annouce_educator' => 'Shawn Tan Cheng',
+            'annouce_educator' => 'Kelly Khoo Shin',
             'created_at' => NOW(),
         ]);
 

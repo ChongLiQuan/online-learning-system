@@ -19,7 +19,14 @@
     Session::put('current_course_name', $course_name);
     ?>
 
+    @if(Session::get('user_role') == 1)
+    <p class='edu_home_banner'><b>[{{$s->subject_code }}] {{Session::get('current_course_name')}} ({{ $class_name }})</b></p>
+    @endif
+
+    @if(Session::get('user_role') == 2)
     <p class='stu_home_banner'><b>[{{$s->subject_code }}] {{Session::get('current_course_name')}} ({{ $class_name }})</b></p>
+    @endif
+
     @endforeach
 
     <p><a href="{{ Session::get('current_course_url') }}">Course Home Page</a></p>
@@ -36,7 +43,15 @@
     @endif
 </nav>
 
-<article id="mainArticle"><p class='stu_home_banner'><b>Class Hall</b></p>
+<article id="mainArticle">
+
+    @if(Session::get('user_role') == 1)
+    <p class='edu_home_banner'><b>Class Hall</b></p>
+    @endif
+
+    @if(Session::get('user_role') == 2)
+    <p class='stu_home_banner'><b>Class Hall</b></p>
+    @endif
 
     @if (session('delete_status'))
     <p style="text-align:center; color:green;"><b>{{ session('delete_status') }}</b></p>

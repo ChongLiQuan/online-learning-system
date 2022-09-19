@@ -18,7 +18,7 @@ class studentNoteController extends Controller
 
             $subjects = DB::table('class_subject_list')->where('class_name', Session::get('user_class'))->orderBy('class_subject_id')->get();
             $announcement = DB::table('announcement_list')->where('annouce_class', Session::get('user_class'))->orderBy('created_at', 'DESC')->get();
-            $folders = DB::table('student_note_folder_list')->where('student_name', Session::get('username'))->orderBy('student_folder_id', 'ASC')->get();
+            $folders = DB::table('student_note_folder_list')->where('student_id', Session::get('username'))->orderBy('student_folder_id', 'ASC')->get();
             $note = DB::table('student_note_list')->where('student_id', Session::get('username'))->where('student_note_id', $student_note_id)->get();
             return view('student/studentViewNote', compact('subjects', 'announcement', 'folders', 'note'));
         }
@@ -31,7 +31,7 @@ class studentNoteController extends Controller
         } else {
             $subjects = DB::table('class_subject_list')->where('class_name', Session::get('user_class'))->orderBy('class_subject_id')->get();
             $announcement = DB::table('announcement_list')->where('annouce_class', Session::get('user_class'))->orderBy('created_at', 'DESC')->get();
-            $folders = DB::table('student_note_folder_list')->where('student_name', Session::get('username'))->where('active_status', 1)->orderBy('student_folder_id', 'ASC')->get();
+            $folders = DB::table('student_note_folder_list')->where('student_id', Session::get('username'))->where('active_status', 1)->orderBy('student_folder_id', 'ASC')->get();
             $note = DB::table('student_note_list')->where('student_id', Session::get('username'))->where('student_note_id', $student_note_id)->get();
             return view('student/studentEditNote', compact('subjects', 'announcement', 'folders', 'note'));
         }
@@ -53,7 +53,7 @@ class studentNoteController extends Controller
         } 
         else {
             DB::select('insert into student_note_list (student_id, student_note_name, student_note_content, student_note_subject_id, student_note_subFolder, share_status, educator_approval_status, active_status, deleted_date, student_class) 
-            values (?,?,?,?,?,?,?,?,?,?)', [$student_name, $student_note_name, $student_note_content, $student_note_subject, $student_note_subFolder, $share_status, 0, 1, NULL, Session::get('student_class')]);
+            values (?,?,?,?,?,?,?,?,?,?)', [$student_name, $student_note_name, $student_note_content, $student_note_subject, $student_note_subFolder, $share_status, NULL, 1, NULL, Session::get('student_class')]);
 
             return redirect('studentAddNote')->with('pass_status', 'Note  Added Successfully.');
         }
@@ -106,7 +106,7 @@ class studentNoteController extends Controller
             $subjects = DB::table('class_subject_list')->where('class_name', Session::get('user_class'))->orderBy('class_subject_id')->get();
             $announcement = DB::table('announcement_list')->where('annouce_class', Session::get('user_class'))->orderBy('created_at', 'DESC')->get();
             $notes = DB::table('student_note_list')->where('student_id', Session::get('username'))->where('active_status', 0)->orderBy('deleted_date', 'ASC')->get();
-            $folders_dropdown = DB::table('student_note_folder_list')->where('student_name', Session::get('username'))->orderBy('student_folder_id', 'ASC')->get();
+            $folders_dropdown = DB::table('student_note_folder_list')->where('student_id', Session::get('username'))->orderBy('student_folder_id', 'ASC')->get();
             return view('student/studentDeletedNote', compact('subjects', 'announcement', 'notes', 'folders_dropdown'));
         }
     }

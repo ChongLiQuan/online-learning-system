@@ -62,10 +62,10 @@ class educatorContentController extends Controller
         if (Session::get('username') == null) {
             return view('userInvalidSession');
         } else {
-            $username = Session::get('username');
-            $subjects = DB::table('class_subject_list')->where('educator_id', $username)->orderBy('class_subject_id')->get();
+            $username = Session::get('user_full_name');
+            $subjects = DB::table('class_subject_list')->where('educator_id', Session::get('username'))->orderBy('class_subject_id')->get();
             $announcement = DB::table('announcement_list')->where('annouce_educator', $username)->orderBy('annouce_id', 'DESC')->get();
-            $folders = DB::table('student_note_folder_list')->where('student_name', Session::get('username'))->orderBy('student_folder_id', 'ASC')->get();
+            $folders = DB::table('student_note_folder_list')->where('student_id', Session::get('username'))->orderBy('student_folder_id', 'ASC')->get();
             $note = DB::table('student_note_list')->where('student_note_id', $student_note_id)->get();
             return view('educator/educatorViewNote', compact('subjects', 'announcement', 'folders', 'note'));
         }
@@ -87,5 +87,57 @@ class educatorContentController extends Controller
         DB::table('student_note_list')->where('student_note_id', $edit_id)->update(['educator_approval_status' => 0]);
 
         return redirect('educatorHomepage')->with('pass_status', 'Note Rejected Successfully.');
+    }
+
+    public function eduFilterSubject(Request $request)
+    {
+        $filter_id = $request->input('filter_id');
+
+        if (Session::get('username') == null) {
+            return view('userInvalidSession');
+        } else {
+            $username = Session::get('username');
+            $subjects = DB::table('class_subject_list')->where('educator_id', $username)->orderBy('class_subject_id')->get();
+            $username = Session::get('user_full_name');
+            $announcement = DB::table('announcement_list')->where('annouce_educator', $username)->orderBy('annouce_id', 'DESC')->get();
+            $classes = DB::table('class_subject_list')->where('educator_id', Session::get('username'))->distinct()->get('class_name');
+
+            $notes = DB::table('student_note_list')
+                ->join('class_subject_list', 'class_subject_list.class_subject_id', '=', 'student_note_list.student_note_subject_id')
+                ->where('class_subject_list.educator_id', Session::get('username'))
+                ->where('student_note_list.share_status', 1)
+                ->where('student_note_list.educator_approval_status', NULL)
+                ->where('student_note_list.educator_approval_status', NULL)
+                ->where('class_subject_list.subject_code', $filter_id)
+                ->get();
+
+            return view('educator/educatorHomepage', compact('subjects', 'announcement', 'notes', 'classes'));
+        }
+    }
+
+    public function eduFilterClass(Request $request)
+    {
+        $filter_id = $request->input('filter_id');
+
+        if (Session::get('username') == null) {
+            return view('userInvalidSession');
+        } else {
+            $username = Session::get('username');
+            $subjects = DB::table('class_subject_list')->where('educator_id', $username)->orderBy('class_subject_id')->get();
+            $username = Session::get('user_full_name');
+            $announcement = DB::table('announcement_list')->where('annouce_educator', $username)->orderBy('annouce_id', 'DESC')->get();
+            $classes = DB::table('class_subject_list')->where('educator_id', Session::get('username'))->distinct()->get('class_name');
+
+            $notes = DB::table('student_note_list')
+                ->join('class_subject_list', 'class_subject_list.class_subject_id', '=', 'student_note_list.student_note_subject_id')
+                ->where('class_subject_list.educator_id', Session::get('username'))
+                ->where('student_note_list.share_status', 1)
+                ->where('student_note_list.educator_approval_status', NULL)
+                ->where('student_note_list.educator_approval_status', NULL)
+                ->where('class_subject_list.class_name', $filter_id)
+                ->get();
+
+            return view('educator/educatorHomepage', compact('subjects', 'announcement', 'notes', 'classes'));
+        }
     }
 }

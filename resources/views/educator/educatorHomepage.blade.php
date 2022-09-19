@@ -15,9 +15,51 @@
     <p style="text-align:center; color:green;"><b>{{ session('pass_status') }}</b></p>
     @endif
 
-    @foreach($notes as $n)
+    <table border='0' style=' width:100%; text-align:center'>
+        <tr>
+            <td>
+                <form action="{{route('eduFilterSubject')}}" method="post" class="form-group">
+                    <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+                    <select name='filter_id' class="field_input">
+                        <option class="field_input" name="filter_id">By Subject Code</option>
+                        @foreach($subjects as $s)
+                        <option name="filter_id" value="{{ $s->subject_code }}"> {{ $s->subject_code }}</option>
+                        @endforeach
+                    </select>
 
-    <table border=0 width='100%'>
+                    <button class="button field_button">
+                        <span class="button_text">Search</span>
+                    </button>
+                </form>
+            </td>
+
+            <td>
+                <form action="{{route('eduFilterClass')}}" method="post" class="form-group">
+                    <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+                    <select name='filter_id' class="field_input">
+                        <option name="filter_id">By Class</option>
+                        @foreach($classes as $c)
+                        <option name="filter_id" value="{{ $c->class_name }}"> {{ $c->class_name }}</option>
+                        @endforeach
+                    </select>
+
+                    <button class="button field_button">
+                        <span class="button_text">Search</span>
+                    </button>
+                </form>
+            </td>
+
+            <td>
+                <form action="educatorHomepage">
+                    <button class="button field_button">
+                        <span class="button_text">Display All</span>
+                </form>
+            </td>
+        </tr>
+    </table>
+
+
+    <table class='note_list' border=0 width='100%'>
         <colgroup>
             <col span="1" style="width: 10%;">
             <col span="1" style="width: 30%;">
@@ -46,6 +88,8 @@
             <p>Preview</p>
         </th>
 
+        @foreach($notes as $n)
+
         <tr>
             <td style="text-align: center;">
                 <p>{{ $n->student_note_id }}</p>
@@ -64,7 +108,8 @@
             </td>
 
             <td style="text-align: center;">
-                <p>{{ $n->student_id }}</p>
+                <?php $student_name = DB::table('student_list')->where('student_id', $n->student_id)->pluck('student_name')->first(); ?>
+                <p>{{ $student_name }}</p>
             </td>
 
             <td style="text-align: center;">
@@ -73,11 +118,11 @@
                         <span class="button_text">Preview</span></a>
                 </button>
             </td>
-        </tr>
-        
-    </table>
+            @endforeach
 
-    @endforeach
+        </tr>
+
+    </table>
 
 </article>
 

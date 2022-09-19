@@ -66,6 +66,7 @@ Route::get('/adminAddSubject', function () {
         return view('admin/adminAddSubject', compact('forms', 'classes', 'subjects'));
     }
 });
+
 Route::get('/adminEditSubject', function () {
     if (Session::get('username') == null) {
         return view('admin/adminInvalidSession');
@@ -163,7 +164,8 @@ Route::get('/educatorHomepage', function () {
         $subjects = DB::table('class_subject_list')->where('educator_id', $username)->orderBy('class_subject_id')->get();
         $username = Session::get('user_full_name');
         $announcement = DB::table('announcement_list')->where('annouce_educator', $username)->orderBy('annouce_id', 'DESC')->get();
-        
+        $classes = DB::table('class_subject_list')->where('educator_id', Session::get('username'))->distinct()->get('class_name');
+
         $notes = DB::table('student_note_list')
         ->join('class_subject_list', 'class_subject_list.class_subject_id', '=', 'student_note_list.student_note_subject_id')
         ->where('class_subject_list.educator_id', Session::get('username'))
@@ -171,9 +173,13 @@ Route::get('/educatorHomepage', function () {
         ->where('student_note_list.educator_approval_status', NULL)
         ->get();
 
-        return view('educator/educatorHomepage', compact('subjects', 'announcement', 'notes'));
+        return view('educator/educatorHomepage', compact('subjects', 'announcement', 'notes', 'classes'));
     }
 });
+
+Route::post('/eduFilterSubject', [App\Http\Controllers\educator\educatorContentController::class, 'eduFilterSubject'])->name("eduFilterSubject");
+Route::post('/eduFilterClass', [App\Http\Controllers\educator\educatorContentController::class, 'eduFilterClass'])->name("eduFilterClass");
+
 
 Route::get('/courseHome/{id}', function ($id) {
     if (Session::get('username') == null) {
