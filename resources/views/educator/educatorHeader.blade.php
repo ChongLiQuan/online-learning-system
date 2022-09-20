@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
+<?php
+$username = Session::get('username');
+$notification = DB::table('notification_list')->where('user_id', $username)->where('read_notification_status', 0)->get();
+$notificationCount = count($notification);
+?>
+
 <head>
   <meta charset="UTF-8">
 
@@ -34,7 +40,16 @@
         <a>Welcome Back, {{ Session::get('user_full_name') }}.&nbsp;&nbsp; |</a>
         <a href="/educatorHomepage">Home</a>
         <a href="/educatorProfile">Profile</a>
+
+        <a href="/notification" class='notification'>Notification
+
+          <?php if ($notificationCount > 0) { ?>
+            <span class="badge">{{ $notificationCount }}</span>
+          <?php } ?>
+        </a>
+
         <a href="/educatorAnnouncement">Announcement</a>
+
         <a href="/logout">Logout</a>
         <a>|</a>
       </b>

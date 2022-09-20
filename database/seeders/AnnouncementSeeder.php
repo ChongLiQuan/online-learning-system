@@ -71,38 +71,38 @@ class AnnouncementSeeder extends Seeder
         //For the announcement status 
 
         DB::table('announcement_status')->insert([
-            'student_name' => 'Roseane Kim',
+            'student_id' => 'STU_20221',
             'annouce_id' => '1',
             'annouce_status' => '0',
         ]);
 
         DB::table('announcement_status')->insert([
-            'student_name' => 'Yee Ching Sin',
+            'student_id' => 'STU_20222',
             'annouce_id' => '1',
             'annouce_status' => '0',
         ]);
 
 
         DB::table('announcement_status')->insert([
-            'student_name' => 'Roseane Kim',
+            'student_id' => 'STU_20221',
             'annouce_id' => '2',
             'annouce_status' => '0',
         ]);
 
         DB::table('announcement_status')->insert([
-            'student_name' => 'Yee Ching Sin',
+            'student_id' => 'STU_20222',
             'annouce_id' => '2',
             'annouce_status' => '0',
         ]);
 
         DB::table('announcement_status')->insert([
-            'student_name' => 'Jisoo Rabbit Kim',
+            'student_id' => 'STU_20223',
             'annouce_id' => '3',
             'annouce_status' => '0',
         ]);
 
         DB::table('announcement_status')->insert([
-            'student_name' => 'Jisoo Rabbit Kim',
+            'student_id' => 'STU_20223',
             'annouce_id' => '4',
             'annouce_status' => '0',
         ]);

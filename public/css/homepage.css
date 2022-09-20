@@ -414,3 +414,17 @@ table.note_list {
   text-decoration: none;
   transition: all 0.3s ease;
 }
+
+table.notificationTable {
+  text-align: left;
+  background: rgb(255, 255, 255);
+  width: 99%;
+  height: 10px;
+  font-size: 14px;
+  overflow-y: auto;
+  /* Trigger vertical scroll    */
+  overflow-x: hidden;
+  /* Hide the horizontal scroll */
+  transition: all 0.3s ease;
+}
+

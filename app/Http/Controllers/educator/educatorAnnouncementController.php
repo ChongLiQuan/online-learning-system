@@ -34,12 +34,12 @@ class educatorAnnouncementController extends Controller
             $annouce_id = DB::table('announcement_list')->where('created_at', $annouce_date)->pluck('annouce_id')->first();
 
             //Fetch the student name from the student list that are in this announcement class
-            $count = DB::table('student_list')->select('student_name')->where('student_class', $annouce_class)->get();
+            $count = DB::table('student_list')->select('student_id')->where('student_class', $annouce_class)->get();
 
             //Add each student and status for this current announcement
             foreach ($count as $c) {
                 $dataSet[] = [
-                    'student_name'  => $c->student_name,
+                    'student_id'  => $c->student_id,
                     'annouce_id'    => $annouce_id,
                     'annouce_status'       => 0,
                 ];
@@ -92,14 +92,14 @@ class educatorAnnouncementController extends Controller
 
             DB::table('announcement_status')->where('annouce_id', [$edit_id])->delete();
 
-            $count = DB::table('student_list')->select('student_name')->where('student_class', $annouce_class)->get();
+            $count = DB::table('student_list')->select('student_id')->where('student_class', $annouce_class)->get();
             $count_int = count($count); //Convert the dara into integer to do comparison for the validation below
             
             //Check if the selected class is empty 
             if($count_int > 0){
                 foreach ($count as $c) {
                     $dataSet[] = [
-                        'student_name'  => $c->student_name,
+                        'student_id'  => $c->student_id,
                         'annouce_id'    => $edit_id,
                         'annouce_status'       => 0,
                     ];
@@ -115,32 +115,4 @@ class educatorAnnouncementController extends Controller
         }
     }
 
-    public function uploadImage(Request $request)
-    {
-        if ($request->hasFile('upload')) {
-            //get filename with extension
-            $filenamewithextension = $request->file('upload')->getClientOriginalName();
-
-            //get filename without extension
-            $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
-
-            //get file extension
-            $extension = $request->file('upload')->getClientOriginalExtension();
-
-            //filename to store
-            $filenametostore = $filename . '_' . time() . '.' . $extension;
-
-            //Upload File
-            $request->file('upload')->storeAs('public/uploads', $filenametostore);
-
-            $CKEditorFuncNum = $request->input('CKEditorFuncNum');
-            $url = asset('storage/uploads/' . $filenametostore);
-            $msg = 'Image successfully uploaded';
-            $re = "<script>window.parent.CKEDITOR.tools.callFunction($CKEditorFuncNum, '$url', '$msg')</script>";
-
-            // Render HTML output
-            @header('Content-type: text/html; charset=utf-8');
-            echo $re;
-        }
-    }
 }

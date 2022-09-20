@@ -13,10 +13,12 @@
 </head>
 
 <?php
-$username = Session::get('user_full_name');
-$announcement = DB::table('announcement_status')->where('student_name', $username)->where('annouce_status', 0)->get();
+$username = Session::get('username');
+$announcement = DB::table('announcement_status')->where('student_id', $username)->where('annouce_status', 0)->get();
 $announcementCount = count($announcement);
-Session::put('announcement', $announcementCount);
+
+$notification = DB::table('notification_list')->where('user_id', $username)->where('read_notification_status', 0)->get();
+$notificationCount = count($notification);
 ?>
 
 <body>
@@ -41,10 +43,18 @@ Session::put('announcement', $announcementCount);
         <a>Welcome Back, {{ Session::get('user_full_name') }}. &nbsp;&nbsp; |</a>
         <a href="/studentHomepage">Home</a>
         <a href="/">Profile</a>
+
+        <a href="/notification" class='notification'>Notification
+
+          <?php if ($notificationCount > 0) { ?>
+            <span class="badge">{{ $notificationCount }}</span>
+          <?php } ?>
+        </a>
+
         <a href="/studentAnnouncement" class='notification'>Announcement
 
-          <?php if (Session::get('announcement') > 0) { ?>
-            <span class="badge">{{ Session::get('announcement') }}</span>
+          <?php if ($announcementCount > 0) { ?>
+            <span class="badge">{{ $announcementCount }}</span>
           <?php } ?>
 
         </a>

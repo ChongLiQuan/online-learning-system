@@ -84,6 +84,24 @@ class studentNoteController extends Controller
         else {
             DB::table('student_note_list')->where('student_note_id', $student_note_id)->update($data);
 
+            if($share_status == 1){
+                $stu_message = "Note " . $student_note_name . " has been requested for approval. Please wait for the educator to review it. Thank you."; 
+                $stu_title = " Notes Share Request Status";
+                $current_date_time = \Carbon\Carbon::now()->toDateTimeString();
+
+                DB::select('insert into notification_list (user_id, notification_title, notification_content, created_at, read_notification_status) 
+                values (?,?,?,?,?)', [Session::get('username'), $stu_title, $stu_message, $current_date_time, 0]);
+
+                //Find the note subject educator
+                $edu_id = DB::table('class_subject_list')->where('class_subject_id', $student_note_subject_id)->pluck('educator_id')->first();
+
+                $edu_message = "Note " . $student_note_name . " from student " . Session::get('user_full_name') . " has been requested for share approval with the class. ";  
+                $edu_title = " New Notes Share Request Has Been Received";
+
+                DB::select('insert into notification_list (user_id, notification_title, notification_content, created_at, read_notification_status) 
+                values (?,?,?,?,?)', [$edu_id, $edu_title, $edu_message, $current_date_time, 0]);
+            }
+
             return back()->with('pass_status', 'Note Added Successfully.');
         }
     }

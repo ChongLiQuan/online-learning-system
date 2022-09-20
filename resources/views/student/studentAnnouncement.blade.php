@@ -12,67 +12,71 @@
         @endif
 
         @foreach($list as $l)
-        <br />
-        <table class='announcement' border='0'>
+        <?php
+        $status = DB::table('announcement_status')->where('annouce_id', $l->annouce_id)->where('student_id', Session::get('username'))->pluck('annouce_status')->first();
+        ?>
 
-            <colgroup>
-                <col span="1" style="width: 60%;">
-                <col span="1" style="width: 15%;">
-                <col span="1" style="width: 15%;">
-                <col span="1" style="width: 5%;">
-                <col span="1" style="width: 5%;">
-            </colgroup>
+        <?php if ($status == 0) { ?>
+            <table class='announcement' border='0' style="background-color:#FFFFE0">
+            <?php  } elseif ($status == 1) { ?>
+                <table class='announcement' border='0'>
+                <?php } ?>
 
-            <tr>
-                <td>
-                    <h3><u>{{ $l->annouce_title }}</u></h3>
-                </td>
-                <td>
-                    <p> {{ $l->created_at }} </p>
-                </td>
-                <td>
-                    <p>Updated: {{ $l->updated_at }} </p>
-                </td>
-                <td style="text-align:center;">
-                    <p> {{ $l->annouce_subject }} </p>
-                </td>
-                <td style="text-align:center;">
-                    <p> {{ $l->annouce_class }} </p>
-                </td>
-            </tr>
+                <colgroup>
+                    <col span="1" style="width: 60%;">
+                    <col span="1" style="width: 15%;">
+                    <col span="1" style="width: 15%;">
+                    <col span="1" style="width: 5%;">
+                    <col span="1" style="width: 5%;">
+                </colgroup>
 
-            <tr>
-                <td colspan="5">
-                    <hr />
+                <tr>
+                    <td>
+                        <h3><u>{{ $l->annouce_title }}</u></h3>
+                    </td>
+                    <td>
+                        <p> {{ $l->created_at }} </p>
+                    </td>
+                    <td>
+                        <p>Updated: {{ $l->updated_at }} </p>
+                    </td>
+                    <td style="text-align:center;">
+                        <p> {{ $l->annouce_subject }} </p>
+                    </td>
+                    <td style="text-align:center;">
+                        <p> {{ $l->annouce_class }} </p>
+                    </td>
+                </tr>
 
-                    <p> {!! $l->annouce_content !!} </p>
-                </td>
-            </tr>
+                <tr>
+                    <td colspan="5">
+                        <hr />
 
-            <tr>
-                <td colspan="5" style='text-align:right'>
-                    <form action="{{route('readAnnouncement')}}" method='POST' class='form-group' action='/' enctype='multipart/form-data'>
-                        <input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'>
-                        <input type='hidden' name='announcement_id' value="{{ $l->annouce_id }}">
-                        <?php
-                        $status = DB::table('announcement_status')->where('annouce_id', $l->annouce_id)->where('student_name', Session::get('user_full_name'))->pluck('annouce_status')->first();
-                        ?>
-                        <button class="button login_submit" <?php if ($status == '1') { ?> disabled <?php   } ?>>
-                            <span class="button_text">Read</span>
-                        </button>
-                    </form>
-                </td>
-            </tr>
+                        <p> {!! $l->annouce_content !!} </p>
+                    </td>
+                </tr>
 
-        </table>
-        <br /> <br />
+                <tr>
+                    <td colspan="5" style='text-align:right'>
+                        <form action="{{route('readAnnouncement')}}" method='POST' class='form-group' action='/' enctype='multipart/form-data'>
+                            <input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'>
+                            <input type='hidden' name='announcement_id' value="{{ $l->annouce_id }}">
+                            <button class="button login_submit" <?php if ($status == '1') { ?> disabled <?php   } ?>>
+                                <span class="button_text">Read</span>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
 
-        <hr />
-        @endforeach
+                </table>
+                <br /> <br />
 
-        <script type="text/javascript">
-            CKEDITOR.replace('announcement_content', {
-                filebrowserUploadUrl: "{{route('uploadImage', ['_token' => csrf_token() ])}}",
-                filebrowserUploadMethod: 'form'
-            });
-        </script>
+                <hr />
+                @endforeach
+
+                <script type="text/javascript">
+                    CKEDITOR.replace('announcement_content', {
+                        filebrowserUploadUrl: "{{route('uploadImage', ['_token' => csrf_token() ])}}",
+                        filebrowserUploadMethod: 'form'
+                    });
+                </script>
