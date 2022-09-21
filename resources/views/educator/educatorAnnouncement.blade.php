@@ -38,10 +38,12 @@
                     <p>Updated: {{ $l->updated_at }} </p>
                 </td>
                 <td style="text-align:center;">
-                    <p> {{ $l->annouce_subject }} </p>
+                    <?php $subject = DB::table('class_subject_list')->where('class_subject_id', $l->class_subject_id)->pluck('subject_code')->first(); ?>
+                    <p> {{ $subject }} </p>
                 </td>
                 <td style="text-align:center;">
-                    <p> {{ $l->annouce_class }} </p>
+                    <?php $class = DB::table('class_subject_list')->where('class_subject_id', $l->class_subject_id)->pluck('class_name')->first(); ?>
+                    <p> {{ $class }} </p>
                 </td>
             </tr>
 
@@ -65,7 +67,8 @@
                 </td>
 
                 <td colspan="5" style='text-align:center'>
-                    <form action="{{route('deleteComment')}}" method='POST' class='form-group' action='/' enctype='multipart/form-data'>
+                    <form action="{{route('deleteAnnouncement')}}" method='POST' class='form-group' action='/' enctype='multipart/form-data'>
+                        <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>"> @csrf
                         <input type='hidden' name='delete_id' value="{{ $l->annouce_id }}">
                         <button class="button delete_button">
                             <span class="button_text" onclick="return confirm('Are you sure?')">Delete</span>

@@ -167,11 +167,11 @@ Route::get('/educatorHomepage', function () {
         $classes = DB::table('class_subject_list')->where('educator_id', Session::get('username'))->distinct()->get('class_name');
 
         $notes = DB::table('student_note_list')
-        ->join('class_subject_list', 'class_subject_list.class_subject_id', '=', 'student_note_list.student_note_subject_id')
-        ->where('class_subject_list.educator_id', Session::get('username'))
-        ->where('student_note_list.share_status', 1)
-        ->where('student_note_list.educator_approval_status', NULL)
-        ->get();
+            ->join('class_subject_list', 'class_subject_list.class_subject_id', '=', 'student_note_list.student_note_subject_id')
+            ->where('class_subject_list.educator_id', Session::get('username'))
+            ->where('student_note_list.share_status', 1)
+            ->where('student_note_list.educator_approval_status', NULL)
+            ->get();
 
         return view('educator/educatorHomepage', compact('subjects', 'announcement', 'notes', 'classes'));
     }
@@ -202,9 +202,8 @@ Route::get('/educatorAddAnnouncement', function () {
         return view('userInvalidSession');
     } else {
         $username = Session::get('username');
-        $subjects = DB::table('class_subject_list')->where('educator_id', $username)->groupBy('subject_code')->get();
-        $classes = DB::table('class_subject_list')->where('educator_id', $username)->groupBy('class_name')->get();
-        return view('educator/educatorAddAnnouncement', compact('subjects', 'classes'));
+        $subjects = DB::table('class_subject_list')->where('educator_id', $username)->get();
+        return view('educator/educatorAddAnnouncement', compact('subjects'));
     }
 });
 
@@ -226,9 +225,9 @@ Route::get('/educatorEditAnnouncement', function () {
         return view('userInvalidSession');
     } else {
         $username = Session::get('username');
-        $subjects = DB::table('class_subject_list')->where('educator_id', $username)->groupBy('subject_code')->get();
-        $classes = DB::table('class_subject_list')->where('educator_id', $username)->groupBy('class_name')->get();
-        return view('educator/educatorEditAnnouncement', compact('subjects', 'classes'));
+        $subjects = DB::table('class_subject_list')->where('educator_id', $username)->get();
+
+        return view('educator/educatorEditAnnouncement', compact('subjects'));
     }
 });
 
@@ -368,7 +367,11 @@ Route::get('/studentAnnouncement', function () {
         return view('userInvalidSession');
     } else {
         $username = Session::get('username');
-        $list = DB::table('announcement_list')->where('annouce_class', Session::get('user_class'))->orderBy('created_at', 'DESC')->get();
+        $list = DB::table('announcement_list')
+            ->join('class_subject_list', 'class_subject_list.class_subject_id', '=', 'announcement_list.class_subject_id')
+            ->where('class_subject_list.class_name', Session::get('user_class'))
+            ->orderBy('announcement_list.created_at', 'DESC')
+            ->get();
         return view('student/studentAnnouncement', compact('list'));
     }
 });
@@ -380,7 +383,11 @@ Route::get('/studentAddNote', function () {
         return view('userInvalidSession');
     } else {
         $subjects = DB::table('class_subject_list')->where('class_name', Session::get('user_class'))->orderBy('class_subject_id')->get();
-        $announcement = DB::table('announcement_list')->where('annouce_class', Session::get('user_class'))->orderBy('created_at', 'DESC')->get();
+        $announcement = DB::table('announcement_list')
+            ->join('class_subject_list', 'class_subject_list.class_subject_id', '=', 'announcement_list.class_subject_id')
+            ->where('class_subject_list.class_name', Session::get('user_class'))
+            ->orderBy('announcement_list.created_at', 'DESC')
+            ->get();
         $folders = DB::table('student_note_folder_list')->where('student_id', Session::get('username'))->where('active_status', 1)->orderBy('student_folder_id', 'ASC')->get();
         return view('student/studentAddNote', compact('subjects', 'announcement', 'folders'));
     }

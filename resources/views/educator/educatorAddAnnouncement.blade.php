@@ -16,19 +16,11 @@
 
             <input type="hidden" name="annouce_edu" value=" {{ Session::get('user_full_name') }}">
             <input type="text" name="annouce_title" class="announcement_title" placeholder="Annonucement Title" autocomplete="off" align='left' size='40%' required>
-            <label>Choose a Subject:</label>
+            <label>Choose a Subject of a Class:</label>
 
             <select name='annouce_subject'>
                 @foreach($subjects as $s)
-                <option name="annouce_subject" value="{{ $s->subject_code }}">{{ $s->subject_code  }}</option>
-                @endforeach
-            </select>
-
-            <label>Choose a Class:</label>
-
-            <select name='annouce_class'>
-                @foreach($classes as $s)
-                <option name="annouce_class" value="{{ $s->class_name }}">{{ $s->class_name  }}</option>
+                <option name="annouce_subject" value="{{ $s->class_subject_id }}">[{{ $s->subject_code }}] {{ $s->class_name }}</option>
                 @endforeach
             </select>
 

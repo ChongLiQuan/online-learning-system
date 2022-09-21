@@ -17,7 +17,11 @@ class studentNoteController extends Controller
             Session::put('current_note_id', $student_note_id);
 
             $subjects = DB::table('class_subject_list')->where('class_name', Session::get('user_class'))->orderBy('class_subject_id')->get();
-            $announcement = DB::table('announcement_list')->where('annouce_class', Session::get('user_class'))->orderBy('created_at', 'DESC')->get();
+            $announcement = DB::table('announcement_list')
+                ->join('class_subject_list', 'class_subject_list.class_subject_id', '=', 'announcement_list.class_subject_id')
+                ->where('class_subject_list.class_name', Session::get('user_class'))
+                ->orderBy('announcement_list.created_at', 'DESC')
+                ->get();
             $folders = DB::table('student_note_folder_list')->where('student_id', Session::get('username'))->orderBy('student_folder_id', 'ASC')->get();
             $note = DB::table('student_note_list')->where('student_id', Session::get('username'))->where('student_note_id', $student_note_id)->get();
             return view('student/studentViewNote', compact('subjects', 'announcement', 'folders', 'note'));
@@ -30,7 +34,11 @@ class studentNoteController extends Controller
             return view('userInvalidSession');
         } else {
             $subjects = DB::table('class_subject_list')->where('class_name', Session::get('user_class'))->orderBy('class_subject_id')->get();
-            $announcement = DB::table('announcement_list')->where('annouce_class', Session::get('user_class'))->orderBy('created_at', 'DESC')->get();
+            $announcement = DB::table('announcement_list')
+                ->join('class_subject_list', 'class_subject_list.class_subject_id', '=', 'announcement_list.class_subject_id')
+                ->where('class_subject_list.class_name', Session::get('user_class'))
+                ->orderBy('announcement_list.created_at', 'DESC')
+                ->get();
             $folders = DB::table('student_note_folder_list')->where('student_id', Session::get('username'))->where('active_status', 1)->orderBy('student_folder_id', 'ASC')->get();
             $note = DB::table('student_note_list')->where('student_id', Session::get('username'))->where('student_note_id', $student_note_id)->get();
             return view('student/studentEditNote', compact('subjects', 'announcement', 'folders', 'note'));
@@ -46,14 +54,31 @@ class studentNoteController extends Controller
         $student_note_subFolder = $request->input('student_note_subFolder');
         $share_status = $request->input('share_status');
 
-        if ($student_note_name == NULL) {
-            return redirect('studentAddNote')->with('error_status', 'Please enter a note title!');
-        }elseif( $student_note_subFolder == NULL){
+        if ($share_status == 1 and $student_note_subject == NULL) {
+            return redirect('studentAddNote')->with('error_status', 'Note without a subject cannot be share!');
+        } elseif ($student_note_subFolder == NULL) {
             return redirect('studentAddNote')->with('error_status', 'Please select a folder!');
-        } 
-        else {
+        } else {
             DB::select('insert into student_note_list (student_id, student_note_name, student_note_content, student_note_subject_id, student_note_subFolder, share_status, educator_approval_status, active_status, deleted_date, student_class) 
             values (?,?,?,?,?,?,?,?,?,?)', [$student_name, $student_note_name, $student_note_content, $student_note_subject, $student_note_subFolder, $share_status, NULL, 1, NULL, Session::get('student_class')]);
+
+            if ($share_status == 1) {
+                $stu_message = "Note " . $student_note_name . " has been requested for approval. Please wait for the educator to review it. Thank you.";
+                $stu_title = " Notes Share Request Status";
+                $current_date_time = \Carbon\Carbon::now()->toDateTimeString();
+
+                DB::select('insert into notification_list (user_id, notification_title, notification_content, created_at, read_notification_status) 
+                values (?,?,?,?,?)', [Session::get('username'), $stu_title, $stu_message, $current_date_time, 0]);
+
+                //Find the note subject educator
+                $edu_id = DB::table('class_subject_list')->where('class_subject_id', $student_note_subject)->pluck('educator_id')->first();
+
+                $edu_message = "Note " . $student_note_name . " from student " . Session::get('user_full_name') . " has been requested for share approval with the class. ";
+                $edu_title = " New Notes Share Request Has Been Received";
+
+                DB::select('insert into notification_list (user_id, notification_title, notification_content, created_at, read_notification_status) 
+                values (?,?,?,?,?)', [$edu_id, $edu_title, $edu_message, $current_date_time, 0]);
+            }
 
             return redirect('studentAddNote')->with('pass_status', 'Note  Added Successfully.');
         }
@@ -76,16 +101,35 @@ class studentNoteController extends Controller
             "share_status" => $share_status,
         );
 
-        if ($student_note_name == NULL) {
-            return redirect('studentEditNoteView')->with('error_status', 'Please enter a note title!');
-        }elseif( $student_note_subFolder == NULL){
+        if ($share_status == 1 and $student_note_subject_id == NULL) {
+            return redirect('studentAddNote')->with('error_status', 'Note without a subject cannot be share!');
+        } elseif ($student_note_subFolder == NULL) {
             return redirect('studentEditNoteView')->with('error_status', 'Please select a folder!');
-        } 
-        else {
+        } else {
             DB::table('student_note_list')->where('student_note_id', $student_note_id)->update($data);
 
-            if($share_status == 1){
-                $stu_message = "Note " . $student_note_name . " has been requested for approval. Please wait for the educator to review it. Thank you."; 
+            //Check if original status is 1 and change back to not share 0
+            //Requested note, now drawback and cancel share status
+            if ($share_status == 0 and Session::get('previous_share_status') == 1) {
+
+                $stu_message = "Note " . $student_note_name . " share status has been cancelled. Thank you.";
+                $stu_title = " [Cancelled] Notes Share Request Status Has Been Drawback";
+                $current_date_time = \Carbon\Carbon::now()->toDateTimeString();
+
+                DB::select('insert into notification_list (user_id, notification_title, notification_content, created_at, read_notification_status) 
+                values (?,?,?,?,?)', [Session::get('username'), $stu_title, $stu_message, $current_date_time, 0]);
+
+                //Find the note subject educator
+                $edu_id = DB::table('class_subject_list')->where('class_subject_id', $student_note_subject_id)->pluck('educator_id')->first();
+
+                $edu_message = "Note " . $student_note_name . " from student " . Session::get('user_full_name') . " has cancelled to share the note with the class. ";
+                $edu_title = " Notes Share Request Has Been Drawback";
+
+                DB::select('insert into notification_list (user_id, notification_title, notification_content, created_at, read_notification_status) 
+                values (?,?,?,?,?)', [$edu_id, $edu_title, $edu_message, $current_date_time, 0]);
+
+            } elseif ($share_status == 1) {
+                $stu_message = "Note " . $student_note_name . " has been requested for approval. Please wait for the educator to review it. Thank you.";
                 $stu_title = " Notes Share Request Status";
                 $current_date_time = \Carbon\Carbon::now()->toDateTimeString();
 
@@ -95,21 +139,21 @@ class studentNoteController extends Controller
                 //Find the note subject educator
                 $edu_id = DB::table('class_subject_list')->where('class_subject_id', $student_note_subject_id)->pluck('educator_id')->first();
 
-                $edu_message = "Note " . $student_note_name . " from student " . Session::get('user_full_name') . " has been requested for share approval with the class. ";  
+                $edu_message = "Note " . $student_note_name . " from student " . Session::get('user_full_name') . " has been requested for share approval with the class. ";
                 $edu_title = " New Notes Share Request Has Been Received";
 
                 DB::select('insert into notification_list (user_id, notification_title, notification_content, created_at, read_notification_status) 
                 values (?,?,?,?,?)', [$edu_id, $edu_title, $edu_message, $current_date_time, 0]);
             }
 
-            return back()->with('pass_status', 'Note Added Successfully.');
+            return back()->with('pass_status', 'Note Update Successfully.');
         }
     }
 
-    public function studentDeleteNote (Request $request)
+    public function studentDeleteNote(Request $request)
     {
         $id = $request->input('delete_id');
-        
+
         $current_date_time = \Carbon\Carbon::now()->toDateTimeString();
         DB::table('student_note_list')->where('student_note_id', [$id])->update(['deleted_date' => $current_date_time, 'active_status' => 0]);
 

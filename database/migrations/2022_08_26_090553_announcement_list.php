@@ -18,11 +18,8 @@ return new class extends Migration
 
             $table->string('annouce_title');
 
-            $table->string('annouce_subject');
-            $table->foreign('annouce_subject')->references('subject_code')->on('class_subject_list')->onDelete('cascade'); 
-
-            $table->string('annouce_class');
-            $table->foreign('annouce_class')->references('class_name')->on('class_subject_list')->onDelete('cascade'); 
+            $table->integer('class_subject_id')->unsigned()->default(0);
+            $table->foreign('class_subject_id')->references('class_subject_id')->on('class_subject_list')->onDelete('cascade'); 
 
             $table->text('annouce_content');
 

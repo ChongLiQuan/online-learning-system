@@ -17,24 +17,21 @@ class educatorAnnouncementController extends Controller
         $annouce_educator = $request->input('annouce_edu');
         $annouce_title = $request->input('annouce_title');
         $annouce_subject = $request->input('annouce_subject');
-        $annouce_class = $request->input('annouce_class');
         $annouce_content = $request->input('annouce_content');
         $annouce_date = $current_date_time;
 
-        //Check if the class exist for the specific subject
-        $checker = DB::select('select * from class_subject_list where subject_code = ? and class_name = ?', [$annouce_subject, $annouce_class]);
-
-        if ($checker == NULL) {
-            return redirect('educatorAddAnnouncement')->with('error_status', 'Error! Selected Subject or Class Name Does Not Exist!');
+        if ($annouce_title == NULL) {
+            return redirect('educatorAddAnnouncement')->with('error_status', 'Error! Please enter an Announcement Title!');
         } else {
-            DB::select('insert into announcement_list (annouce_title, annouce_subject, annouce_class, annouce_content, annouce_educator, created_at) 
-            values (?,?,?,?,?,?)', [$annouce_title, $annouce_subject, $annouce_class, $annouce_content, $annouce_educator, $annouce_date]);
+            DB::select('insert into announcement_list (annouce_title, class_subject_id, annouce_content, annouce_educator, created_at) 
+            values (?,?,?,?,?)', [$annouce_title, $annouce_subject, $annouce_content, $annouce_educator, $annouce_date]);
 
             //Fetch the current created auto incremented announcement id
             $annouce_id = DB::table('announcement_list')->where('created_at', $annouce_date)->pluck('annouce_id')->first();
 
             //Fetch the student name from the student list that are in this announcement class
-            $count = DB::table('student_list')->select('student_id')->where('student_class', $annouce_class)->get();
+            $class = DB::table('class_subject_list')->where('class_subject_id', $annouce_subject)->pluck('class_name')->first();
+            $count = DB::table('student_list')->select('student_id')->where('student_class', $class)->get();
 
             //Add each student and status for this current announcement
             foreach ($count as $c) {
@@ -45,7 +42,7 @@ class educatorAnnouncementController extends Controller
                 ];
             }
             DB::table('announcement_status')->insert($dataSet);
-            return redirect('educatorAddAnnouncement')->with('pass_status', 'Announcement Published Successfully For Course ' . $annouce_subject . ' ' . $annouce_class);
+            return redirect('educatorAddAnnouncement')->with('pass_status', 'Announcement Published Successfully For Course ' . $annouce_subject . ' ' . $class);
         }
     }
 
@@ -63,36 +60,31 @@ class educatorAnnouncementController extends Controller
 
         $annouce_title = $request->input('annouce_title');
         $annouce_subject = $request->input('annouce_subject');
-        $annouce_class = $request->input('annouce_class');
         $annouce_content = $request->input('annouce_content');
 
         $this->validate($request, [
             'annouce_title' => 'required',
             'annouce_subject' => 'required',
-            'annouce_class' => 'required',
             'annouce_content' => 'required',
         ]);
 
         $data = array(
             "annouce_title" => $annouce_title,
-            "annouce_subject" => $annouce_subject,
-            "annouce_class" => $annouce_class,
+            "class_subject_id" => $annouce_subject,
             "annouce_content" => $annouce_content,
             'annouce_educator' => Session::get('user_full_name'),
             'updated_at' => NOW(),
         );
 
-        //Check if the class exist for the specific subject
-        $checker = DB::select('select * from class_subject_list where subject_code = ? and class_name = ?', [$annouce_subject, $annouce_class]);
-
-        if ($checker == NULL) {
+        if ($annouce_title == NULL) {
             return redirect('educatorAnnouncement')->with('delete_error_status', 'Error! Selected Subject or Class Name Does Not Exist!');
         } else {
             DB::table('announcement_list')->where('annouce_id', $edit_id)->update($data);
 
             DB::table('announcement_status')->where('annouce_id', [$edit_id])->delete();
 
-            $count = DB::table('student_list')->select('student_id')->where('student_class', $annouce_class)->get();
+            $class = DB::table('class_subject_list')->where('class_subject_id', $annouce_subject)->pluck('class_name')->first();
+            $count = DB::table('student_list')->select('student_id')->where('student_class', $class)->get();
             $count_int = count($count); //Convert the dara into integer to do comparison for the validation below
             
             //Check if the selected class is empty 
@@ -111,7 +103,7 @@ class educatorAnnouncementController extends Controller
                 return redirect('educatorAnnouncement')->with('delete_error_status', 'Error! Selected Class is Empty!');
             }
 
-            return redirect('educatorAnnouncement')->with('delete_pass_status', 'Announcement Edited Successfully For Course ' . $annouce_subject . ' ' . $annouce_class);
+            return redirect('educatorAnnouncement')->with('delete_pass_status', 'Announcement Edited Successfully For Course ' . $annouce_subject . ' ' . $class);
         }
     }
 

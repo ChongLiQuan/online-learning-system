@@ -24,19 +24,9 @@
 
             <select name='annouce_subject'>
                 @foreach($subjects as $s)
-                <option <?php if ($s->subject_code == $a->annouce_subject) {
+                <option <?php if ($s->class_subject_id == $a->class_subject_id) {
                             echo ("selected");
-                        } ?> name="annouce_subject" value="{{ $s->subject_code }}">{{ $s->subject_code }}</option>
-                @endforeach
-            </select>
-
-            <label>Choose a Class:</label>
-
-            <select name='annouce_class'>
-                @foreach($classes as $c)
-                <option <?php if (($c->class_name) == $a->annouce_class) {
-                            echo ("selected");
-                        } ?> name="annouce_class" value="{{ $c->class_name }}">{{ $c->class_name }}</option>
+                        } ?> name="annouce_subject" value="{{ $s->class_subject_id }}">[{{ $s->subject_code }}] {{ $s->class_name }}</option>
                 @endforeach
             </select>
 
