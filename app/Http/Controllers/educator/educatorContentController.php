@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Session;
 
 class educatorContentController extends Controller
 {
+
     public function addContent(Request $request)
     {
         $content_title = $request->input('content_title');
@@ -57,37 +58,7 @@ class educatorContentController extends Controller
         return back()->with('delete_status', 'Content Deleted Successfully! ');
     }
 
-    public function educatorViewNote($student_note_id)
-    {
-        if (Session::get('username') == null) {
-            return view('userInvalidSession');
-        } else {
-            $username = Session::get('user_full_name');
-            $subjects = DB::table('class_subject_list')->where('educator_id', Session::get('username'))->orderBy('class_subject_id')->get();
-            $announcement = DB::table('announcement_list')->where('annouce_educator', $username)->orderBy('annouce_id', 'DESC')->get();
-            $folders = DB::table('student_note_folder_list')->where('student_id', Session::get('username'))->orderBy('student_folder_id', 'ASC')->get();
-            $note = DB::table('student_note_list')->where('student_note_id', $student_note_id)->get();
-            return view('educator/educatorViewNote', compact('subjects', 'announcement', 'folders', 'note'));
-        }
-    }
 
-    public function approveStudentNote(Request $request)
-    {
-        $edit_id = $request->input('delete_id');
-
-        DB::table('student_note_list')->where('student_note_id', $edit_id)->update(['educator_approval_status' => 1]);
-
-        return redirect('educatorHomepage')->with('pass_status', 'Note Approved Successfully.');
-    }
-
-    public function rejectStudentNote(Request $request)
-    {
-        $edit_id = $request->input('delete_id');
-
-        DB::table('student_note_list')->where('student_note_id', $edit_id)->update(['educator_approval_status' => 0]);
-
-        return redirect('educatorHomepage')->with('pass_status', 'Note Rejected Successfully.');
-    }
 
     public function eduFilterSubject(Request $request)
     {

@@ -53,7 +53,6 @@
                 <tr>
                     <td colspan="5">
                         <hr />
-
                         <p> {!! $l->notification_content !!} </p>
                     </td>
                 </tr>

@@ -114,7 +114,7 @@
 
             <td style="text-align: center;">
                 <button class="add_folder_button">
-                    <a href="{{ route('educatorViewNote', ['student_note_id' => $n->student_note_id]) }}">
+                    <a href="{{ route('educatorReviewNotePage', ['student_note_id' => $n->student_note_id]) }}">
                         <span class="button_text">Preview</span></a>
                 </button>
             </td>

@@ -34,7 +34,7 @@
             <select name='share_status'>
                 <?php Session::put('previous_share_status', $n->share_status) ?>
                 <option name="share_status" <?php if ($n->share_status == 0) echo "selected" ?> value="0">No</option>
-                <option name="share_status" <?php if ($n->share_status == 1) echo "selected" ?> value="1">Yes</option>
+                <option name="share_status" <?php if ($n->share_status == 1) echo "selected disabled" ?> value="1">Yes</option>
             </select>
 
             <div class='editor_container'>

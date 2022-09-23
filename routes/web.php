@@ -186,12 +186,25 @@ Route::get('/courseHome/{id}', function ($id) {
         return view('userInvalidSession');
     } else {
         $username = Session::get('username');
-        $subjects = DB::table('class_subject_list')->where('class_subject_id', $id)->get('subject_code');
+
+        $subject_code = DB::table('class_subject_list')->where('class_subject_id', $id)->pluck('subject_code')->first();
+        $course_name = DB::table('subject_list')->where('subject_code', $subject_code)->pluck('subject_name')->first();
+
+        //Declaration for the current course folder
+        Session::put('current_subject_code', $subject_code);
+        Session::put('current_course_url', URL::current());
+        Session::put('previous_url', URL::current());
+        Session::put('current_course_name', $course_name);
+
         $class_name = DB::table('class_subject_list')->where('class_subject_id', $id)->pluck('class_name')->first();
         $folders = DB::table('subject_folder_list')->where('class_subject_id', $id)->where('subject_subFolder', 0)->get();
+        
+        Session::put('current_subject_id', $id);
+        Session::put('current_class_name', $class_name);
+
         //Display All Information According t2o the Specific Course Code
 
-        return view('courseHome', compact('subjects', 'folders'))->with('class_name', $class_name);
+        return view('courseHome', compact('folders'));
     }
 })->name('courseHome');
 
@@ -262,14 +275,13 @@ Route::get('/courseContent/{subject_folder_id}', function ($subject_folder_id) {
     if (Session::get('username') == null) {
         return view('userInvalidSession');
     } else {
-        $subjects = DB::table('class_subject_list')->where('class_subject_id', $subject_folder_id)->get('subject_code');
         $class_subject_id = DB::table('class_subject_list')->where('subject_code', Session::get('current_subject_code'))->where('class_name', Session::get('current_class_name'))->pluck('class_subject_id')->first();
 
         $folders = DB::table('subject_folder_list')->where('class_subject_id', $class_subject_id)->where('subject_subFolder', $subject_folder_id)->get();
         $list = DB::table('subject_folder_list')->where('class_subject_id', $class_subject_id)->where('subject_subFolder', $subject_folder_id)->get();
         $content_list = DB::table('folder_content_list')->where('subject_folder_id', $subject_folder_id)->get();
         $discussion = DB::table('discussion_list')->where('subject_folder_id', $subject_folder_id)->get();
-        return view('courseContent', compact('list', 'subjects', 'folders', 'content_list', 'discussion'));
+        return view('courseContent', compact('list', 'folders', 'content_list', 'discussion'));
     }
 })->name('courseContent');
 
@@ -292,6 +304,7 @@ Route::get('/educatorEditContent', function () {
         return view('educator/educatorEditContent', compact('list'));
     }
 });
+
 Route::post('/editContent', [App\Http\Controllers\educator\educatorContentController::class, 'editContent'])->name('editContent');
 Route::post('/addContent', [App\Http\Controllers\educator\educatorContentController::class, 'addContent'])->name('addContent');
 Route::post('/deleteContent', [App\Http\Controllers\educator\educatorContentController::class, 'deleteContent'])->name('deleteContent');
@@ -393,11 +406,6 @@ Route::get('/studentAddNote', function () {
     }
 });
 
-Route::get('/educatorViewNote/{student_note_id}', [App\Http\Controllers\educator\educatorContentController::class, 'educatorViewNote'])->name('educatorViewNote');
-Route::post('/educatorRejectNote', [App\Http\Controllers\educator\educatorContentController::class, 'rejectStudentNote'])->name('rejectStudentNote');
-Route::post('/educatorApprovetNote', [App\Http\Controllers\educator\educatorContentController::class, 'approveStudentNote'])->name('approveStudentNote');
-
-
 //Student Note Controller
 Route::get('/studentViewNote/{student_note_id}', [App\Http\Controllers\student\studentNoteController::class, 'studentViewNote'])->name('studentViewNote');
 Route::get('/studentEditNoteView/{student_note_id}', [App\Http\Controllers\student\studentNoteController::class, 'studentEditNoteView'])->name('studentEditNoteView');
@@ -418,5 +426,11 @@ Route::post('/deleteStudentFolder', [App\Http\Controllers\student\studentFolderC
 Route::post('/permanentDeleteStudentFolder', [App\Http\Controllers\student\studentFolderController::class, 'permanentDeleteStudentFolder'])->name('permanentDeleteStudentFolder');
 Route::get('/studentFolderContent/student_folder_id={student_folder_id}', [App\Http\Controllers\student\studentFolderController::class, 'studentFolderContent'])->name('studentFolderContent');
 
-Route::get('/notification', [App\Http\Controllers\notificationController::class, 'notificationView']);
+Route::get('/notificationPage', [App\Http\Controllers\notificationController::class, 'notificationPage']);
 Route::post('/readNotification', [App\Http\Controllers\notificationController::class, 'readNotification'])->name('readNotification');
+
+Route::get('/courseStudentNotePage', [App\Http\Controllers\courseStudentNoteController::class, 'courseStudentNotePage'])->name('courseStudentNotePage');
+Route::get('/educatorReviewNotePage/{student_note_id}', [App\Http\Controllers\courseStudentNoteController::class, 'educatorReviewNotePage'])->name('educatorReviewNotePage');
+Route::get('/courseDisplayStudentNoteContentPage/{student_note_id}', [App\Http\Controllers\courseStudentNoteController::class, 'courseDisplayStudentNoteContentPage'])->name('courseDisplayStudentNoteContentPage');
+Route::post('/reviewStudentNote', [App\Http\Controllers\courseStudentNoteController::class, 'reviewStudentNote'])->name('reviewStudentNote');
+Route::post('/educatorUnshareNote', [App\Http\Controllers\courseStudentNoteController::class, 'educatorUnshareNote'])->name('educatorUnshareNote');

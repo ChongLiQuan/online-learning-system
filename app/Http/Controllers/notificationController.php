@@ -9,14 +9,14 @@ use Illuminate\Support\Facades\DB;
 
 class notificationController extends Controller
 {
-    public function notificationView()
+    public function notificationPage()
     {
         if (Session::get('username') == null) {
             return view('userInvalidSession');
         } else {
             $username = Session::get('username');
             $list = DB::table('notification_list')->where('user_id', Session::get('username'))->orderBy('created_at', 'DESC')->get();
-            return view('/notification', compact('list'));
+            return view('/notificationPage', compact('list'));
         }
     }
 
@@ -26,6 +26,6 @@ class notificationController extends Controller
 
         DB::table('notification_list')->where('notification_id', [$id])->update(['read_notification_status' => 1]);
 
-        return redirect('/notification')->with('pass_status', 'Read Notification Successfully');
+        return redirect('/notificationPage')->with('pass_status', 'Read Notification Successfully');
     }
 }

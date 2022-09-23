@@ -44,7 +44,7 @@ $notificationCount = count($notification);
         <a href="/studentHomepage">Home</a>
         <a href="/">Profile</a>
 
-        <a href="/notification" class='notification'>Notification
+        <a href="/notificationPage" class='notification'>Notification
 
           <?php if ($notificationCount > 0) { ?>
             <span class="badge">{{ $notificationCount }}</span>
