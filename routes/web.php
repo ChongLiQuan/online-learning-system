@@ -277,11 +277,12 @@ Route::get('/courseContent/{subject_folder_id}', function ($subject_folder_id) {
     } else {
         $class_subject_id = DB::table('class_subject_list')->where('subject_code', Session::get('current_subject_code'))->where('class_name', Session::get('current_class_name'))->pluck('class_subject_id')->first();
 
+        $assignments =  DB::table('assignment_list')->where('subject_folder_id', $subject_folder_id)->get();
         $folders = DB::table('subject_folder_list')->where('class_subject_id', $class_subject_id)->where('subject_subFolder', $subject_folder_id)->get();
         $list = DB::table('subject_folder_list')->where('class_subject_id', $class_subject_id)->where('subject_subFolder', $subject_folder_id)->get();
         $content_list = DB::table('folder_content_list')->where('subject_folder_id', $subject_folder_id)->get();
         $discussion = DB::table('discussion_list')->where('subject_folder_id', $subject_folder_id)->get();
-        return view('courseContent', compact('list', 'folders', 'content_list', 'discussion'));
+        return view('courseContent', compact('list', 'folders', 'content_list', 'discussion', 'assignments'));
     }
 })->name('courseContent');
 
@@ -372,6 +373,9 @@ Route::post('/addDiscussionComment', [App\Http\Controllers\commentController::cl
 Route::post('/editDiscussionComment', [App\Http\Controllers\commentController::class, 'editComment'])->name('editComment');
 Route::post('/deleteComment', [App\Http\Controllers\commentController::class, 'deleteComment'])->name('deleteComment');
 
+//Educator Add Assignment
+Route::get('/educatorAddAssignmentPage', [App\Http\Controllers\educator\educatorAssignmentController::class, 'educatorAddAssignmentPage']);
+Route::post('/addAssignment',[App\Http\Controllers\educator\educatorAssignmentController::class, 'addAssignment'])->name('addAssignment');
 
 //Student Pages Route
 Route::get('/studentHomepage', [App\Http\Controllers\student\studentHomepageController::class, 'studentHomepage']);

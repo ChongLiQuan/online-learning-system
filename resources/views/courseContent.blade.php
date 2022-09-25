@@ -71,6 +71,51 @@
     </table>
     @endforeach
 
+    @foreach($assignments as $a)
+    <table class='folder' border=0>
+        <tr>
+            <th width='5%'>
+                <img src="{{URL::asset('/images/assignment_logo.png')}}" height='50px' width='50px' />
+            </th>
+            <th>
+                <a href="{{ route('discussionBoard', ['discussion_id' => $a->assignment_title, 'comment_id' => 0]) }}">{{$a->assignment_title}}</a> <b><p style="color:red">Due On: {{ $a->assignment_due_date }} </b></p> </a>
+            </th>
+
+            @if(Session::get('user_role') == 1)
+            <td colspan="2" style='text-align:right'>
+                <form action="/educatorEditDiscussion" method='get' class='form-group' action='/' enctype='multipart/form-data'>
+                    <input type='hidden' name='edit_id' value="{{ $a->assignment_id }}">
+                    <button class="button edit_button">
+                        <span class="button_text" onclick="return confirm('Are you sure?')">Edit</span>
+                    </button>
+                </form>
+            </td>
+            @endif
+
+        </tr>
+
+        <tr>
+            <td colspan="3">
+                <hr>
+                <p>{!! $a->assignment_content !!}</p>
+            </td>
+        </tr>
+        @if(Session::get('user_role') == 1)
+        <tr>
+            <td colspan="4" style='text-align:right'>
+                <form action="{{route('deleteDiscussion')}}" method='POST' class='form-group' action='/' enctype='multipart/form-data'>
+                    <input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'>
+                    <input type='hidden' name='delete_id' value="{{ $a->assignment_id }}">
+                    <button class="button delete_button">
+                        <span class="button_text" onclick="return confirm('Are you sure?')">Delete</span>
+                    </button>
+                </form>
+            </td>
+        </tr>
+        @endif
+    </table>
+    @endforeach
+
     @foreach($content_list as $c)
     <table class='folder' border=0>
         <tr>

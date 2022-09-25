@@ -18,6 +18,7 @@
     <p><a href="/educatorAddFolder">Add New Folder</a></p>
     <p><a href="/educatorAddContent">Add Content</a></p>
     <p><a href="/educatorAddDiscussion">Add Discussion</a></p>
+    <p><a href="/educatorAddAssignmentPage">Add Assignment</a></p>
     <hr />
     <p><a href="/educatorAddAnnouncement">Make Announcement</a></p>
     @endif
