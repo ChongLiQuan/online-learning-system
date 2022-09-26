@@ -7,6 +7,7 @@ $edit_id = app('request')->input('edit_id');
 $folder = DB::table('subject_folder_list')->where('subject_folder_id', $edit_id)->get();
 ?>
 
+
 @foreach($folder as $a)
 
 <div class='fullContent'>

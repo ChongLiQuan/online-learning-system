@@ -166,7 +166,11 @@ class studentNoteController extends Controller
             return view('userInvalidSession');
         } else {
             $subjects = DB::table('class_subject_list')->where('class_name', Session::get('user_class'))->orderBy('class_subject_id')->get();
-            $announcement = DB::table('announcement_list')->where('annouce_class', Session::get('user_class'))->orderBy('created_at', 'DESC')->get();
+            $announcement = DB::table('announcement_list')
+            ->join('class_subject_list', 'class_subject_list.class_subject_id', '=', 'announcement_list.class_subject_id')
+            ->where('class_subject_list.class_name', Session::get('user_class'))
+            ->orderBy('announcement_list.created_at', 'DESC')
+            ->get();
             $notes = DB::table('student_note_list')->where('student_id', Session::get('username'))->where('active_status', 0)->orderBy('deleted_date', 'ASC')->get();
             $folders_dropdown = DB::table('student_note_folder_list')->where('student_id', Session::get('username'))->orderBy('student_folder_id', 'ASC')->get();
             return view('student/studentDeletedNote', compact('subjects', 'announcement', 'notes', 'folders_dropdown'));

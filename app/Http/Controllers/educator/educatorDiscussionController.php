@@ -65,7 +65,6 @@ class educatorDiscussionController extends Controller
             "subject_folder_id" => $subject_folder_id,
             "discussion_student_subcomment" => $student_reply,
             "discussion_student_edit" => $student_edit,
-
         );
 
         if ($discussion_title == NULL || $subject_folder_id == NULL) {

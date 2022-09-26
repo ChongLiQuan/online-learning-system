@@ -277,7 +277,9 @@ Route::get('/courseContent/{subject_folder_id}', function ($subject_folder_id) {
     } else {
         $class_subject_id = DB::table('class_subject_list')->where('subject_code', Session::get('current_subject_code'))->where('class_name', Session::get('current_class_name'))->pluck('class_subject_id')->first();
 
-        $assignments =  DB::table('assignment_list')->where('subject_folder_id', $subject_folder_id)->get();
+        $current_date_time = \Carbon\Carbon::now()->toDateTimeString();
+        $assignments =  DB::table('assignment_list')->where('subject_folder_id', $subject_folder_id)->where('assignment_due_date', '>=', $current_date_time)->get();
+
         $folders = DB::table('subject_folder_list')->where('class_subject_id', $class_subject_id)->where('subject_subFolder', $subject_folder_id)->get();
         $list = DB::table('subject_folder_list')->where('class_subject_id', $class_subject_id)->where('subject_subFolder', $subject_folder_id)->get();
         $content_list = DB::table('folder_content_list')->where('subject_folder_id', $subject_folder_id)->get();
@@ -375,7 +377,10 @@ Route::post('/deleteComment', [App\Http\Controllers\commentController::class, 'd
 
 //Educator Add Assignment
 Route::get('/educatorAddAssignmentPage', [App\Http\Controllers\educator\educatorAssignmentController::class, 'educatorAddAssignmentPage']);
+Route::get('/educatorEditAssignmentPage', [App\Http\Controllers\educator\educatorAssignmentController::class, 'educatorEditAssignmentPage']);
 Route::post('/addAssignment',[App\Http\Controllers\educator\educatorAssignmentController::class, 'addAssignment'])->name('addAssignment');
+Route::post('/editAssignment',[App\Http\Controllers\educator\educatorAssignmentController::class, 'editAssignment'])->name('editAssignment');
+Route::post('/deleteAssignment',[App\Http\Controllers\educator\educatorAssignmentController::class, 'deleteAssignment'])->name('deleteAssignment');
 
 //Student Pages Route
 Route::get('/studentHomepage', [App\Http\Controllers\student\studentHomepageController::class, 'studentHomepage']);
@@ -432,6 +437,10 @@ Route::get('/studentFolderContent/student_folder_id={student_folder_id}', [App\H
 
 Route::get('/notificationPage', [App\Http\Controllers\notificationController::class, 'notificationPage']);
 Route::post('/readNotification', [App\Http\Controllers\notificationController::class, 'readNotification'])->name('readNotification');
+
+//Student Assignment Controller
+Route::get('/studentSubmitAssignmentPage/{assignment_id}', [App\Http\Controllers\student\studentAssignmentController::class, 'studentSubmitAssignmentPage'])->name('studentSubmitAssignmentPage');
+Route::post('/submitAssignment', [App\Http\Controllers\student\studentAssignmentController::class, 'submitAssignment'])->name('submitAssignment');
 
 Route::get('/courseStudentNotePage', [App\Http\Controllers\courseStudentNoteController::class, 'courseStudentNotePage'])->name('courseStudentNotePage');
 Route::get('/educatorReviewNotePage/{student_note_id}', [App\Http\Controllers\courseStudentNoteController::class, 'educatorReviewNotePage'])->name('educatorReviewNotePage');

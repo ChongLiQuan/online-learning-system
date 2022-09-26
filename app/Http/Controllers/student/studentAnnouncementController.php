@@ -20,4 +20,5 @@ class studentAnnouncementController extends Controller
         DB::table('announcement_status')->where('student_id', Session::get('username'))->where('annouce_id', $id)->update($data);
         return redirect('studentAnnouncement')->with('delete_status', 'Announcement Read Successfully! ');
     }
+
 }
