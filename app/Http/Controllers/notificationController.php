@@ -24,8 +24,17 @@ class notificationController extends Controller
     {
         $id = $request->input('id');
 
-        DB::table('notification_list')->where('notification_id', [$id])->update(['read_notification_status' => 1]);
+        DB::table('notification_list')->where('notification_id', [$id])->where('user_id', Session::get('username'))->update(['read_notification_status' => 1]);
 
-        return redirect('/notificationPage')->with('pass_status', 'Read Notification Successfully');
+        return redirect('/notificationPage')->with('delete_status', 'Read Notification Successfully');
+    }
+
+    public function deleteNotification(Request $request)
+    {
+        $id = $request->input('id');
+
+        DB::table('notification_list')->where('notification_id', [$id])->where('user_id', Session::get('username'))->delete();
+
+        return redirect('/notificationPage')->with('delete_status', 'Notification Deleted Successfully');
     }
 }

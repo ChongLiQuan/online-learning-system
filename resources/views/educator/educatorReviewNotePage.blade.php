@@ -50,7 +50,7 @@
 
         <input type="hidden" name="delete_id" value="{{ $n->student_note_id }}">
 
-        <textarea name="comment" rows="8" cols="28" placeholder="Comments on note .... "></textarea>
+        <textarea name="comment" rows="8" cols="25" placeholder="Comments on note .... "></textarea>
 
 
         <table width="100%">

@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Carbon\Carbon;
 use DB;
 
 class StudentNoteSeeder extends Seeder
@@ -15,6 +15,8 @@ class StudentNoteSeeder extends Seeder
      */
     public function run()
     {
+        $current_date_time = Carbon::now()->toDateTimeString();
+
         DB::table('student_note_folder_list')->insert([
             'student_folder_id' => '1',
             'student_folder_name' => 'Self Journal',
@@ -143,6 +145,7 @@ class StudentNoteSeeder extends Seeder
             'student_note_subject_id' => NULL,
             'student_note_subFolder' => '1',
             'share_status' => '0',
+            'share_date' => $current_date_time,
             'educator_approval_status' => NULL,
             'student_class' => '1 Ariff',
             'deleted_date' => NULL,
@@ -157,6 +160,7 @@ class StudentNoteSeeder extends Seeder
             'student_note_subject_id' => NULL,
             'student_note_subFolder' => '1',
             'share_status' => '0',
+            'share_date' => $current_date_time,
             'educator_approval_status' => NULL,
             'student_class' => '1 Ariff',
             'deleted_date' => NULL,
@@ -171,6 +175,7 @@ class StudentNoteSeeder extends Seeder
             'student_note_subject_id' => '1',
             'student_note_subFolder' => '9',
             'share_status' => '0',
+            'share_date' => $current_date_time,
             'educator_approval_status' => NULL,
             'student_class' => '1 Ariff',
             'deleted_date' => NULL,
@@ -185,6 +190,7 @@ class StudentNoteSeeder extends Seeder
             'student_note_subject_id' => '1',
             'student_note_subFolder' => '10',
             'share_status' => '1',
+            'share_date' => $current_date_time,
             'educator_approval_status' => NULL,
             'student_class' => '1 Ariff',
             'deleted_date' => NULL,
@@ -198,6 +204,7 @@ class StudentNoteSeeder extends Seeder
             'student_note_subject_id' => '1',
             'student_note_subFolder' => '10',
             'share_status' => '1',
+            'share_date' => $current_date_time,
             'educator_approval_status' => NULL,
             'student_class' => '1 Ariff',
             'deleted_date' => NULL,
@@ -212,6 +219,7 @@ class StudentNoteSeeder extends Seeder
             'student_note_subject_id' => '2',
             'student_note_subFolder' => '4',
             'share_status' => '1',
+            'share_date' => $current_date_time,
             'educator_approval_status' => NULL,
             'student_class' => '1 Ariff',
             'deleted_date' => NULL,
@@ -225,6 +233,7 @@ class StudentNoteSeeder extends Seeder
             'student_note_subject_id' => '3',
             'student_note_subFolder' => '11',
             'share_status' => '1',
+            'share_date' => $current_date_time,
             'educator_approval_status' => NULL,
             'student_class' => '1 Bestari',
             'deleted_date' => NULL,
@@ -238,6 +247,7 @@ class StudentNoteSeeder extends Seeder
             'student_note_subject_id' => '3',
             'student_note_subFolder' => '11',
             'share_status' => '1',
+            'share_date' => $current_date_time,
             'educator_approval_status' => NULL,
             'student_class' => '1 Bestari',
             'deleted_date' => NULL,

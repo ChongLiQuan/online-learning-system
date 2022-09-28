@@ -21,6 +21,31 @@ class educatorAssignmentController extends Controller
         }
     }
 
+    public function educatorViewSubmissionPage($assignment_id)
+    {
+        if (Session::get('username') == null) {
+            return view('userInvalidSession');
+        } else {
+            $assignment = DB::table('assignment_list')->where('assignment_id', $assignment_id)->get();
+            $submission = DB::table('assignment_submission_list')->where('assignment_id', $assignment_id)->get();
+            
+            $class_id = DB::table('assignment_list')
+            ->join('subject_folder_list', 'subject_folder_list.subject_folder_id', '=', 'assignment_list.subject_folder_id')
+            ->where('assignment_list.assignment_id', $assignment_id)
+            ->pluck('class_subject_id')
+            ->first();
+
+            $class = DB::table('class_subject_list')->where('class_subject_id', $class_id)->pluck('class_name')->first();
+
+            //Count student from the class
+            $student = DB::table('student_list')->where('student_class', $class)->get();
+            $totalStudent = count($student);
+            $totalSubmission = count($submission);
+
+            return view('educator/educatorViewSubmissionPage', compact('assignment','submission', 'totalStudent', 'totalSubmission'));
+        }
+    }
+
     public function educatorEditAssignmentPage()
     {
         if (Session::get('username') == null) {

@@ -79,11 +79,17 @@
             </th>
             <th>
                 @if(Session::get('user_role') == 1)
-                <a href="{{ route('discussionBoard', ['discussion_id' => $a->assignment_title, 'comment_id' => 0]) }}">{{$a->assignment_title}}</a> <b><p style="color:red">Due On: {{ $a->assignment_due_date }} </b></p> </a>
+                <a href="{{ route('educatorViewSubmissionPage', ['assignment_id' => $a->assignment_id]) }}">{{$a->assignment_title}}</a> <b><p style="color:red">Due On: {{ $a->assignment_due_date }} </b></p> </a>
                 @endif
 
                 @if(Session::get('user_role') == 2)
-                <a href="{{ route('studentSubmitAssignmentPage', ['assignment_id' => $a->assignment_id]) }}">{{$a->assignment_title}}</a> <b><p style="color:red">Due On: {{ $a->assignment_due_date }} </b></p> </a>
+                <?php 
+                $submit_status = DB::table('assignment_submission_list')->where('student_id', Session::get('username'))->where('assignment_id', $a->assignment_id)->get(); 
+                if(count($submit_status) == 0){ ?>
+                    <a href="{{ route('studentSubmitAssignmentPage', ['assignment_id' => $a->assignment_id]) }}">{{$a->assignment_title}}</a> <b><p style="color:red">Due On: {{ $a->assignment_due_date }} </b></p> </a>
+                <?php }elseif(count($submit_status) > 0) { ?> <!-- Meaning student submitted -->
+                    <a href="{{ route('studentViewOwnSubmissionPage', ['assignment_id' => $a->assignment_id]) }}">{{$a->assignment_title}}</a> <b><p style="color:red">Due On: {{ $a->assignment_due_date }} </b></p> </a>
+                <?php } ?>
                 @endif
             </th>
 

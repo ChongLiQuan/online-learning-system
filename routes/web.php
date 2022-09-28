@@ -3,8 +3,8 @@
 use Illuminate\Support\Facades\Route;
 
 //General both party page
-Route::get('/userLogin', [App\Http\Controllers\homeLoginController::class, 'userLoginPage']);
-Route::post('/userLoginPage', [App\Http\Controllers\homeLoginController::class, 'userLogin'])->name("userLogin");
+Route::get('/userLoginPage', [App\Http\Controllers\homeLoginController::class, 'userLoginPage']);
+Route::post('/userLogin', [App\Http\Controllers\homeLoginController::class, 'userLogin'])->name("userLogin");
 
 //Admin pages route
 //Admin login and logout route and check invalid session
@@ -171,6 +171,7 @@ Route::get('/educatorHomepage', function () {
             ->where('class_subject_list.educator_id', Session::get('username'))
             ->where('student_note_list.share_status', 1)
             ->where('student_note_list.educator_approval_status', NULL)
+            ->orderBy('share_date', 'ASC')
             ->get();
 
         return view('educator/educatorHomepage', compact('subjects', 'announcement', 'notes', 'classes'));
@@ -415,6 +416,9 @@ Route::get('/studentAddNote', function () {
     }
 });
 
+Route::get('/educatorViewSubmissionPage/{assignment_id}', [App\Http\Controllers\educator\educatorAssignmentController::class, 'educatorViewSubmissionPage'])->name('educatorViewSubmissionPage');
+
+
 //Student Note Controller
 Route::get('/studentViewNote/{student_note_id}', [App\Http\Controllers\student\studentNoteController::class, 'studentViewNote'])->name('studentViewNote');
 Route::get('/studentEditNoteView/{student_note_id}', [App\Http\Controllers\student\studentNoteController::class, 'studentEditNoteView'])->name('studentEditNoteView');
@@ -437,9 +441,11 @@ Route::get('/studentFolderContent/student_folder_id={student_folder_id}', [App\H
 
 Route::get('/notificationPage', [App\Http\Controllers\notificationController::class, 'notificationPage']);
 Route::post('/readNotification', [App\Http\Controllers\notificationController::class, 'readNotification'])->name('readNotification');
+Route::post('/deleteNotification', [App\Http\Controllers\notificationController::class, 'deleteNotification'])->name('deleteNotification');
 
 //Student Assignment Controller
-Route::get('/studentSubmitAssignmentPage/{assignment_id}', [App\Http\Controllers\student\studentAssignmentController::class, 'studentSubmitAssignmentPage'])->name('studentSubmitAssignmentPage');
+Route::get('/studentSubmitAssignmentPage/assignment_id={assignment_id}', [App\Http\Controllers\student\studentAssignmentController::class, 'studentSubmitAssignmentPage'])->name('studentSubmitAssignmentPage');
+Route::get('/studentViewOwnSubmissionPage/{assignment_id}', [App\Http\Controllers\student\studentAssignmentController::class, 'studentViewOwnSubmissionPage'])->name('studentViewOwnSubmissionPage');
 Route::post('/submitAssignment', [App\Http\Controllers\student\studentAssignmentController::class, 'submitAssignment'])->name('submitAssignment');
 
 Route::get('/courseStudentNotePage', [App\Http\Controllers\courseStudentNoteController::class, 'courseStudentNotePage'])->name('courseStudentNotePage');

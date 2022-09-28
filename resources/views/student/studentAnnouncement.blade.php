@@ -41,21 +41,23 @@
                         <p>Updated: {{ $l->updated_at }} </p>
                     </td>
                     <td style="text-align:center;">
-                    <?php $subject = DB::table('class_subject_list')->where('class_subject_id', $l->class_subject_id )->pluck('subject_code')->first(); ?>
-                    <p> {{ $subject }} </p>
+                        <?php $subject = DB::table('class_subject_list')->where('class_subject_id', $l->class_subject_id)->pluck('subject_code')->first(); ?>
+                        <p> {{ $subject }} </p>
                     </td>
                     <td style="text-align:center;">
-                    <?php $class = DB::table('class_subject_list')->where('class_subject_id', $l->class_subject_id )->pluck('class_name')->first(); ?>
-                    <p> {{ $class }} </p>
+                        <?php $class = DB::table('class_subject_list')->where('class_subject_id', $l->class_subject_id)->pluck('class_name')->first(); ?>
+                        <p> {{ $class }} </p>
                     </td>
                 </tr>
 
                 <tr>
+                    <a id='{{ $l->annouce_id }}'></a>
                     <td colspan="5">
                         <hr />
 
                         <p> {!! $l->annouce_content !!} </p>
                     </td>
+                    </a>
                 </tr>
 
                 <tr>

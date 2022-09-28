@@ -33,7 +33,11 @@ return new class extends Migration
 
             $table->boolean('share_status');
 
+            $table->dateTime('share_date');
+
             $table->boolean('educator_approval_status')->nullable();
+
+            $table->text('educator_comment')->nullable();
 
             $table->timestamp('deleted_date')->nullable();
 

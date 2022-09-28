@@ -1,3 +1,5 @@
+<?php ?>
+
 @include('student/studentHeader')
 
 @include('courseSideBar')
@@ -8,11 +10,12 @@
     @foreach($assignment as $a)
     <center>
         <p class='stu_home_banner'><b>Assignment Submission Portal : {{ $a->assignment_title }}</b></p>
+        <p>This assignment due on:{{ $a->assignment_due_date }}</p>
 
         <form action="{{route('submitAssignment')}}" method="POST" class="form-group">
             <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>"> @csrf
 
-            <input type="hidden" name="assignment_id" value="{{ $a->assignment_id }}"> 
+            <input type="hidden" name="assignment_id" value="{{ $a->assignment_id }}">
 
             <div class='editor_container'>
                 <textarea name="assignment_content" id="editor"></textarea>
@@ -31,7 +34,7 @@
 
 
             <button class="button submit">
-                <span class="button_text"  onclick="return confirm('Confirm Submission? Please make sure you attach the right file.')"/>Submit Assignment</span>
+                <span class="button_text" onclick="return confirm('Confirm Submission? Please make sure you attach the right file.')" />Submit Assignment</span>
                 <i class="button_icon fa fa-caret-right fa-2x" aria-hidden="true"></i>
             </button>
         </form>

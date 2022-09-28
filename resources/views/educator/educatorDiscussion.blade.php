@@ -28,19 +28,19 @@
 
             <tr>
                 <td>
-                    <h3><u>{{ $d->discussion_title }}</u></h3>
+                    <h5><u>{{ $d->discussion_title }}</u></h5>
                     <?php
                     Session::put('current_discussion', $d->discussion_id);
                     Session::put('current_discussion_url', URL::current()); ?>
                 </td>
                 <td>
-                    <p>Published By: {{ $d->discussion_educator }}</p>
+                    Published By: {{ $d->discussion_educator }}
                 </td>
                 <td>
-                    <p>Created: {{ $d->created_at }} </p>
+                    Created: {{ $d->created_at }}
                 </td>
                 <td>
-                    <p>Updated: {{ $d->updated_at }} </p>
+                    Updated: {{ $d->updated_at }}
                 </td>
                 <td>
                 </td>
@@ -48,7 +48,7 @@
 
             <tr>
                 <td colspan="5">
-                    <p> {!! $d->discussion_content !!} </p>
+                    {!! $d->discussion_content !!}
                 </td>
             </tr>
 

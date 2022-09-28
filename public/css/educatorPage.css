@@ -1,0 +1,195 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@550&display=swap');
+body{
+    display: grid;
+    grid-template-areas:
+        "header header header"
+        "nav article ads";
+    grid-template-rows: 80px 1fr 70px;
+    grid-template-columns: 20% 1fr 15%;
+    grid-row-gap: 10px;
+    grid-column-gap: 10px;
+    height: 107vh;
+    margin: 0;
+    font-family: 'Quicksand', sans-serif;
+}
+
+header,
+article,
+nav,
+div {
+    padding: 1.2em;
+    background: rgb(243, 243, 243);
+}
+
+.submit {
+    background: rgb(0, 110, 120);
+    font-size: 14px;
+    text-align: center;
+    padding: 16px 20px;
+    border-radius: 26px;
+    text-transform: uppercase;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    color: #ffffff;
+    box-shadow: 0px 2px 2px #5e5e5e;
+    cursor: pointer;
+    transition: .2s;
+    margin-bottom: 5%;
+}
+
+table.announcement {
+    text-align: left;
+    border: 1;
+    background: rgb(255, 255, 255);
+    width: 99%;
+    height: fit-content;
+    border-collapse: collapse;
+    border-radius: 25px;
+}
+
+.fullContent {
+    background: rgb(243, 243, 243);
+    height: 100%;
+    width: 97vw;
+}
+
+.header-right {
+    float: right;
+}
+
+.header-left {
+    position: absolute;
+    top: -7px;
+    background: rgb(243, 243, 243);
+    margin-bottom: 10%;
+    height: 5%;
+}
+
+.header-right a {
+    float: center;
+    color: black;
+    text-align: center;
+    margin-left: 15px;
+    text-decoration: none;
+    font-size: 14px;
+    line-height: 20px;
+    border-radius: 4px;
+}
+
+.header-right p {
+    float: center;
+    color: black;
+    text-align: center;
+    margin-left: 15px;
+    text-decoration: none;
+    font-size: 14px;
+    line-height: 20px;
+    border-radius: 4px;
+}
+
+.header-right a:hover {
+    background: rgb(0, 138, 150);
+    color: rgb(255, 255, 255);
+}
+
+#pageHeader {
+    grid-area: header;
+}
+
+#mainArticle {
+    grid-area: article;
+}
+
+#mainNav {
+    grid-area: nav;
+}
+
+#pageHeader a:hover {
+    text-decoration: underline;
+    background: rgb(0, 138, 150);
+    color: rgb(255, 252, 252);
+}
+
+#pageHeader a,
+#siteAds a,
+#mainNav a {
+    text-decoration: none;
+    color: rgb(0, 24, 161);
+}
+
+#mainNav a:hover,
+#siteAds a:hover {
+    text-decoration: underline;
+    color: rgb(0, 1, 7);
+}
+
+#siteAds {
+    grid-area: ads;
+}
+
+.edu_home_banner {
+    background-color: #ffc876;
+    padding: 3px;
+}
+
+
+/*Educator Homepage Student Note Management CSS */
+.row {
+    margin: -3%;
+}
+
+table.note_list {
+    text-align: center;
+    background: rgb(255, 255, 255);
+    width: 100%;
+    transition: .2s;
+}
+
+table.note_list thead th {
+    text-align: center;
+    background-color: #ffc876;
+    font-weight: 900;
+}
+
+table.note_list th,
+table.note_list td {
+    padding: 13px;
+}
+
+table.note_list tbody tr:nth-of-type(even) {
+    background-color: #f2f2f2;
+}
+
+table.note_list tbody tr:last-of-type {
+    border-bottom: 2px solid #ffc876;
+}
+
+/*Educator Homepage preview note button*/
+.home_preview_button {
+    background-color: #ffc876;
+    border-radius: 8px;
+    border-width: 0;
+    color: #333333;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    list-style: none;
+    margin: 0;
+    padding: 10px 12px;
+    text-align: center;
+}
+
+.pagination>li>a {
+    background-color: white;
+    color: #ffc876;
+}
+
+.pagination>.active>a {
+    color: white;
+    background-color: #ffc876 !Important;
+    border: solid 1px #ffc876 !Important;
+}
+

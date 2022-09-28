@@ -31,13 +31,14 @@
         <br />
         <?php if ($status == 0) { ?>
             <table class='notificationTable' border='0' style="background-color:#FFFFE0">
-            <?php  } elseif ($status == 1) { ?>
+            <?php  } elseif ($status == 0) { ?>
                 <table class='notificationTable' border='0'>
                 <?php } ?>
 
                 <colgroup>
                     <col span="1" style="width: 85%;">
                     <col span="1" style="width: 15%;">
+                    <col span="1" style="width: 5%;">
                     <col span="1" style="width: 5%;">
                 </colgroup>
 
@@ -47,6 +48,16 @@
                     </td>
                     <td>
                         <p>Created: {{ $l->created_at }} </p>
+                    </td>
+                    <td>
+                        <form action="{{route('deleteNotification')}}" method='POST' class='form-group' action='/' enctype='multipart/form-data'>
+                            <input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'>
+                            <input type='hidden' name='id' value="{{ $l->notification_id }}">
+
+                            <button class="button login_submit">
+                                <span class="button_text">Delete</span>
+                            </button>
+                        </form>
                     </td>
                 </tr>
 

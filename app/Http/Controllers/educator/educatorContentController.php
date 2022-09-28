@@ -80,7 +80,7 @@ class educatorContentController extends Controller
                 ->where('student_note_list.educator_approval_status', NULL)
                 ->where('student_note_list.educator_approval_status', NULL)
                 ->where('class_subject_list.subject_code', $filter_id)
-                ->get();
+                ->paginate(10);
 
             return view('educator/educatorHomepage', compact('subjects', 'announcement', 'notes', 'classes'));
         }
@@ -106,7 +106,7 @@ class educatorContentController extends Controller
                 ->where('student_note_list.educator_approval_status', NULL)
                 ->where('student_note_list.educator_approval_status', NULL)
                 ->where('class_subject_list.class_name', $filter_id)
-                ->get();
+                ->paginate(10);
 
             return view('educator/educatorHomepage', compact('subjects', 'announcement', 'notes', 'classes'));
         }

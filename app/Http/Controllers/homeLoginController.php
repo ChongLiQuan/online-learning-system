@@ -53,14 +53,14 @@ class homeLoginController extends Controller
             }
             
         } else {
-            return redirect('/userLogin')->with('status', 'Incorrect username or password !');
+            return redirect('/userLoginPage')->with('status', 'Incorrect username or password !');
         }
     }
 
     public function logout(Request $request){
 
         Session::flush();
-        return redirect('/userLogin')->with('alert', 'Logged out successfully !');
+        return redirect('/userLoginPage')->with('alert', 'Logged out successfully !');
 
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\student;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -53,14 +54,15 @@ class studentNoteController extends Controller
         $student_note_subject = $request->input('student_note_subject');
         $student_note_subFolder = $request->input('student_note_subFolder');
         $share_status = $request->input('share_status');
+        $current_date_time = Carbon::now()->toDateTimeString();
 
         if ($share_status == 1 and $student_note_subject == NULL) {
             return redirect('studentAddNote')->with('error_status', 'Note without a subject cannot be share!');
         } elseif ($student_note_subFolder == NULL) {
             return redirect('studentAddNote')->with('error_status', 'Please select a folder!');
         } else {
-            DB::select('insert into student_note_list (student_id, student_note_name, student_note_content, student_note_subject_id, student_note_subFolder, share_status, educator_approval_status, active_status, deleted_date, student_class) 
-            values (?,?,?,?,?,?,?,?,?,?)', [$student_name, $student_note_name, $student_note_content, $student_note_subject, $student_note_subFolder, $share_status, NULL, 1, NULL, Session::get('student_class')]);
+            DB::select('insert into student_note_list (student_id, student_note_name, student_note_content, student_note_subject_id, student_note_subFolder, share_status, share_date, educator_approval_status, active_status, deleted_date, student_class) 
+            values (?,?,?,?,?,?,?,?,?,?,?)', [$student_name, $student_note_name, $student_note_content, $student_note_subject, $student_note_subFolder, $share_status, $current_date_time, NULL, 1, NULL, Session::get('student_class')]);
 
             if ($share_status == 1) {
                 $stu_message = "Note " . $student_note_name . " has been requested for approval. Please wait for the educator to review it. Thank you.";
