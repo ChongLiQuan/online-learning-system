@@ -1,4 +1,6 @@
 @include('student/studentHeader')
+@include('student/studentRightSideBar')
+@include('student/studentLeftSideBar')
 
 <?php Session::put('current_edit_note_url', URL::current()) ?>
 
@@ -51,13 +53,9 @@
 
             <button class="button submit">
                 <span class="button_text">Update Note Now</span>
-                <i class="button_icon fa fa-caret-right fa-2x" aria-hidden="true"></i>
             </button>
         </form>
         @endforeach
-
-        </div>
 </article>
 
-@include('student/studentSidebar')
 @include('tinyEditor')

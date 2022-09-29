@@ -1,4 +1,6 @@
 @include('student/studentHeader')
+@include('student/studentRightSideBar')
+@include('student/studentLeftSideBar')
 
 <article id="mainArticle">
     <p><b>Rename Folder</b></p>
@@ -75,5 +77,3 @@
 
 
 </article>
-
-@include('student/studentSidebar')

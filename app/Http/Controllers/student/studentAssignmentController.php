@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\student;
 
+use Mail;
+use App\Mail\assignmentSubmissionMail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -58,7 +60,22 @@ class studentAssignmentController extends Controller
             DB::select('insert into assignment_submission_list (student_id, assignment_id, submission_content, submission_date) 
             values (?,?,?,?)', [$student_id, $assignment_id, $assignment_content, $current_date_time]);
 
-            return redirect('studentHomepage')->with('alert', 'Assignment Submitted Successfully.');
+            //Mailing the educator
+
+            //Check the educator notify status
+
+            //Send the email
+            $this->sendMail();
+
+            return redirect()->route('studentViewOwnSubmissionPage', $assignment_id)->with('alert', 'Assignment Submitted Successfully.');
         }
+    }
+
+    public function sendMail(){
+        $data = array('name' => "Dear Educator, Student Assignment Submission Received From");
+
+        Mail::to('liquan_max@hotmail.com')->send(new assignmentSubmissionMail());
+
+        return view('student/studentHomepage');
     }
 }

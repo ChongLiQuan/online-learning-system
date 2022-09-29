@@ -92,6 +92,7 @@ class courseStudentNoteController extends Controller
             //Add Educator Comment if there is any
             if ($comment != NULL) {
                 $stu_msg = $stu_msg . " <br> Educator Comment:  " . $comment;
+                DB::table('student_note_list')->where('student_note_id', $edit_id)->update(['educator_comment' => $comment]);
             }
             DB::select('insert into notification_list (user_id, notification_title, notification_content, created_at, read_notification_status) 
             values (?,?,?,?,?)', [$student_id, $stu_title, $stu_msg, $current_date_time, 0]);

@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@550&display=swap');
-body{
+
+body {
     display: grid;
     grid-template-areas:
         "header header header"
@@ -134,6 +135,27 @@ table.announcement {
     padding: 3px;
 }
 
+/*Notification red circle in the header*/
+.notification {
+    color: white;
+    text-decoration: none;
+    position: relative;
+    display: inline-block;
+}
+
+.notification:hover {
+    background: red;
+}
+
+.notification .badge {
+    position: absolute;
+    top: -13px;
+    right: -10px;
+    padding: 1px 5px;
+    border-radius: 50%;
+    background: red;
+    color: white;
+}
 
 /*Educator Homepage Student Note Management CSS */
 .row {
@@ -169,15 +191,13 @@ table.note_list tbody tr:last-of-type {
 /*Educator Homepage preview note button*/
 .home_preview_button {
     background-color: #ffc876;
-    border-radius: 8px;
+    border-radius: 10px;
     border-width: 0;
     color: #333333;
     display: inline-block;
     font-size: 14px;
     font-weight: 500;
-    line-height: 20px;
     list-style: none;
-    margin: 0;
     padding: 10px 12px;
     text-align: center;
 }
@@ -193,3 +213,109 @@ table.note_list tbody tr:last-of-type {
     border: solid 1px #ffc876 !Important;
 }
 
+textarea.comment_textarea {
+    border: 2px line rgb(22, 22, 22);
+    border-radius: 10px;
+    padding: 5px 8px;
+}
+
+table.educatorProfile {
+    text-align: center;
+    width: 100%;
+    transition: .2s;
+    border-spacing: 3rem;
+}
+
+table.educatorProfile td {
+    background: rgb(255, 255, 255);
+    border-radius: 10px;
+    vertical-align: top;
+}
+
+table.profileInformation {
+    text-align: left;
+    width: 100%;
+    transition: .2s;
+    border-spacing: 1rem;
+}
+
+table.profileInformation td {
+    background: #ffc876;
+    padding: 1%;
+}
+
+table.profileInformation tbody td:nth-of-type(even) {
+    background-color: #ffe5b8;
+}
+
+.setting_input {
+    border: none;
+    background-color: #f5f5f5;
+    border-bottom: 2px solid #b4b4b4;
+    padding: 10px;
+    width: 50px;
+    font-size: 14px;
+    font-weight: 500;
+    width: 75%;
+    transition: .2s;
+    border-radius: 10px;
+}
+
+table.changePassword {
+    text-align: center;
+    width: 100%;
+    transition: .2s;
+    border-spacing: 3rem;
+}
+
+table.changePassword td {
+    vertical-align: baseline;
+}
+
+.setting_button {
+    background-color: #ffc876;
+    border-radius: 10px;
+    height: 40px;
+    border-width: 0;
+    font-size: 16px;
+    color: #333333;
+    font-weight: 550;
+    list-style: none;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 2px 2px 2px rgb(49, 49, 49);
+}
+
+/* The actual popup */
+.popup .popuptext {
+    visibility: hidden;
+    width: 300px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -80px;
+}
+
+/* Toggle this class - hide and show the popup */
+.popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+} 
+
+.popup {
+    background-color: white;
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    height: fit-content;
+}

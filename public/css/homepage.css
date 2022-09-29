@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@550&display=swap');
+
 body {
   display: grid;
   grid-template-areas:
@@ -8,7 +9,7 @@ body {
   grid-template-columns: 20% 1fr 15%;
   grid-row-gap: 10px;
   grid-column-gap: 10px;
-  height: 107vh;
+  height: 110vh;
   margin: 0;
   font-family: 'Quicksand', sans-serif;
   transition: all 0.3s ease;
@@ -358,12 +359,18 @@ div.student_assignment {
 }
 
 table.student_note {
-  background-color: rgb(254, 255, 212);
+  background-color: rgb(255, 255, 255);
   text-align: left;
   border: 1;
   width: 100%;
   height: auto;
   border-collapse: collapse;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+table.student_note td {
+  padding: 3%;
 }
 
 table.student_assignment {
@@ -456,3 +463,4 @@ table.notificationTable {
   transition: all 0.3s ease;
   border-radius: 25px;
 }
+

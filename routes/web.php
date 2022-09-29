@@ -418,6 +418,10 @@ Route::get('/studentAddNote', function () {
 
 Route::get('/educatorViewSubmissionPage/{assignment_id}', [App\Http\Controllers\educator\educatorAssignmentController::class, 'educatorViewSubmissionPage'])->name('educatorViewSubmissionPage');
 
+//Educator Profile Controller
+Route::get('/educatorProfilePage', [App\Http\Controllers\educator\educatorProfileController::class, 'educatorProfilePage'])->name('educatorProfilePage');
+Route::post('/updatePassword', [App\Http\Controllers\educator\educatorProfileController::class, 'updatePassword'])->name('updatePassword');
+
 
 //Student Note Controller
 Route::get('/studentViewNote/{student_note_id}', [App\Http\Controllers\student\studentNoteController::class, 'studentViewNote'])->name('studentViewNote');

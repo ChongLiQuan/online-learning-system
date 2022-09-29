@@ -12,12 +12,9 @@ $notificationCount = count($notification);
   <title>Educator Dashboard</title>
 
   <script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
-
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
   <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-  <link rel="stylesheet" href="<?php echo asset('css/educatorPage.css') ?>" type="text/css">
   <link rel="stylesheet" href="<?php echo asset('css/homepage.css') ?>" type="text/css">
+  <link rel="stylesheet" href="<?php echo asset('css/educatorPage.css') ?>" type="text/css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="icon" href="{!! asset('/images/login_logo.jpeg') !!}" />
@@ -44,7 +41,7 @@ $notificationCount = count($notification);
       <b>
         <a>Welcome Back, {{ Session::get('user_full_name') }}.&nbsp;&nbsp; |</a>
         <a href="/educatorHomepage">Home</a>
-        <a href="/educatorProfile">Profile</a>
+        <a href="/educatorProfilePage">Profile</a>
 
         <a href="/notificationPage" class='notification'>Notification
 

@@ -65,6 +65,7 @@ class educatorAssignmentController extends Controller
         $assignment_full_mark = $request->input('assignment_full_mark');
         $assignment_folder = $request->input('assignment_folder');
         $assignment_content = $request->input('assignment_content');
+        $assignment_email_educator_status = $request->input('assignment_email_educator_status');
 
         $assignment_data = array(
             "assignment_title" => $assignment_title,
@@ -72,6 +73,7 @@ class educatorAssignmentController extends Controller
             "assignment_full_mark" => $assignment_full_mark,
             "subject_folder_id" => $assignment_folder,
             "assignment_content" => $assignment_content,
+            "assignment_email_educator_status" => $assignment_email_educator_status,
         );
 
         if ($assignment_title == NULL || $assignment_content == NULL) {

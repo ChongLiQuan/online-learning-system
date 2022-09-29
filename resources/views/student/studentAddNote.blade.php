@@ -1,4 +1,6 @@
 @include('student/studentHeader')
+@include('student/studentRightSideBar')
+@include('student/studentLeftSideBar')
 
 <article id="mainArticle">
     <p><b><a href="studentHomepage">Go Back</a></b></p>
@@ -55,5 +57,4 @@
         </div>
 </article>
 
-@include('student/studentSidebar')
 @include('tinyEditor')

@@ -1,5 +1,6 @@
 @include('student/studentHeader')
-
+@include('student/studentRightSideBar')
+@include('student/studentLeftSideBar')
 <?php
 $folder_id = Session::get('current_student_folder_id');
 Session::put('previous_folder_page', URL::current());
@@ -192,5 +193,3 @@ $active_status = DB::table('student_note_folder_list')->where('student_id', Sess
        
     </table>
 </article>
-
-@include('student/studentSidebar')

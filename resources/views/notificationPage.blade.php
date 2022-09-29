@@ -31,7 +31,7 @@
         <br />
         <?php if ($status == 0) { ?>
             <table class='notificationTable' border='0' style="background-color:#FFFFE0">
-            <?php  } elseif ($status == 0) { ?>
+            <?php  } elseif ($status == 1) { ?>
                 <table class='notificationTable' border='0'>
                 <?php } ?>
 

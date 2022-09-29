@@ -36,6 +36,9 @@
                 <p>{!! $s->submission_content !!}</p>
             </td>
         </tr>
+
+        @endforeach
+        @endforeach
     </table>
 
 
@@ -48,10 +51,6 @@
     @endif
 
     </form>
-
-
-    @endforeach
-    @endforeach
 
 </article>
 

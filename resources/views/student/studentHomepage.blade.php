@@ -1,5 +1,6 @@
 @include('student/studentHeader')
-@include('student/studentSidebar')
+@include('student/studentRightSideBar')
+@include('student/studentLeftSideBar')
 
 <article id="mainArticle">
     <p class='stu_home_banner'><b>Notes Taking</b></p>

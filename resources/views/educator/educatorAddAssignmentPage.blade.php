@@ -35,6 +35,12 @@
             @endforeach
         </select>
 
+        <br />
+        <br />Email Alert:
+        <select name='assignment_email_educator_status' required>
+            <option name="assignment_email_educator_status" value="0">No</option>
+            <option name="assignment_email_educator_status" value="1">Yes</option>
+        </select>
 
         @if (session('pass_status'))
         <p style="text-align:center; color:green;"><b>{{ session('pass_status') }}</b></p>

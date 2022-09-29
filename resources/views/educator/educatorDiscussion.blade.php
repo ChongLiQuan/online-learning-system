@@ -16,7 +16,7 @@
         <h3>Discussion Page {{ Session::get('check_sub_comment') }} </h3>
 
         @foreach($discussion as $d)
-        <table class='discussion' border='1'>
+        <table class='discussion' border='0'>
 
             <colgroup>
                 <col span="1" style="width: 40%;">
@@ -28,7 +28,7 @@
 
             <tr>
                 <td>
-                    <h5><u>{{ $d->discussion_title }}</u></h5>
+                    <h3><u>{{ $d->discussion_title }}</u></h3>
                     <?php
                     Session::put('current_discussion', $d->discussion_id);
                     Session::put('current_discussion_url', URL::current()); ?>
@@ -68,7 +68,7 @@
         @foreach($filtered_comment as $c)
         <br />
 
-        <table class='comment' border='1'>
+        <table class='comment' border='0'>
             <colgroup>
                 <col span="1" style="width: 40%;">
                 <col span="1" style="width: 20%;">

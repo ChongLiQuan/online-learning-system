@@ -1,4 +1,6 @@
 @include('student/studentHeader')
+@include('student/studentRightSideBar')
+@include('student/studentLeftSideBar')
 
 <article id="mainArticle">
     <p class='stu_home_banner'><b>Recycler Bin</b></p>
@@ -100,5 +102,3 @@
         @endforeach
     </table>
 </article>
-
-@include('student/studentSidebar')

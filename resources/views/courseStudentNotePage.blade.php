@@ -26,8 +26,8 @@
     @endif
 
     <hr>
-    @foreach($note as $n)
-    <table class='folder' border=0>
+    <table class='note_list' border=0>
+        @foreach($note as $n)
         <tr>
             <colgroup>
                 <col span="1" style="width: 5%;">
@@ -35,35 +35,32 @@
                 <col span="1" style="width: 30%;">
             </colgroup>
 
-            <th width='5%'>
+            <td width='5%'>
                 <img src="{{URL::asset('/images/student_note_logo.png')}}" height='50px' width='50px' />
-            </th>
+            </td>
 
-            <th>
+            <td>
                 <a href="{{ route('courseDisplayStudentNoteContentPage', ['student_note_id' => $n->student_note_id]) }}"> {{ $n->student_note_name }} </a>
-            </th>
+            </td>
 
-            <th>
+            <td>
                 <?php $author = DB::table('student_list')->where('student_id', $n->student_id)->pluck('student_name')->first();
                 ?>
-                <p>By: {{ $author }} </p>
-            </th>
+                By: {{ $author }}
+            </td>
 
             @if(Session::get('user_role') == 1)
             <td colspan="4" style='text-align:right'>
                 <form action="{{route('educatorUnshareNote')}}" method='POST' class='form-group' action='/' enctype='multipart/form-data'>
                     <input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'>
                     <input type='hidden' name='note_id' value="{{ $n->student_note_id  }}">
-                    <button class="button delete_button">
-                        <span class="button_text" onclick="return confirm('Are you sure to unshare this note?')">Unshare</span>
-                    </button>
+                    <button class="button delete_button" onclick="return confirm('Are you sure to unshare this note?')">Unshare</button>
                 </form>
             </td>
             @endif
         </tr>
+        @endforeach
     </table>
-    <hr>
-    @endforeach
 </article>
 
 

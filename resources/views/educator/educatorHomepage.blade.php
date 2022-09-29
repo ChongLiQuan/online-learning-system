@@ -1,6 +1,8 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+
 @include('educator/educatorHeader')
 @include('educator/educatorHomeSideBar')
-
 
 <article id="mainArticle">
     <p class='edu_home_banner'><b>Student Notes Management</b></p>
@@ -33,7 +35,7 @@
                 Subject ID
             </th>
             <th>
-                Class 
+                Class
             </th>
             <th>
                 Student ID

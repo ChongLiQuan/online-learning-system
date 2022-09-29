@@ -25,7 +25,6 @@ $notificationCount = count($notification);
   <header id="pageHeader">
 
     <div class="header-left">
-
       <table>
         <tr>
           <th>

@@ -26,6 +26,8 @@ return new class extends Migration
 
             $table->timestamp('assignment_created_at');
 
+            $table->boolean('assignment_email_educator_status');
+
             $table->integer('subject_folder_id')->unsigned()->default(0);
             $table->foreign('subject_folder_id')->references('subject_folder_id')->on('subject_folder_list')->onDelete('cascade'); 
             

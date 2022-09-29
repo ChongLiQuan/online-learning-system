@@ -1,5 +1,5 @@
 @include('student/studentHeader')
-@include('student/studentSidebar')
+@include('student/studentLeftSideBar')
 
 <?php
 $active_status = DB::table('student_note_list')->where('student_id', Session::get('username'))->where('student_note_id', Session::get('current_note_id'))->pluck('active_status')->first();
@@ -68,8 +68,20 @@ $active_status = DB::table('student_note_list')->where('student_id', Session::ge
             </tr>
         </table>
 
-        @endforeach
-
 </article>
+
+<div id="siteAds">
+    <p class='stu_home_banner'><b> Educator Comment</b></p>
+    <table class='student_note'>
+        <tr>
+            <td>
+                <p>{!! $n->educator_comment !!}</p>
+            </td>
+        </tr>
+    </table>
+
+</div>
+@endforeach
+
 
 @include('tinyEditor')
