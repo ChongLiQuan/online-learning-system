@@ -12,6 +12,7 @@
     <hr />
     <p> <i class='bx bxs-right-arrow'></i> &nbsp;&nbsp; <a href="/educatorAddAnnouncement">Make Announcement</a></p>
     <p> <i class='bx bxs-right-arrow'></i> &nbsp;&nbsp; <a href="/educatorHomepage">Student Notes Management</a></p>
+    <p> <i class='bx bxs-right-arrow'></i> &nbsp;&nbsp; <a href="/educatorAssignmentListPage">Assignment Management</a></p>
 
 
 </nav>

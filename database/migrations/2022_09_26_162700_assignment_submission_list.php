@@ -27,6 +27,7 @@ return new class extends Migration
             $table->datetime('submission_date');
 
             $table->integer('submission_mark')->nullable();
+            $table->text('submission_educator_feedback')->nullable();
         });
     }
 

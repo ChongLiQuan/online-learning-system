@@ -21,6 +21,27 @@ class educatorAssignmentController extends Controller
         }
     }
 
+    public function educatorReviewAssignmentPage($submission_id)
+    {
+        if (Session::get('username') == null) {
+            return view('userInvalidSession');
+        } else {
+            $username = Session::get('user_full_name');
+            $subjects = DB::table('class_subject_list')->where('educator_id', Session::get('username'))->orderBy('class_subject_id')->get();
+            $announcement = DB::table('announcement_list')->where('annouce_educator', $username)->orderBy('annouce_id', 'DESC')->get();
+            $folders = DB::table('student_note_folder_list')->where('student_id', Session::get('username'))->orderBy('student_folder_id', 'ASC')->get();
+
+            //$assignment = DB::table('assignment_submission_list')->where('submission_id', $submission_id)->get();
+
+            $assignment = DB::table('assignment_submission_list')
+            ->join('assignment_list', 'assignment_list.assignment_id', '=', 'assignment_submission_list.assignment_id')
+            ->where('assignment_submission_list.submission_id', $submission_id)
+            ->get();
+            
+            return view('educator/educatorReviewAssignmentPage', compact('subjects', 'announcement', 'folders', 'assignment'));
+        }
+    }
+
     public function educatorViewSubmissionPage($assignment_id)
     {
         if (Session::get('username') == null) {
@@ -28,21 +49,36 @@ class educatorAssignmentController extends Controller
         } else {
             $assignment = DB::table('assignment_list')->where('assignment_id', $assignment_id)->get();
             $submission = DB::table('assignment_submission_list')->where('assignment_id', $assignment_id)->get();
-            
+
             $class_id = DB::table('assignment_list')
-            ->join('subject_folder_list', 'subject_folder_list.subject_folder_id', '=', 'assignment_list.subject_folder_id')
-            ->where('assignment_list.assignment_id', $assignment_id)
-            ->pluck('class_subject_id')
-            ->first();
+                ->join('subject_folder_list', 'subject_folder_list.subject_folder_id', '=', 'assignment_list.subject_folder_id')
+                ->where('assignment_list.assignment_id', $assignment_id)
+                ->pluck('class_subject_id')
+                ->first();
 
             $class = DB::table('class_subject_list')->where('class_subject_id', $class_id)->pluck('class_name')->first();
+
+            $assignment_folder =  DB::table('assignment_list')->where('assignment_id', $assignment_id)->pluck('subject_folder_id')->first();
+
+            $subject_code =
+                DB::table('class_subject_list')
+                ->join('subject_folder_list', 'subject_folder_list.class_subject_id', '=', 'class_subject_list.class_subject_id')
+                ->where('subject_folder_list.subject_folder_id', $assignment_folder)
+                ->pluck('class_subject_list.subject_code')
+                ->first();
+
+            $course_name = DB::table('subject_list')->where('subject_code', $subject_code)->pluck('subject_name')->first();
+            Session::put('current_subject_code', $subject_code);
+            Session::put('current_course_name', $course_name);
+            Session::put('current_class_name', $class);
+            Session::put('current_course_url',  route('courseHome', ['id' => $class_id]));
 
             //Count student from the class
             $student = DB::table('student_list')->where('student_class', $class)->get();
             $totalStudent = count($student);
             $totalSubmission = count($submission);
 
-            return view('educator/educatorViewSubmissionPage', compact('assignment','submission', 'totalStudent', 'totalSubmission'));
+            return view('educator/educatorViewSubmissionPage', compact('assignment', 'submission', 'totalStudent', 'totalSubmission'));
         }
     }
 

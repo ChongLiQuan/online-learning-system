@@ -181,6 +181,26 @@ Route::get('/educatorHomepage', function () {
 Route::post('/eduFilterSubject', [App\Http\Controllers\educator\educatorContentController::class, 'eduFilterSubject'])->name("eduFilterSubject");
 Route::post('/eduFilterClass', [App\Http\Controllers\educator\educatorContentController::class, 'eduFilterClass'])->name("eduFilterClass");
 
+//Educator Pages Route
+Route::get('/educatorAssignmentListPage', function () {
+    if (Session::get('username') == null) {
+        return view('userInvalidSession');
+    } else {
+        $username = Session::get('username');
+        $subjects = DB::table('class_subject_list')->where('educator_id', $username)->orderBy('class_subject_id')->get();
+        $username = Session::get('user_full_name');
+        $classes = DB::table('class_subject_list')->where('educator_id', Session::get('username'))->distinct()->get('class_name');
+
+        $allAssignment = DB::table('assignment_list')
+            ->join('subject_folder_list', 'subject_folder_list.subject_folder_id', '=', 'assignment_list.subject_folder_id')
+            ->join('class_subject_list', 'class_subject_list.class_subject_id', '=', 'subject_folder_list.class_subject_id')
+            ->where('class_subject_list.educator_id', Session::get('username'))
+            ->orderBy('assignment_list.assignment_id', 'asc')
+            ->paginate(5);
+
+        return view('educator/educatorAssignmentListPage', compact('subjects', 'allAssignment', 'classes'));
+    }
+});
 
 Route::get('/courseHome/{id}', function ($id) {
     if (Session::get('username') == null) {
@@ -199,7 +219,7 @@ Route::get('/courseHome/{id}', function ($id) {
 
         $class_name = DB::table('class_subject_list')->where('class_subject_id', $id)->pluck('class_name')->first();
         $folders = DB::table('subject_folder_list')->where('class_subject_id', $id)->where('subject_subFolder', 0)->get();
-        
+
         Session::put('current_subject_id', $id);
         Session::put('current_class_name', $class_name);
 
@@ -379,9 +399,9 @@ Route::post('/deleteComment', [App\Http\Controllers\commentController::class, 'd
 //Educator Add Assignment
 Route::get('/educatorAddAssignmentPage', [App\Http\Controllers\educator\educatorAssignmentController::class, 'educatorAddAssignmentPage']);
 Route::get('/educatorEditAssignmentPage', [App\Http\Controllers\educator\educatorAssignmentController::class, 'educatorEditAssignmentPage']);
-Route::post('/addAssignment',[App\Http\Controllers\educator\educatorAssignmentController::class, 'addAssignment'])->name('addAssignment');
-Route::post('/editAssignment',[App\Http\Controllers\educator\educatorAssignmentController::class, 'editAssignment'])->name('editAssignment');
-Route::post('/deleteAssignment',[App\Http\Controllers\educator\educatorAssignmentController::class, 'deleteAssignment'])->name('deleteAssignment');
+Route::post('/addAssignment', [App\Http\Controllers\educator\educatorAssignmentController::class, 'addAssignment'])->name('addAssignment');
+Route::post('/editAssignment', [App\Http\Controllers\educator\educatorAssignmentController::class, 'editAssignment'])->name('editAssignment');
+Route::post('/deleteAssignment', [App\Http\Controllers\educator\educatorAssignmentController::class, 'deleteAssignment'])->name('deleteAssignment');
 
 //Student Pages Route
 Route::get('/studentHomepage', [App\Http\Controllers\student\studentHomepageController::class, 'studentHomepage']);
@@ -417,10 +437,12 @@ Route::get('/studentAddNote', function () {
 });
 
 Route::get('/educatorViewSubmissionPage/{assignment_id}', [App\Http\Controllers\educator\educatorAssignmentController::class, 'educatorViewSubmissionPage'])->name('educatorViewSubmissionPage');
+Route::get('/educatorReviewAssignmentPage/{submission_id}', [App\Http\Controllers\educator\educatorAssignmentController::class, 'educatorReviewAssignmentPage'])->name('educatorReviewAssignmentPage');
 
 //Educator Profile Controller
 Route::get('/educatorProfilePage', [App\Http\Controllers\educator\educatorProfileController::class, 'educatorProfilePage'])->name('educatorProfilePage');
 Route::post('/updatePassword', [App\Http\Controllers\educator\educatorProfileController::class, 'updatePassword'])->name('updatePassword');
+Route::post('/updateEmailStatus', [App\Http\Controllers\educator\educatorProfileController::class, 'updateEmailStatus'])->name('updateEmailStatus');
 
 
 //Student Note Controller

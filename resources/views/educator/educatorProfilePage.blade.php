@@ -2,9 +2,9 @@
 
 <div class='fullContent'>
 
-    <table class='educatorProfile' border="1">
+    <table class='educatorProfile' border="0">
 
-        <div style="position:absolute; left:800px; top:165px; height:fit-content;" class="popup" onclick="myFunction()"><u>Info</u><span class="popuptext" id="myPopup">If there is any incorrect information. Please contact the institution IT department to proceed with request of changing profile details. IT@gmail.com.my.</span></div>
+        <div style="position:absolute; left:700px; top:165px; height:fit-content;" class="popup" onclick="myFunction()"><u>Info</u><span class="popuptext" id="myPopup">If there is any incorrect information. Please contact the institution IT department to proceed with request of changing profile details. IT@gmail.com.my.</span></div>
 
         <colgroup>
             <col span="1" style="width: 50%;">
@@ -131,6 +131,63 @@
                 </table>
             </td>
         </tr>
+
+        <tr>
+            <td colspan="2">
+                <h3>Assignment Email Notification Alert</h3>
+                <table class='assignmentSetting' border=0>
+                    <colgroup>
+                        <col span="1" style="width: 10%;">
+                        <col span="1" style="width: 60%;">
+                        <col span="1" style="width: 15%;">
+                        <col span="1" style="width: 15%;">
+                    </colgroup>
+
+                    @foreach($allAssignment as $a)
+
+                    <tr>
+                        <td>
+                            {{$a->assignment_id}}
+                        </td>
+                        <td>
+                            {{$a->assignment_title}}
+                        </td>
+                        <td>
+                            {{$a->class_name}}
+                        </td>
+                        <td>
+                            <?php if ($a->assignment_email_educator_status == 1) { ?>
+                                <form action="{{route('updateEmailStatus')}}" method='POST' class='form-group' action='/' enctype='multipart/form-data'>
+                                    <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>"> @csrf
+
+                                    <input type='hidden' name='edit_id' value="{{ $a->assignment_id }}">
+                                    <input type='hidden' name='button_value' value="0">
+                                    <button class="button switch_button_on">
+                                        <span class="button_text" onclick="return confirm('Are you sure you want to turn off?')">On</span>
+                                    </button>
+                                </form>
+                            <?php } ?>
+
+                            <?php if ($a->assignment_email_educator_status == 0) { ?>
+                                <form action="{{route('updateEmailStatus')}}" method='POST' class='form-group' action='/' enctype='multipart/form-data'>
+                                    <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>"> @csrf
+                                    <input type='hidden' name='edit_id' value="{{ $a->assignment_id }}">
+                                    <input type='hidden' name='button_value' value="1">
+                                    <button class="button switch_button_off">
+                                        <span class="button_text" onclick="return confirm('Are you sure you want to turn on?')">Off</span>
+                                    </button>
+                                </form>
+                            <?php } ?>
+                        </td>
+                    </tr>
+                    @endforeach
+                    <tr>
+                        <td colspan="4" style="background:white;">
+                            {{$allAssignment->links()}}
+                        </td>
+                    </tr>
+                </table>
+            </td>
     </table>
 
 </div>

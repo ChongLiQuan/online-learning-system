@@ -18,6 +18,7 @@ class studentAssignmentController extends Controller
         } else {
             $assignment = DB::table('assignment_list')->where('assignment_id', $assignment_id)->get();
 
+            //To set the session value
             $assignment_folder =  DB::table('assignment_list')->where('assignment_id', $assignment_id)->pluck('subject_folder_id')->first();
 
             $subject_code =
@@ -60,18 +61,20 @@ class studentAssignmentController extends Controller
             DB::select('insert into assignment_submission_list (student_id, assignment_id, submission_content, submission_date) 
             values (?,?,?,?)', [$student_id, $assignment_id, $assignment_content, $current_date_time]);
 
-            //Mailing the educator
+            //Fetch the specific assignment email status
+            $status = DB::table('assignment_list')->where('assignment_id', $assignment_id)->pluck('assignment_email_educator_status')->first();
 
-            //Check the educator notify status
-
-            //Send the email
-            $this->sendMail();
+            //Validate the email status
+            if ($status == 1) {
+                $this->sendMail();
+            }
 
             return redirect()->route('studentViewOwnSubmissionPage', $assignment_id)->with('alert', 'Assignment Submitted Successfully.');
         }
     }
 
-    public function sendMail(){
+    public function sendMail()
+    {
         $data = array('name' => "Dear Educator, Student Assignment Submission Received From");
 
         Mail::to('liquan_max@hotmail.com')->send(new assignmentSubmissionMail());
