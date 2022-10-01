@@ -41,7 +41,7 @@ $notificationCount = count($notification);
       <b>
         <a>Welcome Back, {{ Session::get('user_full_name') }}. &nbsp;&nbsp; |</a>
         <a href="/studentHomepage">Home</a>
-        <a href="/">Profile</a>
+        <a href="/studentProfilePage">Profile</a>
 
         <a href="/notificationPage" class='notification'>Notification
 

@@ -38,12 +38,12 @@
         <tr>
             <td>
                 <br>
-                <form action="{{ route('educatorReviewAssignment')}}" method="post" class="form-group">
+                <form action="{{ route('educatorMarkAssignment')}}" method="post" class="form-group">
 
                     <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>"> @csrf
                     <input type="hidden" name="edit_id" value="{{ $a->submission_id  }}">
                     <input type="hidden" name="assignment_id" value="{{ $a->assignment_id  }}">
-                    <input type="number" name="submission_mark" class="assignment_mark_input" min='1' max='{{$a->assignment_full_mark}}'> / {{$a->assignment_full_mark}} Marks
+                    <input type="number" name="submission_mark" class="assignment_mark_input" min='1' max='{{$a->assignment_full_mark}}' required> / {{$a->assignment_full_mark}} Marks
             </td>
         </tr>
         <tr>

@@ -14,7 +14,8 @@
         <p>Currently Viewing: {{ $a->assignment_title }} Student Submission Name List</p>
         @endforeach
 
-        <p> {{ $totalSubmission }} / {{ $totalStudent }} </p>
+        <!-- Educator to view total submission and total student in the class of the assignment -->
+        <!-- <p> {{ $totalSubmission }} / {{ $totalStudent }} </p> -->
 
         <table class='assignment_list' border=0>
             <colgroup>
@@ -65,7 +66,14 @@
                     </td>
                 <?php } ?>
                 <td>
-                    <a href="{{ route('educatorReviewAssignmentPage', ['submission_id' => $s->submission_id]) }}">Mark Now
+                    <!-- Unmarked assignment will be displayed with the option to mark the assignment  -->
+                    <?php if ($s->submission_mark == NULL) { ?>
+                        <a href="{{ route('educatorMarkAssignmentPage', ['submission_id' => $s->submission_id]) }}">Mark Now
+                        <?php } ?>
+                        <!-- Marked assignment will be displayed with the option to edit the assignment mark or comment -->
+                        <?php if ($s->submission_mark != NULL) { ?>
+                            <a href="{{ route('educatorRemarkAssignmentPage', ['submission_id' => $s->submission_id]) }}">Edit Mark
+                            <?php } ?>
                 </td>
             </tr>
             @endforeach

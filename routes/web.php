@@ -437,14 +437,18 @@ Route::get('/studentAddNote', function () {
 });
 
 Route::get('/educatorViewSubmissionPage/{assignment_id}', [App\Http\Controllers\educator\educatorAssignmentController::class, 'educatorViewSubmissionPage'])->name('educatorViewSubmissionPage');
-Route::get('/educatorReviewAssignmentPage/{submission_id}', [App\Http\Controllers\educator\educatorAssignmentController::class, 'educatorReviewAssignmentPage'])->name('educatorReviewAssignmentPage');
-Route::post('/educatorReviewAssignment', [App\Http\Controllers\educator\educatorAssignmentController::class, 'educatorReviewAssignment'])->name('educatorReviewAssignment');
+Route::get('/educatorMarkAssignmentPage/{submission_id}', [App\Http\Controllers\educator\educatorAssignmentController::class, 'educatorMarkAssignmentPage'])->name('educatorMarkAssignmentPage');
+Route::get('/educatorRemarkAssignmentPage/{submission_id}', [App\Http\Controllers\educator\educatorAssignmentController::class, 'educatorRemarkAssignmentPage'])->name('educatorRemarkAssignmentPage');
+Route::post('/educatorMarkAssignment', [App\Http\Controllers\educator\educatorAssignmentController::class, 'educatorMarkAssignment'])->name('educatorMarkAssignment');
 
 //Educator Profile Controller
 Route::get('/educatorProfilePage', [App\Http\Controllers\educator\educatorProfileController::class, 'educatorProfilePage'])->name('educatorProfilePage');
 Route::post('/updatePassword', [App\Http\Controllers\educator\educatorProfileController::class, 'updatePassword'])->name('updatePassword');
 Route::post('/updateEmailStatus', [App\Http\Controllers\educator\educatorProfileController::class, 'updateEmailStatus'])->name('updateEmailStatus');
 
+//Student Profile Controller
+Route::get('/studentProfilePage', [App\Http\Controllers\student\studentProfileController::class, 'studentProfilePage'])->name('studentProfilePage');
+Route::post('/studentUpdatePassword', [App\Http\Controllers\student\studentProfileController::class, 'studentUpdatePassword'])->name('studentUpdatePassword');
 
 //Student Note Controller
 Route::get('/studentViewNote/{student_note_id}', [App\Http\Controllers\student\studentNoteController::class, 'studentViewNote'])->name('studentViewNote');

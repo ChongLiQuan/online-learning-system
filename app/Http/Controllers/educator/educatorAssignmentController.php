@@ -21,7 +21,7 @@ class educatorAssignmentController extends Controller
         }
     }
 
-    public function educatorReviewAssignmentPage($submission_id)
+    public function educatorMarkAssignmentPage($submission_id)
     {
         if (Session::get('username') == null) {
             return view('userInvalidSession');
@@ -31,14 +31,29 @@ class educatorAssignmentController extends Controller
             $announcement = DB::table('announcement_list')->where('annouce_educator', $username)->orderBy('annouce_id', 'DESC')->get();
             $folders = DB::table('student_note_folder_list')->where('student_id', Session::get('username'))->orderBy('student_folder_id', 'ASC')->get();
 
-            //$assignment = DB::table('assignment_submission_list')->where('submission_id', $submission_id)->get();
+            $assignment = DB::table('assignment_submission_list')
+                ->join('assignment_list', 'assignment_list.assignment_id', '=', 'assignment_submission_list.assignment_id')
+                ->where('assignment_submission_list.submission_id', $submission_id)
+                ->get();
+
+            return view('educator/educatorMarkAssignmentPage', compact('subjects', 'announcement', 'folders', 'assignment'));
+        }
+    }
+
+    public function educatorRemarkAssignmentPage($submission_id)
+    {
+        if (Session::get('username') == null) {
+            return view('userInvalidSession');
+        } else {
+            $username = Session::get('user_full_name');
+            $subjects = DB::table('class_subject_list')->where('educator_id', Session::get('username'))->orderBy('class_subject_id')->get();
 
             $assignment = DB::table('assignment_submission_list')
                 ->join('assignment_list', 'assignment_list.assignment_id', '=', 'assignment_submission_list.assignment_id')
                 ->where('assignment_submission_list.submission_id', $submission_id)
                 ->get();
 
-            return view('educator/educatorReviewAssignmentPage', compact('subjects', 'announcement', 'folders', 'assignment'));
+            return view('educator/educatorRemarkAssignmentPage', compact('subjects', 'assignment'));
         }
     }
 
@@ -94,7 +109,7 @@ class educatorAssignmentController extends Controller
         }
     }
 
-    public function educatorReviewAssignment(Request $request)
+    public function educatorMarkAssignment(Request $request)
     {
         $edit_id = $request->input('edit_id');
         $submission_mark = $request->input('submission_mark');
@@ -107,7 +122,6 @@ class educatorAssignmentController extends Controller
         );
 
         DB::table('assignment_submission_list')->where('submission_id',$edit_id)->update($submission_data);
-
 
         return redirect()->route('educatorViewSubmissionPage', $assignment_id)->with('alert', 'Assignment Makred Successfully.');
     }

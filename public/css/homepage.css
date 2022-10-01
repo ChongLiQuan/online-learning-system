@@ -464,3 +464,144 @@ table.notificationTable {
   border-radius: 25px;
 }
 
+table.studentSetting {
+  text-align: center;
+  width: 100%;
+  transition: .2s;
+  border-spacing: 1rem;
+}
+
+table.studentSetting td {
+  background: rgb(184, 217, 255);
+  padding: 1%;
+}
+
+table.studentSetting tbody td:nth-of-type(odd) {
+  background-color: rgb(184, 217, 255);
+}
+
+table.studentSetting tbody td:nth-of-type(even) {
+  background-color: rgb(236, 245, 255);
+}
+
+table.educatorProfile {
+  text-align: center;
+  width: 100%;
+  transition: .2s;
+  border-spacing: 3rem;
+}
+
+table.educatorProfile td {
+  background: rgb(255, 255, 255);
+  border-radius: 10px;
+  vertical-align: top;
+}
+
+table.profileInformation {
+  text-align: left;
+  width: 100%;
+  transition: .2s;
+  border-spacing: 1rem;
+}
+
+table.profileInformation td {
+  background: rgb(184, 217, 255);
+  padding: 1%;
+}
+
+table.profileInformation tbody td:nth-of-type(even) {
+  background-color: rgb(236, 245, 255);
+}
+
+
+.setting_input {
+  border: none;
+  background-color: #f5f5f5;
+  border-bottom: 2px solid #b4b4b4;
+  padding: 10px;
+  width: 50px;
+  font-size: 14px;
+  font-weight: 500;
+  width: 75%;
+  transition: .2s;
+  border-radius: 10px;
+}
+
+table.changePassword {
+  text-align: center;
+  width: 100%;
+  transition: .2s;
+  border-spacing: 3rem;
+}
+
+table.changePassword td {
+  vertical-align: baseline;
+}
+
+/* The actual popup */
+.popup .popuptext {
+  visibility: hidden;
+  width: 300px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -80px;
+}
+
+/* Toggle this class - hide and show the popup */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+
+.popup {
+  background-color: white;
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  height: fit-content;
+}
+
+.setting_button {
+  background-color: rgb(184, 217, 255);
+  border-radius: 10px;
+  height: 40px;
+  border-width: 0;
+  font-size: 16px;
+  color: #333333;
+  font-weight: 550;
+  list-style: none;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 2px 2px 2px rgb(49, 49, 49);
+}
+
+.switch_button_read_feedback {
+  background: rgb(229, 232, 236);
+  font-size: 12px;
+  border-radius: 26px;
+  padding: 10px 20px;
+  border: 1px solid #D4D3E8;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: right;
+  width: fit-content;
+  color: #43425a;
+  box-shadow: 0px 2px 2px #5C5696;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.page-item {
+  display: inline-block;
+}
