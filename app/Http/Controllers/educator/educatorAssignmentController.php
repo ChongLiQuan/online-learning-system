@@ -34,10 +34,10 @@ class educatorAssignmentController extends Controller
             //$assignment = DB::table('assignment_submission_list')->where('submission_id', $submission_id)->get();
 
             $assignment = DB::table('assignment_submission_list')
-            ->join('assignment_list', 'assignment_list.assignment_id', '=', 'assignment_submission_list.assignment_id')
-            ->where('assignment_submission_list.submission_id', $submission_id)
-            ->get();
-            
+                ->join('assignment_list', 'assignment_list.assignment_id', '=', 'assignment_submission_list.assignment_id')
+                ->where('assignment_submission_list.submission_id', $submission_id)
+                ->get();
+
             return view('educator/educatorReviewAssignmentPage', compact('subjects', 'announcement', 'folders', 'assignment'));
         }
     }
@@ -92,6 +92,24 @@ class educatorAssignmentController extends Controller
 
             return view('educator/educatorEditAssignmentPage', compact('list'));
         }
+    }
+
+    public function educatorReviewAssignment(Request $request)
+    {
+        $edit_id = $request->input('edit_id');
+        $submission_mark = $request->input('submission_mark');
+        $assignment_id = $request->input('assignment_id');
+        $assignment_feedback = $request->input('assignment_feedback');
+
+        $submission_data = array(
+            "submission_mark" => $submission_mark,
+            "submission_educator_feedback" => $assignment_feedback,
+        );
+
+        DB::table('assignment_submission_list')->where('submission_id',$edit_id)->update($submission_data);
+
+
+        return redirect()->route('educatorViewSubmissionPage', $assignment_id)->with('alert', 'Assignment Makred Successfully.');
     }
 
     public function addAssignment(Request $request)

@@ -9,7 +9,9 @@
         <table class='student_note_nagivation' border=0 width=100%>
             <tr>
                 <td>
-                    <h3>Marking Student Assignment: {{ $a->assignment_id }}</h3>
+                    <!-- Fetch the assignment student name from name list database -->
+                    <?php $student_name = DB::table('student_list')->where('student_id', $a->student_id)->pluck('student_name')->first(); ?>
+                    <h3>Marking Student Assignment: {{ $a->assignment_id }} ({{ $student_name }})</h3>
                 </td>
             </tr>
         </table>
@@ -31,21 +33,29 @@
 <div id="siteAds">
     <p class='edu_home_banner'><b>Assignment Marking</b></p>
 
-    <table class="mark_assignment" width="100%" border=1>
+    <table class="mark_assignment" width="100%" border=0>
 
         <tr>
             <td>
-                <form action="{{ route('reviewStudentNote') }}" method="post" class="form-group">
+                <br>
+                <form action="{{ route('educatorReviewAssignment')}}" method="post" class="form-group">
 
                     <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>"> @csrf
-                    <input type="hidden" name="delete_id" value="{{ $a->assignment_id  }}">
-                    <input type="text" name="submission_mark" class="assignment_mark_input"> / {{$a->assignment_full_mark}}
+                    <input type="hidden" name="edit_id" value="{{ $a->submission_id  }}">
+                    <input type="hidden" name="assignment_id" value="{{ $a->assignment_id  }}">
+                    <input type="number" name="submission_mark" class="assignment_mark_input" min='1' max='{{$a->assignment_full_mark}}'> / {{$a->assignment_full_mark}} Marks
             </td>
         </tr>
         <tr>
             <td>
-
-                <textarea name="comment" class="assignment_feedback" cols="23" rows="10" placeholder="Comments on note .... "></textarea>
+                <hr> <br>
+                Feedback on Assignment:
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <br>
+                <textarea name="assignment_feedback" class="assignment_feedback" cols="23" rows="15" placeholder="Comments on note .... "></textarea>
             </td>
         </tr>
         <tr>
@@ -53,6 +63,7 @@
                 <button class="approve_button" name="submit" value="1">
                     <span class="button_text" onclick="return confirm('Are you sure?')">Confirm Marking</span></a>
                 </button>
+                <br><br>
             </td>
         </tr>
 

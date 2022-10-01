@@ -438,6 +438,7 @@ Route::get('/studentAddNote', function () {
 
 Route::get('/educatorViewSubmissionPage/{assignment_id}', [App\Http\Controllers\educator\educatorAssignmentController::class, 'educatorViewSubmissionPage'])->name('educatorViewSubmissionPage');
 Route::get('/educatorReviewAssignmentPage/{submission_id}', [App\Http\Controllers\educator\educatorAssignmentController::class, 'educatorReviewAssignmentPage'])->name('educatorReviewAssignmentPage');
+Route::post('/educatorReviewAssignment', [App\Http\Controllers\educator\educatorAssignmentController::class, 'educatorReviewAssignment'])->name('educatorReviewAssignment');
 
 //Educator Profile Controller
 Route::get('/educatorProfilePage', [App\Http\Controllers\educator\educatorProfileController::class, 'educatorProfilePage'])->name('educatorProfilePage');
