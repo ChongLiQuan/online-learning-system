@@ -5,6 +5,7 @@
 @if(Session::get('user_role') == 2)
 @include('student/studentHeader')
 @endif
+
 <?php Session::put('previous_url', URL::current()); ?>
 <link rel="icon" href="{!! asset('educator/images/login_logo.jpeg') !!}" />
 <link rel="stylesheet" href="<?php echo asset('css/courseHomepage.css') ?>" type="text/css">

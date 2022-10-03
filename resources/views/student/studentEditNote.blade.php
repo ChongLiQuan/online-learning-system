@@ -1,5 +1,4 @@
 @include('student/studentHeader')
-@include('student/studentRightSideBar')
 @include('student/studentLeftSideBar')
 
 <?php Session::put('current_edit_note_url', URL::current()) ?>
@@ -55,7 +54,33 @@
                 <span class="button_text">Update Note Now</span>
             </button>
         </form>
-        @endforeach
 </article>
+
+<div id="siteAds">
+    <p class='stu_home_banner'><b> Educator Comment</b></p>
+    <table class='student_note'>
+        <tr>
+            <?php if ($n->educator_approval_status == NULL && $n->share_status == TRUE) { ?>
+                <td style="color:yellow">
+                    Note Status: Pending Approval
+                </td>
+            <?php } elseif ($n->educator_approval_status == 1  && $n->share_status == TRUE) { ?>
+                <td style="color:green">
+                    Note Status: Approved (Sharing)
+                </td>
+            <?php } elseif ($n->educator_approval_status == NULL  && $n->share_status == FALSE) { ?>
+                <td>
+                    No Status
+                </td>
+            <?php } ?>
+        </tr>
+        <tr>
+            <td>
+                <p>{!! $n->educator_comment !!}</p>
+            </td>
+        </tr>
+    </table>
+</div>
+@endforeach
 
 @include('tinyEditor')

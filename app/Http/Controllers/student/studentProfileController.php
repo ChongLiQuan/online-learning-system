@@ -16,15 +16,7 @@ class studentProfileController extends Controller
             return view('userInvalidSession');
         } else {
             $profile = DB::table('student_list')->where('student_id', Session::get('username'))->get();
-
-            //Fetch all assignment that belong to student class
-            $allAssignment = DB::table('assignment_submission_list')
-                ->join('assignment_list', 'assignment_list.assignment_id', '=', 'assignment_submission_list.assignment_id')
-                ->where('assignment_submission_list.student_id', Session::get('username'))
-                ->orderBy('assignment_submission_list.submission_id', 'asc')
-                ->paginate(5);
-
-            return view('student/studentProfilePage', compact('profile', 'allAssignment'));
+            return view('student/studentProfilePage', compact('profile'));
         }
     }
 

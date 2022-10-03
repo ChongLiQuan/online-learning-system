@@ -4,7 +4,7 @@
     <hr />
 
     @foreach($announcement as $a)
-    <p>&nbsp;-</i> <a href="/educatorAnnouncement#{{ $a->annouce_id }}">{{ $a->annouce_title }}</a> </p>
+    <p>&nbsp;-</i> <a href="/educatorAnnouncementPage#{{ $a->annouce_id }}">{{ $a->annouce_title }}</a> </p>
     @endforeach
 
 </div>

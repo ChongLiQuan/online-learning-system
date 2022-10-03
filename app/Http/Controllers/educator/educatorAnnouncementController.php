@@ -9,6 +9,16 @@ use Illuminate\Support\Facades\Session;
 
 class educatorAnnouncementController extends Controller
 {
+    public function educatorAnnouncementPage(Request $request)
+    {
+        if (Session::get('username') == null) {
+            return view('userInvalidSession');
+        } else {
+            $user_full_name = Session::get('user_full_name');
+            $list = DB::table('announcement_list')->where('annouce_educator', $user_full_name)->orderBy('created_at', 'DESC')->paginate(10);
+            return view('educator/educatorAnnouncementPage', compact('list'));
+        }
+    }
 
     public function addAnnouncement(Request $request)
     {
@@ -51,7 +61,7 @@ class educatorAnnouncementController extends Controller
         $id = $request->input('delete_id');
 
         DB::table('announcement_list')->where('annouce_id', [$id])->delete();
-        return redirect('educatorAnnouncement')->with('delete_pass_status', 'Announcement Deleted Successfully! ');
+        return redirect('educatorAnnouncementPage')->with('delete_pass_status', 'Announcement Deleted Successfully! ');
     }
 
     public function editAnnouncement(Request $request)
@@ -77,7 +87,7 @@ class educatorAnnouncementController extends Controller
         );
 
         if ($annouce_title == NULL) {
-            return redirect('educatorAnnouncement')->with('delete_error_status', 'Error! Selected Subject or Class Name Does Not Exist!');
+            return redirect('educatorAnnouncementPage')->with('delete_error_status', 'Error! Selected Subject or Class Name Does Not Exist!');
         } else {
             DB::table('announcement_list')->where('annouce_id', $edit_id)->update($data);
 
@@ -86,9 +96,9 @@ class educatorAnnouncementController extends Controller
             $class = DB::table('class_subject_list')->where('class_subject_id', $annouce_subject)->pluck('class_name')->first();
             $count = DB::table('student_list')->select('student_id')->where('student_class', $class)->get();
             $count_int = count($count); //Convert the dara into integer to do comparison for the validation below
-            
+
             //Check if the selected class is empty 
-            if($count_int > 0){
+            if ($count_int > 0) {
                 foreach ($count as $c) {
                     $dataSet[] = [
                         'student_id'  => $c->student_id,
@@ -98,13 +108,11 @@ class educatorAnnouncementController extends Controller
                 }
 
                 DB::table('announcement_status')->insert($dataSet);
-
-            }else{ //Prompty error message for empty class
-                return redirect('educatorAnnouncement')->with('delete_error_status', 'Error! Selected Class is Empty!');
+            } else { //Prompty error message for empty class
+                return redirect('educatorAnnouncementPage')->with('delete_error_status', 'Error! Selected Class is Empty!');
             }
 
-            return redirect('educatorAnnouncement')->with('delete_pass_status', 'Announcement Edited Successfully For Course ' . $annouce_subject . ' ' . $class);
+            return redirect('educatorAnnouncementPage')->with('delete_pass_status', 'Announcement Edited Successfully For Course ' . $annouce_subject . ' ' . $class);
         }
     }
-
 }

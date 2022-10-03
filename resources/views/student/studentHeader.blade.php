@@ -50,7 +50,7 @@ $notificationCount = count($notification);
           <?php } ?>
         </a>
 
-        <a href="/studentAnnouncement" class='notification'>Announcement
+        <a href="/studentAnnouncementPage" class='notification'>Announcement
 
           <?php if ($announcementCount > 0) { ?>
             <span class="badge">{{ $announcementCount }}</span>

@@ -243,16 +243,7 @@ Route::get('/educatorAddAnnouncement', function () {
 
 Route::post('/uploadImage', [App\Http\Controllers\educator\educatorAnnounementController::class, 'uploadImage'])->name('uploadImage');
 Route::post('/addAnnouncement', [App\Http\Controllers\educator\educatorAnnouncementController::class, 'addAnnouncement'])->name('addAnnouncement');
-
-Route::get('/educatorAnnouncement', function () {
-    if (Session::get('username') == null) {
-        return view('userInvalidSession');
-    } else {
-        $user_full_name = Session::get('user_full_name');
-        $list = DB::table('announcement_list')->where('annouce_educator', $user_full_name)->orderBy('created_at', 'DESC')->get();
-        return view('educator/educatorAnnouncement', compact('list'));
-    }
-});
+Route::get('/educatorAnnouncementPage', [App\Http\Controllers\educator\educatorAnnouncementController::class, 'educatorAnnouncementPage']);
 
 Route::get('/educatorEditAnnouncement', function () {
     if (Session::get('username') == null) {
@@ -405,20 +396,7 @@ Route::post('/deleteAssignment', [App\Http\Controllers\educator\educatorAssignme
 
 //Student Pages Route
 Route::get('/studentHomepage', [App\Http\Controllers\student\studentHomepageController::class, 'studentHomepage']);
-Route::get('/studentAnnouncement', function () {
-    if (Session::get('username') == null) {
-        return view('userInvalidSession');
-    } else {
-        $username = Session::get('username');
-        $list = DB::table('announcement_list')
-            ->join('class_subject_list', 'class_subject_list.class_subject_id', '=', 'announcement_list.class_subject_id')
-            ->where('class_subject_list.class_name', Session::get('user_class'))
-            ->orderBy('announcement_list.created_at', 'DESC')
-            ->get();
-        return view('student/studentAnnouncement', compact('list'));
-    }
-});
-
+Route::get('/studentAnnouncementPage', [App\Http\Controllers\student\studentAnnouncementController::class, 'studentAnnouncementPage']);
 Route::post('/readAnnouncement', [App\Http\Controllers\student\studentAnnouncementController::class, 'readAnnouncement'])->name('readAnnouncement');
 
 Route::get('/studentAddNote', function () {
@@ -449,6 +427,10 @@ Route::post('/updateEmailStatus', [App\Http\Controllers\educator\educatorProfile
 //Student Profile Controller
 Route::get('/studentProfilePage', [App\Http\Controllers\student\studentProfileController::class, 'studentProfilePage'])->name('studentProfilePage');
 Route::post('/studentUpdatePassword', [App\Http\Controllers\student\studentProfileController::class, 'studentUpdatePassword'])->name('studentUpdatePassword');
+
+//Student Result Controller
+Route::get('/studentResultPage', [App\Http\Controllers\student\studentResultController::class, 'studentResultPage'])->name('studentResultPage');
+
 
 //Student Note Controller
 Route::get('/studentViewNote/{student_note_id}', [App\Http\Controllers\student\studentNoteController::class, 'studentViewNote'])->name('studentViewNote');

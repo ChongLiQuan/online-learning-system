@@ -74,14 +74,27 @@ $active_status = DB::table('student_note_list')->where('student_id', Session::ge
     <p class='stu_home_banner'><b> Educator Comment</b></p>
     <table class='student_note'>
         <tr>
+            <?php if ($n->educator_approval_status == NULL && $n->share_status == TRUE) { ?>
+                <td style="color:orange">
+                    Note Status: Pending Approval
+                </td>
+            <?php } elseif ($n->educator_approval_status == 1  && $n->share_status == TRUE) { ?>
+                <td style="color:green">
+                    Note Status: Approved (Sharing)
+                </td>
+            <?php } elseif ($n->educator_approval_status == NULL  && $n->share_status == FALSE) { ?>
+                <td>
+                    No Status
+                </td>
+            <?php } ?>
+        </tr>
+        <tr>
             <td>
                 <p>{!! $n->educator_comment !!}</p>
             </td>
         </tr>
     </table>
-
 </div>
 @endforeach
-
 
 @include('tinyEditor')

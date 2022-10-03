@@ -9,7 +9,7 @@
     @foreach($assignment as $a)
 
     <center>
-        <p class='stu_home_banner'><b>Assignment Submission Portal : </b></p>
+        <p class='stu_home_banner'><b>Assignment Submission Portal : {{ $a->assignment_title }}</b></p>
         <p>Assignment has been submitted. Please wait for the educator to release the final mark.</p>
 
         <hr>

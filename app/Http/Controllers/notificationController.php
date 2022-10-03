@@ -15,7 +15,7 @@ class notificationController extends Controller
             return view('userInvalidSession');
         } else {
             $username = Session::get('username');
-            $list = DB::table('notification_list')->where('user_id', Session::get('username'))->orderBy('created_at', 'DESC')->get();
+            $list = DB::table('notification_list')->where('user_id', Session::get('username'))->orderBy('created_at', 'DESC')->paginate(10);
             return view('/notificationPage', compact('list'));
         }
     }

@@ -131,64 +131,7 @@
                 </table>
             </td>
         </tr>
-
-        <tr>
-            <td colspan="2">
-                <h3>Coursework Marks</h3>
-                <table class='studentSetting' border=0>
-                    <colgroup>
-                        <col span="1" style="width: 5%;">
-                        <col span="1" style="width: 30%;">
-                        <col span="1" style="width: 15%;">
-                        <col span="1" style="width: 50%;">
-                    </colgroup>
-
-                    <tr>
-                        <td>ID</td>
-                        <td>Assignment Title</td>
-                        <td>Assignment Mark</td>
-                        <td>Educator Feedback</td>
-                    </tr>
-
-                    @foreach($allAssignment as $a)
-
-                    <tr>
-                        <td>
-                            {{$a->submission_id}}
-                        </td>
-                        <td>
-                            {{$a->assignment_title}}
-                        </td>
-                        <td>
-                            {{$a->submission_mark}} / {{$a->assignment_full_mark}} Marks
-                        </td>
-                        <?php if ($a->submission_mark == null) { ?>
-                            <td style="color:orange;">
-                                Pending
-                            </td>
-                        <?php } ?>
-                        <?php if ($a->submission_mark != null) { ?>
-                            <?php if ($a->submission_educator_feedback == null) { ?>
-                                <td>
-                                    No Feedback
-                                </td>
-                            <?php } else { ?>
-                                <td>
-                                    {{$a->submission_educator_feedback}}
-                                </td>
-                        <?php }
-                        } ?>
-                    </tr>
-                    @endforeach
-                    <tr>
-                        <td colspan="4" style="background:white;">
-                            {{$allAssignment->links()}}
-                        </td>
-                    </tr>
-                </table>
-            </td>
     </table>
-
 </div>
 
 <script>

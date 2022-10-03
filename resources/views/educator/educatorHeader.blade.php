@@ -50,7 +50,7 @@ $notificationCount = count($notification);
           <?php } ?>
         </a>
 
-        <a href="/educatorAnnouncement">Announcement</a>
+        <a href="/educatorAnnouncementPage">Announcement</a>
 
         <a href="/logout">Logout</a>
         <a>|</a>

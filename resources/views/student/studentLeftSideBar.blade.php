@@ -10,11 +10,13 @@
     @endforeach
     </p>
 
-    <p> <i class='bx bxs-right-arrow'></i> &nbsp;&nbsp; <a href="/studentAnnouncement">Check Announcement</a></p>
+    <p class='stu_home_banner'><b>Content Tools:</b></p>
+    <p> <i class='bx bxs-right-arrow'></i> &nbsp;&nbsp; <a href="/studentAnnouncementPage">Check Announcement</a></p>
+    <p> <i class='bx bxs-right-arrow'></i> &nbsp;&nbsp; <a href="/studentResultPage">Check Assignment Results</a></p>
     <p> <i class='bx bxs-right-arrow'></i> &nbsp;&nbsp; <a href="/studentHomepage">Write Notes</a></p>
 
     <hr />
-    <p class='stu_home_banner'><b>Recycler Bin</b></p>
+    <p class='stu_home_banner'><b>Recycler Bin:</b></p>
 
     <p> <i class='bx bxs-right-arrow'></i> &nbsp;&nbsp; <a href="/studentDeletedFolder">Deleted Folders</a></p>
     <p> <i class='bx bxs-right-arrow'></i> &nbsp;&nbsp; <a href="/studentDeletedNote">Deleted Notes</a></p>

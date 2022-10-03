@@ -78,9 +78,7 @@
             </tr>
 
         </table>
-        <br /> <br />
-
-        <hr />
+        <br />
         @endforeach
 
         <script type="text/javascript">

@@ -69,7 +69,6 @@
         </tr>
         @endif
     </table>
-    <hr>
     @endforeach
 
 </article>

@@ -54,7 +54,7 @@
                             <input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'>
                             <input type='hidden' name='id' value="{{ $l->notification_id }}">
 
-                            <button class="button login_submit">
+                            <button class="button delete_button">
                                 <span class="button_text">Delete</span>
                             </button>
                         </form>
@@ -75,15 +75,15 @@
                             <input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'>
                             <input type='hidden' name='id' value="{{ $l->notification_id }}">
 
-                            <button class="button login_submit" <?php if ($status == '1') { ?> disabled <?php   } ?>>
+                            <button class="button read_button" <?php if ($status == '1') { ?> disabled <?php   } ?>>
                                 <span class="button_text">Read</span>
                             </button>
                         </form>
                     </td>
                 </tr>
-
-                </table>
-                <br /> <br />
-
-                <hr />
                 @endforeach
+                </table>
+
+                <center>
+                    {{$list->links()}}
+                </center>

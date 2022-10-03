@@ -15,7 +15,7 @@ $allAssignment = DB::table('assignment_list')
         <table class='student_assignment' border=0>
             @foreach($announcement as $a)
             <tr>
-                <p><a href="/studentAnnouncement#{{ $a->annouce_id }}">{{ $a->annouce_title }}</a> </p>
+                <p><a href="/studentAnnouncementPage#{{ $a->annouce_id }}">{{ $a->annouce_title }}</a> </p>
             </tr>
             @endforeach
         </table>
