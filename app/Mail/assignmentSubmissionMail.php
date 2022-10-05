@@ -11,14 +11,17 @@ class assignmentSubmissionMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $student_id, $assignment_id;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($student_id, $assignment_id)
     {
-        //
+        $this->student_id = $student_id;
+        $this->assignment_id = $assignment_id;
     }
 
     /**

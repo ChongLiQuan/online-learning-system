@@ -1,0 +1,69 @@
+body {
+    display: grid;
+    grid-template-areas:
+        "header header header"
+        "nav article ads";
+    grid-template-rows: 80px 1fr;
+    grid-template-columns: 30% 1fr;
+    grid-row-gap: 10px;
+    grid-column-gap: 10px;
+    height: 107vh;
+    margin: 0;
+    font-family: 'Quicksand', sans-serif;
+    transition: all 0.3s ease;
+}
+
+div.messageBody {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+
+div.messageLeftNav {
+    background-color: #5e4747;
+    grid-area: 1 / 1 / 6 / 3;
+    width: 150%;
+}
+
+div.chat_log {
+    grid-area: 1 / 3 / 6 / 6;
+    background-color: #968686;
+    width: auto;
+}
+
+
+table.note_list {
+    text-align: left;
+    background: rgb(255, 255, 255);
+    width: 100%;
+    transition: .2s;
+}
+
+table.note_list thead th {
+    text-align: center;
+    background-color: #d6d6d6;
+    font-weight: 900;
+}
+
+table.note_list th,
+table.note_list td {
+    padding: 12px;
+}
+
+table.note_list tbody tr:nth-of-type(even) {
+    background-color: #f2f2f2;
+}
+
+table.note_list tbody tr:last-of-type {
+    border-bottom: 2px solid #d6d6d6;
+}
+
+table.chat_table {
+    text-align: left;
+    background: rgb(255, 255, 255);
+    width: 100%;
+    height: 90%;
+    transition: .2s;
+}

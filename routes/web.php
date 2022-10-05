@@ -188,14 +188,13 @@ Route::get('/educatorAssignmentListPage', function () {
     } else {
         $username = Session::get('username');
         $subjects = DB::table('class_subject_list')->where('educator_id', $username)->orderBy('class_subject_id')->get();
-        $username = Session::get('user_full_name');
         $classes = DB::table('class_subject_list')->where('educator_id', Session::get('username'))->distinct()->get('class_name');
 
         $allAssignment = DB::table('assignment_list')
             ->join('subject_folder_list', 'subject_folder_list.subject_folder_id', '=', 'assignment_list.subject_folder_id')
             ->join('class_subject_list', 'class_subject_list.class_subject_id', '=', 'subject_folder_list.class_subject_id')
             ->where('class_subject_list.educator_id', Session::get('username'))
-            ->orderBy('assignment_list.assignment_id', 'asc')
+            ->orderBy('assignment_list.assignment_id', 'DESC')
             ->paginate(5);
 
         return view('educator/educatorAssignmentListPage', compact('subjects', 'allAssignment', 'classes'));
@@ -383,6 +382,12 @@ Route::get('/userEditComment', function () {
     }
 });
 
+//Message Controller
+Route::get('/userMessagePage', [App\Http\Controllers\messageController::class, 'userMessagePage']);
+Route::get('/loadMesssage/{to_student_id}', [App\Http\Controllers\messageController::class, 'loadMessage'])->name('loadMessage');
+Route::post('/sendMessage', [App\Http\Controllers\messageController::class, 'sendMessage'])->name('sendMessage');
+
+//Discussion Controller
 Route::post('/addDiscussionComment', [App\Http\Controllers\commentController::class, 'addComment'])->name('addComment');
 Route::post('/editDiscussionComment', [App\Http\Controllers\commentController::class, 'editComment'])->name('editComment');
 Route::post('/deleteComment', [App\Http\Controllers\commentController::class, 'deleteComment'])->name('deleteComment');

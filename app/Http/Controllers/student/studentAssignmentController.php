@@ -66,18 +66,16 @@ class studentAssignmentController extends Controller
 
             //Validate the email status
             if ($status == 1) {
-                $this->sendMail();
+                $this->sendMail($student_id, $assignment_id);
             }
 
             return redirect()->route('studentViewOwnSubmissionPage', $assignment_id)->with('alert', 'Assignment Submitted Successfully.');
         }
     }
 
-    public function sendMail()
-    {
-        $data = array('name' => "Dear Educator, Student Assignment Submission Received From");
-
-        Mail::to('liquan_max@hotmail.com')->send(new assignmentSubmissionMail());
+    public function sendMail($student_id, $assignment_id)
+    {        
+        Mail::to('liquan_max@hotmail.com')->send(new assignmentSubmissionMail($student_id, $assignment_id));
 
         return view('student/studentHomepage');
     }

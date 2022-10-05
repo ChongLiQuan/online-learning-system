@@ -17,12 +17,15 @@
 
     <table class="assignment_list">
         <colgroup>
+            <col span="1" style="width: 5%;">
+            <col span="1" style="width: 20%;">
             <col span="1" style="width: 10%;">
-            <col span="1" style="width: 30%;">
-            <col span="1" style="width: 10%;">
-            <col span="1" style="width: 10%;">
-            <col span="1" style="width: 10%;">
-            <col span="1" style="width: 10%;">
+            <col span="1" style="width: 5%;">
+            <col span="1" style="width: 5%;">
+            <col span="1" style="width: 5%;">
+            <col span="1" style="width: 20%;">
+            <col span="1" style="width: 5%;">
+            <col span="1" style="width: 5%;">
         </colgroup>
 
         <thead>
@@ -40,6 +43,15 @@
             </th>
             <th>
                 Course Code
+            </th>
+            <th>
+                Mark Progress
+            </th>
+            <th>
+                Mark Progress
+            </th>
+            <th>
+                Status
             </th>
             <th>
                 Mark
@@ -66,6 +78,44 @@
 
             <td>
                 {{ $all->subject_code }}
+            </td>
+
+            <td>
+                <?php
+                $class = DB::table('student_list')->where('student_class', $all->class_name)->get();
+                $totalStudent = count($class);
+                $submission = DB::table('assignment_submission_list')->where('assignment_id', $all->assignment_id)->where('submission_mark', NULL)->get();
+                $totalSubmission = count($submission);
+                $totalPercentage = ($totalSubmission / $totalStudent) * 100;
+                ?>
+                {{ $totalSubmission }} / {{ $totalStudent }}
+            </td>
+
+            <td>
+                <?php
+                if ($totalPercentage >= 0 && $totalPercentage <= 30) { ?>
+                    <div class="progress-bar bg-danger" role="progressbar" style="width: {{$totalPercentage}}%;height:15px;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">{{$totalPercentage}}%</div>
+                <?php } elseif ($totalPercentage >= 31 && $totalPercentage <= 60) { ?>
+                    <div class="progress-bar bg-warning" role="progressbar" style="width: {{$totalPercentage}}%;height:15px;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">{{$totalPercentage}}%</div>
+                <?php } elseif ($totalPercentage >= 61 && $totalPercentage <= 80) { ?>
+                    <div class="progress-bar bg-info" role="progressbar" style="width: {{$totalPercentage}}%;height:15px;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">{{$totalPercentage}}%</div>
+                <?php } elseif ($totalPercentage >= 81 && $totalPercentage <= 100) { ?>
+                    <div class="progress-bar bg-success" role="progressbar" style="width: {{$totalPercentage}}% ;height:15px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{$totalPercentage}}%</div>
+                <?php } ?>
+            </td>
+
+            <?php
+            if ($totalPercentage == 100) { ?>
+                <td style="color:green">
+                    Completed
+                </td>
+            <?php } else { ?>
+                <td style="color:red">
+                    Not Complete
+                </td>
+            <?php }
+            ?>
+
             <td>
                 <a href="{{ route('educatorViewSubmissionPage', ['assignment_id' => $all->assignment_id]) }}">
                     <button class="home_preview_button">Mark Assignment</button></a>

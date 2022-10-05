@@ -1,60 +1,60 @@
 body {
-    display: grid;
-    grid-template-areas:
-      "header header header"
-      "nav article ads";
-    grid-template-rows: 80px 1fr;
-    grid-template-columns: 20% 1fr;
-    grid-row-gap: 10px;
-    grid-column-gap: 10px;
-    height: 107vh;
-    margin: 0;
-    font-family: 'Quicksand', sans-serif;
-    transition: all 0.3s ease;
-  }
-  
-  header,
-  article,
-  nav,
-  div {
-    padding: 1.2em;
-    background: rgb(250, 250, 250);
-  }
+  display: grid;
+  grid-template-areas:
+    "header header header"
+    "nav article ads";
+  grid-template-rows: 80px 1fr;
+  grid-template-columns: 20% 1fr;
+  grid-row-gap: 10px;
+  grid-column-gap: 10px;
+  height: 107vh;
+  margin: 0;
+  font-family: 'Quicksand', sans-serif;
+  transition: all 0.3s ease;
+}
 
-  table.folder{
-    text-align: left;
-    border: 1;
-    background: rgb(255, 255, 255);
-    width: 100%;
-    height: fit-content;
-    padding-top:1%;
-    margin-top:1%;
-    border-radius: 15px;
-    transition: all 0.3s ease;
-  }
-  
-  table.note_list {
-    text-align: center;
-    background: rgb(255, 255, 255);
-    width: 100%;
-    transition: .2s;
+header,
+article,
+nav,
+div {
+  padding: 1.2em;
+  background: rgb(250, 250, 250);
+}
+
+table.folder {
+  text-align: left;
+  border: 1;
+  background: rgb(255, 255, 255);
+  width: 100%;
+  height: fit-content;
+  padding-top: 1%;
+  margin-top: 1%;
+  border-radius: 15px;
+  transition: all 0.3s ease;
+}
+
+table.note_list {
+  text-align: center;
+  background: rgb(255, 255, 255);
+  width: 100%;
+  transition: .2s;
 }
 
 table.note_list thead th {
-    text-align: center;
-    background-color: #d6d6d6;
-    font-weight: 900;
+  text-align: center;
+  background-color: #d6d6d6;
+  font-weight: 900;
 }
 
 table.note_list th,
 table.note_list td {
-    padding: 12px;
+  padding: 12px;
 }
 
 table.note_list tbody tr:nth-of-type(even) {
-    background-color: #f2f2f2;
+  background-color: #f2f2f2;
 }
 
 table.note_list tbody tr:last-of-type {
-    border-bottom: 2px solid #d6d6d6;
-
+  border-bottom: 2px solid #d6d6d6;
+}

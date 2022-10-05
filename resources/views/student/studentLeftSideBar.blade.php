@@ -15,7 +15,9 @@
     <p> <i class='bx bxs-right-arrow'></i> &nbsp;&nbsp; <a href="/studentResultPage">Check Assignment Results</a></p>
     <p> <i class='bx bxs-right-arrow'></i> &nbsp;&nbsp; <a href="/studentHomepage">Write Notes</a></p>
 
-    <hr />
+    <p class='stu_home_banner'><b>Chat Tool:</b></p>
+    <p> <i class='bx bxs-right-arrow'></i> &nbsp;&nbsp; <a href="/userMessagePage">Chat Room</a></p>
+
     <p class='stu_home_banner'><b>Recycler Bin:</b></p>
 
     <p> <i class='bx bxs-right-arrow'></i> &nbsp;&nbsp; <a href="/studentDeletedFolder">Deleted Folders</a></p>
