@@ -14,7 +14,7 @@ class messageController extends Controller
         if (Session::get('username') == null) {
             return view('userInvalidSession');
         } else {
-            $allUsers = DB::table('user_login_details')->get();
+            $allUsers = DB::table('user_login_details')->where('user_name', '!=', Session::get('username'))->get();
 
             $class_subject_id = DB::table('class_subject_list')->where('subject_code', Session::get('current_subject_code'))->where('class_name', Session::get('current_class_name'))->pluck('class_subject_id')->first();
             $list = DB::table('subject_folder_list')->where('class_subject_id', $class_subject_id)->get();
@@ -25,7 +25,7 @@ class messageController extends Controller
     public function loadMessage($to_student_id)
     {
         Session::put('to_student_id', $to_student_id);
-        $allUsers = DB::table('user_login_details')->get();
+        $allUsers = DB::table('user_login_details')->where('user_name', '!=', Session::get('username'))->get();
 
         return view('userMessagePage', compact('allUsers'));
     }

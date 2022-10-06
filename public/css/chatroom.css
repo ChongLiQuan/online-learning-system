@@ -67,3 +67,66 @@ table.chat_table {
     height: 90%;
     transition: .2s;
 }
+
+.speech-bubble-left {
+    position: relative;
+    background: #73a9c4;
+    border-radius: .4em;
+    margin-top: 1%;
+    width: fit-content;
+    height: fit-content;
+    margin-left: 2em;
+    margin-right: 2em;
+}
+
+.speech-bubble-left:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 0;
+    height: 0;
+    border: 22px solid transparent;
+    border-right-color: #73a9c4;
+    border-left: 0;
+    border-bottom: 0;
+    margin-top: -11px;
+    margin-left: -22px;
+}
+
+.speech-bubble-right {
+    float: right;
+    background: #a0aeb6;
+    border-radius: .4em;
+    margin-top: 1%;
+    width: fit-content;
+    margin-right: 2em;
+    margin-left: 2em;
+}
+
+.speech-bubble-right:after {
+    content: '';
+    float: right;
+    top: 50%;
+    width: 0;
+    height: 0;
+    border: 22px solid transparent;
+    border-left-color: #a0aeb6;
+    border-right: 0;
+    border-bottom: 0;
+    margin-top: -5px;
+    margin-right: -40px;
+}
+
+
+.chat_scrollable {
+    background-color: rgb(255, 255, 255);
+    height: 700px;
+    overflow: auto;
+}
+
+textarea.message_textarea {
+    border: 2px line rgb(22, 22, 22);
+    border-radius: 10px;
+    margin-top: 1%;
+}
