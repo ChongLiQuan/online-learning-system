@@ -1,6 +1,8 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
 
+
+
 @if(Session::get('user_role') == 1)
 @include('educator/educatorHeader')
 @endif
@@ -30,8 +32,20 @@
 
         @foreach($allUsers as $a)
         <tr>
-            <td>
+            <?php
+            $messages = DB::table('messages_list')
+                ->where('from_user_id', $a->user_name)
+                ->where('to_user_id', Session::get('username'))
+                ->where('message_is_new_status', 1)
+                ->get();
+            $msgAmount = count($messages);
+            ?>
+
+            <td class='notification_chat' style="color: black;">
                 {{$a->user_full_name}}
+                <?php if ($msgAmount > 0) { ?>
+                    <span class="badge">{{ $msgAmount }}</span>
+                <?php } ?>
             </td>
 
             <td>
@@ -54,7 +68,10 @@
             </colgroup>
 
             <tr style="line-height: 15px; vertical-align: top;">
-                <td colspan="2"> Username: {{Session::get('to_student_id')}}</td>
+                <?php $student_name = DB::table('user_login_details')->where('user_name', Session::get('to_student_id'))->pluck('user_full_name')->first(); ?>
+                <td colspan="2">
+                    <h5>Now Chatting With: {{ $student_name }}</h5>
+                </td>
             </tr>
 
             <!-- Load Messages -->

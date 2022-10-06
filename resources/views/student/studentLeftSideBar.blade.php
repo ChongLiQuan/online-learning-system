@@ -16,7 +16,18 @@
     <p> <i class='bx bxs-right-arrow'></i> &nbsp;&nbsp; <a href="/studentHomepage">Write Notes</a></p>
 
     <p class='stu_home_banner'><b>Chat Tool:</b></p>
-    <p> <i class='bx bxs-right-arrow'></i> &nbsp;&nbsp; <a href="/userMessagePage">Chat Room</a></p>
+    <?php
+    $messages = DB::table('messages_list')
+        ->where('to_user_id', Session::get('username'))
+        ->where('message_is_new_status', 1)
+        ->get();
+    $msgAmount = count($messages);
+    ?>
+    <p> <i class='bx bxs-right-arrow'></i> &nbsp;&nbsp; <a href="/userMessagePage" class='notification' style="background-color:aliceblue;">
+            <?php if ($msgAmount > 0) { ?>
+                <span class="badge">{{ $msgAmount }}</span>
+            <?php } ?>
+            Chat Room</a></p>
 
     <p class='stu_home_banner'><b>Recycler Bin:</b></p>
 

@@ -27,6 +27,11 @@ class messageController extends Controller
         Session::put('to_student_id', $to_student_id);
         $allUsers = DB::table('user_login_details')->where('user_name', '!=', Session::get('username'))->get();
 
+        DB::table('messages_list')
+        ->where('from_user_id', $to_student_id)
+        ->where('to_user_id', Session::get('username'))
+        ->update(['message_is_new_status' => 0]);
+
         return view('userMessagePage', compact('allUsers'));
     }
 

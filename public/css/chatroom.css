@@ -130,3 +130,24 @@ textarea.message_textarea {
     border-radius: 10px;
     margin-top: 1%;
 }
+
+.notification_chat {
+    color: white;
+    text-decoration: none;
+    position: relative;
+    display: inline-block;
+}
+
+.notification_chat:hover {
+    background-color: white;
+}
+
+.notification_chat .badge {
+    position: absolute;
+    top: 6px;
+    right: -10px;
+    padding: 1px 5px;
+    border-radius: 50%;
+    background: red;
+    color: white;
+}
