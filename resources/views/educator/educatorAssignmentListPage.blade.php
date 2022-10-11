@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="<?php echo asset('css/courseHomepage.css') ?>" type="text/css">
 
 <article id="fullArticle">
-    <p class='edu_home_banner'><b>Student Notes Management</b></p>
+    <p class='edu_home_banner'><b>Assignment Submission Portal List Page</b></p>
     @if (session('error_status'))
     <p style="text-align:center; color:red;"><b>{{ session('error_status') }}</b></p>
     @endif
@@ -45,7 +45,7 @@
                 Course Code
             </th>
             <th>
-                Mark Progress
+                Mark Submission
             </th>
             <th>
                 Mark Progress
@@ -84,11 +84,20 @@
                 <?php
                 $class = DB::table('student_list')->where('student_class', $all->class_name)->get();
                 $totalStudent = count($class);
-                $submission = DB::table('assignment_submission_list')->where('assignment_id', $all->assignment_id)->where('submission_mark', NULL)->get();
-                $totalSubmission = count($submission);
-                $totalPercentage = ($totalSubmission / $totalStudent) * 100;
+                $Allsubmission = DB::table('assignment_submission_list')->where('assignment_id', $all->assignment_id)->get();
+                $Markedsubmission = DB::table('assignment_submission_list')->where('assignment_id', $all->assignment_id)->where('submission_mark', '!=', NULL)->get();
+
+                $totalAllSubmission = count($Allsubmission);
+                $totalMarkedSubmission = count($Markedsubmission);
+
+                if ($totalAllSubmission != 0) {
+                    $totalPercentage = ($totalMarkedSubmission / $totalStudent) * 100;
+                } else {
+                    $totalPercentage = 0;
+                }
+
                 ?>
-                {{ $totalSubmission }} / {{ $totalStudent }}
+                {{ $totalMarkedSubmission }} / {{ $totalStudent }}
             </td>
 
             <td>

@@ -64,6 +64,7 @@ class educatorAssignmentController extends Controller
         } else {
             $assignment = DB::table('assignment_list')->where('assignment_id', $assignment_id)->get();
             $submission = DB::table('assignment_submission_list')->where('assignment_id', $assignment_id)->get();
+            $countExistSubmission = count($submission);
 
             $class_id = DB::table('assignment_list')
                 ->join('subject_folder_list', 'subject_folder_list.subject_folder_id', '=', 'assignment_list.subject_folder_id')
@@ -93,7 +94,12 @@ class educatorAssignmentController extends Controller
             $totalStudent = count($student);
             $totalSubmission = count($submission);
 
-            return view('educator/educatorViewSubmissionPage', compact('assignment', 'submission', 'totalStudent', 'totalSubmission'));
+            $studentIDs = DB::table('student_list')->pluck('student_id')->toArray();
+            $submissionIDs =  DB::table('assignment_submission_list')->where('assignment_id', $assignment_id)->pluck('student_id')->toArray();
+
+            $missingStudent = array_diff($studentIDs, $submissionIDs);
+
+            return view('educator/educatorViewSubmissionPage', compact('assignment', 'submission', 'totalStudent', 'totalSubmission', 'student', 'missingStudent', 'countExistSubmission'));
         }
     }
 
@@ -121,7 +127,7 @@ class educatorAssignmentController extends Controller
             "submission_educator_feedback" => $assignment_feedback,
         );
 
-        DB::table('assignment_submission_list')->where('submission_id',$edit_id)->update($submission_data);
+        DB::table('assignment_submission_list')->where('submission_id', $edit_id)->update($submission_data);
 
         return redirect()->route('educatorViewSubmissionPage', $assignment_id)->with('alert', 'Assignment Makred Successfully.');
     }
@@ -151,20 +157,25 @@ class educatorAssignmentController extends Controller
             //Fetch the student name from the student list that are in this notification class
             $count = DB::table('student_list')->select('student_id')->where('student_class', Session::get('current_class_name'))->get();
 
+
             //Notify the course student
             $title = " New Assignment for Course: " . Session::get('current_subject_code');
             $msg = "New Assignment: " . $assignment_title . " has been added in class content. The due date is on: " . $assignment_due_date . ". Please submit it before the due date. Thank you.";
             $current_date_time = \Carbon\Carbon::now()->toDateTimeString();
 
             //Add each student and status for this current notification
-            foreach ($count as $c) {
-                $dataSet[] = [
-                    'user_id'  => $c->student_id,
-                    'notification_title'    => $title,
-                    'notification_content'       => $msg,
-                    'created_at'    => $current_date_time,
-                    'read_notification_status'       => 0,
-                ];
+            if ($count->count() > 0) {
+                foreach ($count as $c) {
+                    $dataSet[] = [
+                        'user_id'  => $c->student_id,
+                        'notification_title'    => $title,
+                        'notification_content'       => $msg,
+                        'created_at'    => $current_date_time,
+                        'read_notification_status'       => 0,
+                    ];
+                }
+            } else {
+                return redirect('educatorAddAssignmentPage')->with('error_status', 'No Student Registered Under this Classroom.');
             }
             DB::table('notification_list')->insert($dataSet);
 

@@ -19,6 +19,7 @@ class courseStudentNoteController extends Controller
             $note = DB::table('student_note_list')
                 ->where('student_note_subject_id', Session::get('current_subject_id'))
                 ->where('educator_approval_status', 1)
+                ->where('active_status', 1)
                 ->orderBy('student_note_id')->get();
 
             return view('/courseStudentNotePage', compact('subjects', 'note'));

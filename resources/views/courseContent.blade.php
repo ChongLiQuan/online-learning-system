@@ -71,7 +71,9 @@
     </table>
     @endforeach
 
-    @foreach($assignments as $a)
+    <!-- Original Assignment  -->
+    @if(Session::get('user_role') == 2)
+    @foreach($stu_assignments as $a)
     <table class='folder' border=0>
         <tr>
             <th width='5%'>
@@ -79,16 +81,23 @@
             </th>
             <th>
                 @if(Session::get('user_role') == 1)
-                <a href="{{ route('educatorViewSubmissionPage', ['assignment_id' => $a->assignment_id]) }}">{{$a->assignment_title}}</a> <b><p style="color:red">Due On: {{ $a->assignment_due_date }} </b></p> </a>
+                <a href="{{ route('educatorViewSubmissionPage', ['assignment_id' => $a->assignment_id]) }}">{{$a->assignment_title}}</a> <b>
+                    <p style="color:red">Due On: {{ $a->assignment_due_date }}
+                </b></p> </a>
                 @endif
 
                 @if(Session::get('user_role') == 2)
-                <?php 
-                $submit_status = DB::table('assignment_submission_list')->where('student_id', Session::get('username'))->where('assignment_id', $a->assignment_id)->get(); 
-                if(count($submit_status) == 0){ ?>
-                    <a href="{{ route('studentSubmitAssignmentPage', ['assignment_id' => $a->assignment_id]) }}">{{$a->assignment_title}}</a> <b><p style="color:red">Due On: {{ $a->assignment_due_date }} </b></p> </a>
-                <?php }elseif(count($submit_status) > 0) { ?> <!-- Meaning student submitted -->
-                    <a href="{{ route('studentViewOwnSubmissionPage', ['assignment_id' => $a->assignment_id]) }}">{{$a->assignment_title}}</a> <b><p style="color:red">Due On: {{ $a->assignment_due_date }} </b></p> </a>
+                <?php
+                $submit_status = DB::table('assignment_submission_list')->where('student_id', Session::get('username'))->where('assignment_id', $a->assignment_id)->get();
+                if (count($submit_status) == 0) { ?>
+                    <a href="{{ route('studentSubmitAssignmentPage', ['assignment_id' => $a->assignment_id]) }}">{{$a->assignment_title}}</a> <b>
+                        <p style="color:red">Due On: {{ $a->assignment_due_date }}
+                    </b></p> </a>
+                <?php } elseif (count($submit_status) > 0) { ?>
+                    <!-- Meaning student submitted -->
+                    <a href="{{ route('studentViewOwnSubmissionPage', ['assignment_id' => $a->assignment_id]) }}">{{$a->assignment_title}}</a> <b>
+                        <p style="color:red">Due On: {{ $a->assignment_due_date }}
+                    </b></p> </a>
                 <?php } ?>
                 @endif
             </th>
@@ -127,7 +136,70 @@
         @endif
     </table>
     @endforeach
+    @endif
+    <!--  -->
 
+    <!-- New Edu Assignment  -->
+    @if(Session::get('user_role') == 1)
+    @foreach($edu_assignments as $a)
+    <table class='folder' border=0>
+        <tr>
+            <th width='5%'>
+                <img src="{{URL::asset('/images/assignment_logo.png')}}" height='50px' width='50px' />
+            </th>
+            <th>
+                @if(Session::get('user_role') == 1)
+                <?php $current_date_time = \Carbon\Carbon::now()->toDateTimeString(); ?>
+
+                <?php if ($a->assignment_due_date <= $current_date_time) { ?>
+                    <a href="{{ route('educatorViewSubmissionPage', ['assignment_id' => $a->assignment_id]) }}">{{$a->assignment_title}} [PAST DUE]</a> <b>
+                        <p style="color:red">Due On: {{ $a->assignment_due_date }}
+                    </b></p> </a>
+                <?php } else { ?>
+                    <a href="{{ route('educatorViewSubmissionPage', ['assignment_id' => $a->assignment_id]) }}">{{$a->assignment_title}}</a> <b>
+                        <p style="color:red">Due On: {{ $a->assignment_due_date }}
+                    </b></p> </a>
+                <?php } ?>
+                @endif
+            </th>
+
+            @if(Session::get('user_role') == 1)
+            <td colspan="2" style='text-align:right'>
+                <form action="/educatorEditAssignmentPage" method='get' class='form-group' action='/' enctype='multipart/form-data'>
+                    <input type='hidden' name='edit_id' value="{{ $a->assignment_id }}">
+                    <button class="button edit_button">
+                        <span class="button_text" onclick="return confirm('Are you sure?')">Edit</span>
+                    </button>
+                </form>
+            </td>
+            @endif
+
+        </tr>
+
+        <tr>
+            <td colspan="3">
+                <hr>
+                <p>{!! $a->assignment_content !!}</p>
+            </td>
+        </tr>
+        @if(Session::get('user_role') == 1)
+        <tr>
+            <td colspan="4" style='text-align:right'>
+                <form action="{{route('deleteAssignment')}}" method='POST' class='form-group' action='/' enctype='multipart/form-data'>
+                    <input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'>
+                    <input type='hidden' name='delete_id' value="{{ $a->assignment_id }}">
+                    <button class="button delete_button">
+                        <span class="button_text" onclick="return confirm('Are you sure?')">Delete</span>
+                    </button>
+                </form>
+            </td>
+        </tr>
+        @endif
+    </table>
+    @endforeach
+    @endif
+
+    <!--  -->
     @foreach($content_list as $c)
     <table class='folder' border=0>
         <tr>

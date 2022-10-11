@@ -289,13 +289,14 @@ Route::get('/courseContent/{subject_folder_id}', function ($subject_folder_id) {
         $class_subject_id = DB::table('class_subject_list')->where('subject_code', Session::get('current_subject_code'))->where('class_name', Session::get('current_class_name'))->pluck('class_subject_id')->first();
 
         $current_date_time = \Carbon\Carbon::now()->toDateTimeString();
-        $assignments =  DB::table('assignment_list')->where('subject_folder_id', $subject_folder_id)->where('assignment_due_date', '>=', $current_date_time)->get();
+        $stu_assignments =  DB::table('assignment_list')->where('subject_folder_id', $subject_folder_id)->where('assignment_due_date', '>=', $current_date_time)->get();
+        $edu_assignments =  DB::table('assignment_list')->where('subject_folder_id', $subject_folder_id)->get();
 
         $folders = DB::table('subject_folder_list')->where('class_subject_id', $class_subject_id)->where('subject_subFolder', $subject_folder_id)->get();
         $list = DB::table('subject_folder_list')->where('class_subject_id', $class_subject_id)->where('subject_subFolder', $subject_folder_id)->get();
         $content_list = DB::table('folder_content_list')->where('subject_folder_id', $subject_folder_id)->get();
         $discussion = DB::table('discussion_list')->where('subject_folder_id', $subject_folder_id)->get();
-        return view('courseContent', compact('list', 'folders', 'content_list', 'discussion', 'assignments'));
+        return view('courseContent', compact('list', 'folders', 'content_list', 'discussion', 'stu_assignments', 'edu_assignments'));
     }
 })->name('courseContent');
 

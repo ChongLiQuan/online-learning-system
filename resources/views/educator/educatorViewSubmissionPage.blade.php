@@ -12,7 +12,6 @@
         <p class='edu_home_banner'><b>Assignment Submission Portal : </b></p>
         @foreach($assignment as $a)
         <p>Currently Viewing: {{ $a->assignment_title }} Student Submission Name List</p>
-        @endforeach
 
         <!-- Educator to view total submission and total student in the class of the assignment -->
         <!-- <p> {{ $totalSubmission }} / {{ $totalStudent }} </p> -->
@@ -27,9 +26,6 @@
 
             <thead>
                 <th>
-                    Number
-                </th>
-                <th>
                     Student Name
                 </th>
                 <th>
@@ -43,39 +39,63 @@
                 </th>
             </thead>
 
-            @foreach($submission as $s)
+            @foreach($student as $stu)
+
             <tr>
                 <td>
-                    {{ $s->submission_id }}
+                    {{ $stu->student_name }}
                 </td>
-                <td>
-                    <?php $student_name = DB::table('student_list')->where('student_id', $s->student_id)->pluck('student_name')->first(); ?>
-                    {{ $student_name }}
-                </td>
-                <td>
-                    {{ $s->submission_date }}
-                </td>
-                <?php if ($s->submission_mark != NULL) { ?>
-                    <td style="color:green">
-                        Marked
-                    </td>
-                <?php } ?>
-                <?php if ($s->submission_mark == NULL) { ?>
+
+                <?php
+                $checker = DB::table('assignment_submission_list')
+                    ->where('assignment_id', $a->assignment_id)
+                    ->where('student_id', $stu->student_id)
+                    ->get();
+
+                $countChecker = count($checker); ?>
+
+
+                <?php if ($countChecker == 0) { ?>
+
                     <td style="color:red">
-                        Not Yet Marked
+                        Not Submitted
                     </td>
-                <?php } ?>
-                <td>
-                    <!-- Unmarked assignment will be displayed with the option to mark the assignment  -->
-                    <?php if ($s->submission_mark == NULL) { ?>
-                        <a href="{{ route('educatorMarkAssignmentPage', ['submission_id' => $s->submission_id]) }}">Mark Now
-                        <?php } ?>
-                        <!-- Marked assignment will be displayed with the option to edit the assignment mark or comment -->
-                        <?php if ($s->submission_mark != NULL) { ?>
-                            <a href="{{ route('educatorRemarkAssignmentPage', ['submission_id' => $s->submission_id]) }}">Edit Mark
+                    <td>-</td>
+                    <td>-</td>
+
+                <?php  } else { ?>
+                    @foreach($checker as $check)
+
+                    <td>
+                        {{$check->submission_date}}
+                    </td>
+                    <?php if ($check->submission_mark != NULL) { ?>
+                        <td style="color:green">
+                            Marked
+                        </td>
+                    <?php } ?>
+                    <?php if ($check->submission_mark == NULL) { ?>
+                        <td style="color:red">
+                            Not Yet Marked
+                        </td>
+                    <?php } ?>
+                    <td>
+                        <!-- Unmarked assignment will be displayed with the option to mark the assignment  -->
+                        <?php if ($check->submission_mark == NULL) { ?>
+                            <a href="{{ route('educatorMarkAssignmentPage', ['submission_id' => $check->submission_id]) }}">Mark Now
                             <?php } ?>
-                </td>
+                            <!-- Marked assignment will be displayed with the option to edit the assignment mark or comment -->
+                            <?php if ($check->submission_mark != NULL) { ?>
+                                <a href="{{ route('educatorRemarkAssignmentPage', ['submission_id' => $check->submission_id]) }}">Edit Mark
+                                <?php } ?>
+                    </td>
+                    @endforeach
+
+                <?php } ?>
+
             </tr>
+
+            @endforeach
             @endforeach
         </table>
 
