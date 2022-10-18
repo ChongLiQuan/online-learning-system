@@ -16,12 +16,12 @@ return new class extends Migration
         Schema::create('student_note_folder_list', function (Blueprint $table) {
             $table->increments('student_folder_id');
 
-            $table->string('student_folder_name');
+            $table->string('student_folder_name',100);
 
             $table->string('student_id')->nullable();
             $table->foreign('student_id')->references('student_id')->on('student_list')->onDelete('cascade');
 
-            $table->integer('student_subFolder')->nullable();
+            $table->tinyInteger('student_subFolder')->nullable();
 
             $table->timestamp('deleted_date')->nullable();
 

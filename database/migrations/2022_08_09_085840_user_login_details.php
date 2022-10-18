@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('user_login_details', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('user_name')->nullable()->unique();
+            $table->string('user_name',12)->nullable()->unique();
             $table->string('user_password')->unique(); //Make sure username only exist in database once
-            $table->integer('user_role');
-            $table->string('user_full_name');
-            $table->string('user_email');
+            $table->tinyInteger('user_role');
+            $table->string('user_full_name',40);
+            $table->string('user_email',30);
         });
     }
 

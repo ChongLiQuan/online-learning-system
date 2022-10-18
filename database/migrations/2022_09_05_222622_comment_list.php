@@ -16,18 +16,18 @@ return new class extends Migration
         Schema::create('comment_list', function (Blueprint $table) {
         $table->increments('comment_id');
 
-        $table->string('comment_title')->nullable();
+        $table->string('comment_title',100)->nullable();
 
         $table->text('comment_content')->nullable();
 
         $table->integer('discussion_id')->unsigned()->default(0);
         $table->foreign('discussion_id')->references('discussion_id')->on('discussion_list')->onDelete('cascade');
         
-        $table->string('comment_username');
+        $table->string('comment_username',12);
 
         $table->timestamps();
 
-        $table->integer('sub_comment')->unsigned()->default(0)->nullable();
+        $table->tinyInteger('sub_comment')->unsigned()->default(0)->nullable();
     });
 }
 

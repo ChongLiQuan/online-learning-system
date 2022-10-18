@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('announcement_status', function (Blueprint $table) {
             $table->increments('announcement_status_id');
 
-            $table->string('student_id');
+            $table->string('student_id',12);
             $table->foreign('student_id')->references('student_id')->on('student_list')->onDelete('cascade');
 
             $table->integer('annouce_id')->unsigned();

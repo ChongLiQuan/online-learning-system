@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('discussion_list', function (Blueprint $table) {
             $table->increments('discussion_id');
 
-            $table->string('discussion_title');
+            $table->string('discussion_title',100);
 
             $table->text('discussion_content')->nullable();
             $table->text('discussion_educator')->nullable();

@@ -16,11 +16,11 @@ return new class extends Migration
         Schema::create('assignment_list', function (Blueprint $table) {
             $table->increments('assignment_id');
 
-            $table->string('assignment_title');
+            $table->string('assignment_title',100);
 
             $table->text('assignment_content');
 
-            $table->integer('assignment_full_mark');
+            $table->tinyInteger('assignment_full_mark');
 
             $table->datetime('assignment_due_date');
 

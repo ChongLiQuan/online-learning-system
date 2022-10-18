@@ -16,10 +16,9 @@ return new class extends Migration
         Schema::create('folder_content_list', function (Blueprint $table) {
             $table->increments('folder_content_id');
 
-            $table->string('folder_content_title');
+            $table->string('folder_content_title',100);
 
             $table->text('subject_folder_content')->nullable();
-
 
             $table->integer('subject_folder_id')->unsigned()->default(0);
             $table->foreign('subject_folder_id')->references('subject_folder_id')->on('subject_folder_list')->onDelete('cascade'); 

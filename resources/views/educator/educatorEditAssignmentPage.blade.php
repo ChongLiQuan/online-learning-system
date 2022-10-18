@@ -28,8 +28,8 @@ $assignment = DB::table('assignment_list')->where('assignment_id', $edit_id)->ge
 
         <br /> <br />
         <label>Assignment Due Date:</label>
-        <?php $current_date_time = \Carbon\Carbon::now()->toDateString(); ?>
-        <input type="datetime-local" name="assignment_due_date" placeholder="Full Marks" value="{{ $a->assignment_due_date }}" autocomplete="off" align='left' value="{{ $current_date_time }}" size='30%' min='{{ $current_date_time }}' max='018-12-31' required>
+        <?php $current_date_time = \Carbon\Carbon::now()->toDateTimeString(); ?>
+        <input type="datetime-local" name="assignment_due_date" placeholder="Full Marks" value="{{ $a->assignment_due_date }}" autocomplete="off" align='left' size='30%' min='{{ $current_date_time }}' required>
 
         <br /> <br />
         <label>Assignment Full Marks:</label>

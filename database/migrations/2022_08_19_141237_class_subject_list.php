@@ -16,13 +16,13 @@ return new class extends Migration
         Schema::create('class_subject_list', function (Blueprint $table) {
             $table->increments('class_subject_id');
 
-            $table->string('subject_code'); 
+            $table->string('subject_code',10); 
             $table->foreign('subject_code')->references('subject_code')->on('subject_list')->onDelete('cascade'); 
 
-            $table->string('class_name');
+            $table->string('class_name',20);
             $table->foreign('class_name')->references('class_name')->on('class_list')->onDelete('cascade'); 
 
-            $table->string('educator_id'); 
+            $table->string('educator_id',12); 
             $table->foreign('educator_id')->references('edu_id')->on('educator_list')->onDelete('cascade'); 
 
         });

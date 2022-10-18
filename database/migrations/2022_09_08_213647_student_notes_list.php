@@ -16,12 +16,12 @@ return new class extends Migration
         Schema::create('student_note_list', function (Blueprint $table) {
             $table->increments('student_note_id');
 
-            $table->string('student_id');
+            $table->string('student_id',12);
             $table->foreign('student_id')->references('student_id')->on('student_list')->onDelete('cascade');
 
-            $table->string('student_class');
+            $table->string('student_class',20);
 
-            $table->string('student_note_name');
+            $table->string('student_note_name',100);
 
             $table->text('student_note_content')->nullable();
 

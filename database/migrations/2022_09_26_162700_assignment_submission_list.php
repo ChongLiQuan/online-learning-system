@@ -19,14 +19,15 @@ return new class extends Migration
             $table->integer('assignment_id')->unsigned()->default(0);
             $table->foreign('assignment_id')->references('assignment_id')->on('assignment_list')->onDelete('cascade');
 
-            $table->string('student_id');
+            $table->string('student_id',12);
             $table->foreign('student_id')->references('student_id')->on('student_list')->onDelete('cascade');
 
             $table->text('submission_content');
 
             $table->datetime('submission_date');
 
-            $table->integer('submission_mark')->nullable();
+            $table->tinyInteger('submission_mark')->nullable();
+            
             $table->text('submission_educator_feedback')->nullable();
         });
     }

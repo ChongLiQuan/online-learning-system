@@ -550,3 +550,9 @@ table.note_list{
   height: auto;
   border-collapse: collapse;
 }
+
+.editor_container {
+  width: 1000px;
+  height: fit-content;
+  margin: 20px auto;
+}
