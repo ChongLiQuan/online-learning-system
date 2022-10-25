@@ -15,7 +15,7 @@ class adminFormController extends Controller
         if (Session::get('username') == null) {
             return view('admin/adminInvalidSession');
         } else {
-            $forms = DB::table('form_list')->orderBy('form_level')->get();
+            $forms = DB::table('form_list')->orderBy('form_level')->paginate(5);
             return view('admin/adminAddForm', compact('forms'));
         }
     }
@@ -27,7 +27,7 @@ class adminFormController extends Controller
 
         $this->validate($request, [
             'form_name' => 'required',
-            'form_level' => 'required|numeric|max:6',
+            'form_level' => 'required|numeric|max:30',
         ]);
 
         $check_duplicate_name = DB::select('select * from form_list where form_name = ?', [$form_name]);

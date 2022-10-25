@@ -16,12 +16,23 @@
                                     <input type="form_name" name="subject_code" class="edu_input" placeholder="Subject Code" autocomplete="off" required>
                             </h4>
                         </th>
+                        @error('subject_code')
+                        <div class="error">
+                            {{ $message }}
+                        </div>
+                        @enderror
+
                         <th>
                             <h4>
                                 <lable>Subject Name:</label>
                                     <input type="form_name" name="subject_name" class="edu_input" placeholder="Subject Name" autocomplete="off" required>
                             </h4>
                         </th>
+                        @error('subject_name')
+                        <div class="error">
+                            {{ $message }}
+                        </div>
+                        @enderror
                     </tr>
                 </table>
 
@@ -142,8 +153,12 @@
                         </form>
                     </td>
                 </tr>
-
                 @endforeach
-
             </table>
+
+            <center>
+                <div class='pagination'>
+                    {{$subjects->links()}}
+                </div>
+            </center>
 </div>

@@ -5,7 +5,7 @@
     <center>
         <h1> Update Password for Existing User </h1>
         &nbsp;
-        <form action="{{route('updatePassword')}}" method="post" class="form-group">
+        <form action="{{route('adminUpdatePassword')}}" method="post" class="form-group">
             <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
 
             <div class='login_field'>

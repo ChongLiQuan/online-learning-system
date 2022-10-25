@@ -36,7 +36,7 @@ Route::get('/adminAddClass', function () {
         return view('admin/adminInvalidSession');
     } else {
         $forms = DB::table('form_list')->orderBy('form_level')->get();
-        $classes = DB::table('class_list')->get();
+        $classes = DB::table('class_list')->paginate(5);
         return view('admin/adminAddClass', compact('forms', 'classes'));
     }
 });
@@ -60,7 +60,7 @@ Route::get('/adminAddSubject', function () {
     if (Session::get('username') == null) {
         return view('admin/adminInvalidSession');
     } else {
-        $subjects = DB::table('subject_list')->orderBy('form_id')->get();
+        $subjects = DB::table('subject_list')->orderBy('form_id')->paginate(5);
         $forms = DB::table('form_list')->orderBy('form_level')->get();
         $classes = DB::table('class_list')->orderBy('form_id')->get();
         return view('admin/adminAddSubject', compact('forms', 'classes', 'subjects'));
@@ -87,7 +87,7 @@ Route::get('/adminAddEducator', function () {
     if (Session::get('username') == null) {
         return view('admin/adminInvalidSession');
     } else {
-        $educators = DB::table('educator_list')->orderBy('edu_id')->get();
+        $educators = DB::table('educator_list')->orderBy('edu_id')->paginate(10);
         return view('admin/adminAddEducator', compact('educators'));
     }
 });
@@ -110,11 +110,22 @@ Route::get('/adminAddStudent', function () {
     if (Session::get('username') == null) {
         return view('admin/adminInvalidSession');
     } else {
-        $students = DB::table('student_list')->orderBy('student_id')->get();
+        $students = DB::table('student_list')->orderBy('student_id')->paginate(10);
         $class = DB::table('class_list')->orderBy('class_id')->get();
         return view('admin/adminAddStudent', compact('students', 'class'));
     }
 });
+
+Route::get('/adminViewStudent', function () {
+    if (Session::get('username') == null) {
+        return view('admin/adminInvalidSession');
+    } else {
+        $students = DB::table('student_list')->orderBy('student_id')->paginate(10);
+        $class = DB::table('class_list')->orderBy('class_id')->get();
+        return view('admin/adminViewStudent', compact('students', 'class'));
+    }
+});
+
 Route::get('/adminEditStudent', function () {
     if (Session::get('username') == null) {
         return view('admin/adminInvalidSession');
@@ -138,7 +149,7 @@ Route::get('/adminUpdatePassword', function () {
         return view('admin/adminUpdatePassword');
     }
 });
-Route::post('/updatePassword', [App\Http\Controllers\admin\adminPasswordController::class, 'updatePassword'])->name("updatePassword");
+Route::post('/adminUpdatePassword', [App\Http\Controllers\admin\adminPasswordController::class, 'adminUpdatePassword'])->name("adminUpdatePassword");
 
 //Admin Assign Educator to a Subject Page
 Route::get('/adminAssignSubject', function () {
@@ -148,7 +159,7 @@ Route::get('/adminAssignSubject', function () {
         $educators = DB::table('educator_list')->orderBy('edu_id')->get();
         $class = DB::table('class_list')->orderBy('class_id')->get();
         $subjects = DB::table('subject_list')->orderBy('form_id')->get();
-        $classSubject = DB::table('class_subject_list')->orderBy('class_subject_id')->get();
+        $classSubject = DB::table('class_subject_list')->orderBy('class_subject_id')->paginate(10);
         return view('admin/adminAssignSubject', compact('educators', 'class', 'subjects', 'classSubject'));
     }
 });

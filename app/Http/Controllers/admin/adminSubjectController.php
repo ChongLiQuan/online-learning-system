@@ -84,7 +84,7 @@ class adminSubjectController extends Controller
 
         $classes = DB::table('class_list')->orderBy('form_id')->get();
         $forms = DB::table('form_list')->orderBy('form_level')->get();
-        $subjects = DB::table('subject_list')->where('form_id', [$filter_form])->get();
+        $subjects = DB::table('subject_list')->where('form_id', [$filter_form])->paginate(5);
         return view('admin/adminAddSubject', compact('forms', 'classes', 'subjects'));
     }
 }

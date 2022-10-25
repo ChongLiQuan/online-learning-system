@@ -16,6 +16,11 @@
                                 <lable>Full Name:</label>
                                     <input type="form_name" name="edu_name" class="edu_input" placeholder="Full Name" autocomplete="off" required>
                             </h4>
+                            @error('edu_name')
+                            <div class="error">
+                                {{ $message }}
+                            </div>
+                            @enderror
                         </th>
                         <th>
                             <h4>
@@ -62,6 +67,11 @@
                                 <lable>Address:</label>
                                     <input type="form_name" name="edu_address" class="edu_input" placeholder="Full Address" autocomplete="off" required>
                             </h4>
+                            @error('edu_address')
+                            <div class="error">
+                                {{ $message }}
+                            </div>
+                            @enderror
 
                         </th>
                         <th>
@@ -69,6 +79,11 @@
                                 <lable>Email:</label>
                                     <input type="form_name" name="edu_email" class="edu_input" placeholder="Email" autocomplete="off" required>
                             </h4>
+                            @error('edu_email')
+                            <div class="error">
+                                {{ $message }}
+                            </div>
+                            @enderror
                         </th>
                     </tr>
 
@@ -232,4 +247,10 @@
                 @endforeach
 
             </table>
+
+            <center>
+                <div class='pagination'>
+                    {{$educators->links()}}
+                </div>
+            </center>
 </div>

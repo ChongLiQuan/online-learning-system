@@ -84,7 +84,7 @@ class adminClassController extends Controller
         $forms = DB::table('form_list')->orderBy('form_level')->get(); //To display as the drop-down option
         
         $selectedFormLevel = DB::table('form_list')->where('form_level',[$filter_form])->pluck('form_id')->first();  //To fetch the filtered data from database form_list
-        $classes = DB::table('class_list')->where('form_id',[$selectedFormLevel])->get();  //To fetch the filtered data from database class_list
+        $classes = DB::table('class_list')->where('form_id',[$selectedFormLevel])->paginate(5);  //To fetch the filtered data from database class_list
         return view('admin/adminAddClass',compact('forms','classes'));
     }
 }

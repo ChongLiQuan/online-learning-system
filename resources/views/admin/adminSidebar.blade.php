@@ -34,6 +34,12 @@
           </a>
         </li>
         <li>
+          <a href="/adminViewStudent">
+            <i class='bx bx-user' ></i>
+            <span class="links_name">Student List</span>
+          </a>
+        </li>
+        <li>
           <a href="/adminUpdatePassword">
             <i class='bx bx-user' ></i>
             <span class="links_name">Update Password</span>

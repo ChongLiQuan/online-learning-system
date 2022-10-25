@@ -9,9 +9,18 @@
 
             <div class='login_field'>
                 <input type="form_name" name="form_name" class="field_input" placeholder="New Form Name" autocomplete="off" required>
+                @error('form_name')
+                <div class="error">
+                    {{ $message }}
+                </div>
+                @enderror
 
                 <input type="form_level" name="form_level" class="field_input" placeholder="Form Level (1-6)" autocomplete="off" required>
-
+                @error('form_level')
+                <div class="error">
+                    {{ $message }}
+                </div>
+                @enderror
 
 
                 @if (session('pass_status'))
@@ -92,7 +101,13 @@
                         </form>
                     </td>
                 </tr>
-
                 @endforeach
             </table>
+
+            <center>
+                <div class='pagination'>
+                    {{$forms->links()}}
+                </div>
+            </center>
+
         </div>

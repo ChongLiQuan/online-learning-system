@@ -107,4 +107,11 @@
                     @endforeach
 
                 </table>
+
+
+                <center>
+                    <div class='pagination'>
+                        {{$classSubject->links()}}
+                    </div>
+                </center>
         </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class adminStudentController extends Controller
 {
@@ -61,7 +62,7 @@ class adminStudentController extends Controller
                 DB::table('student_list')->where('student_IC', $stu_IC)->update(['student_id' => 'STU_' . $new_id]);
 
                 $user_name =  DB::table('student_list')->where('student_IC', $stu_IC)->pluck('student_id')->first();
-                $user_password = $stu_IC;
+                $user_password = hash::make($stu_IC);
                 $user_role = 2;
 
                 DB::select('insert into user_login_details (user_name, user_password, user_role, user_full_name, user_email) values (?,?,?,?,?)', [
@@ -147,13 +148,13 @@ class adminStudentController extends Controller
 
         try {
             DB::table('student_list')->where('student_id', $stu_id)->update($data);
-            return redirect('adminAddStudent')->with('pass_status', 'Student Information Updated Successfully! ');
+            return redirect('adminViewStudent')->with('pass_status', 'Student Information Updated Successfully! ');
         } catch (\Illuminate\Database\QueryException $e) {
             $errorCode = $e->getCode();
             if ($errorCode == 1062) {
             }
         }
-        return redirect('adminAddStudent')->with('error_status', 'Student Information Updated Failed, Duplicated Information Found!');
+        return redirect('adminViewStudent')->with('error_status', 'Student Information Updated Failed, Duplicated Information Found!');
     }
 
     public function deleteStudent(Request $request)
@@ -161,21 +162,21 @@ class adminStudentController extends Controller
         $delete_student = $request->input('delete_student');
 
         DB::table('student_list')->where('student_id', [$delete_student])->delete();
-        return redirect('adminAddStudent')->with('delete_status', 'Student Removed successfully! ');
+        return redirect('adminViewStudent')->with('delete_status', 'Student Removed successfully! ');
     }
 
     public function filterStudent(Request $request){
         $stu_id = $request->input('stu_id');
         
-        $students = DB::table('student_list')->where('student_id',[$stu_id])->get();  //To fetch the filtered data from database 
+        $students = DB::table('student_list')->where('student_id',[$stu_id])->paginate(10);  //To fetch the filtered data from database 
         $count = count($students);
 
         if($count == 1){
             $class = DB::table('class_list')->orderBy('class_id')->get();
-            return view('admin/adminAddStudent',compact('students','class'));
+            return view('admin/adminViewStudent',compact('students','class'));
         }
         if($count == 0){
-            return redirect('adminAddStudent')->with('error_status', 'Invalid Student ID! ');
+            return redirect('adminViewStudent')->with('error_status', 'Invalid Student ID! ');
         }
     }
 }

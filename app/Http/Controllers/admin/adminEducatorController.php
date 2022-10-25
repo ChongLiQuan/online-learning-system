@@ -5,7 +5,7 @@ namespace App\Http\Controllers\admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Hash;
 
 class adminEducatorController extends Controller
 {
@@ -49,7 +49,7 @@ class adminEducatorController extends Controller
                 $user_password =  Hash::make($edu_IC);
                 $user_role = 1;
 
-                DB::select('insert into user_login_details (user_name, user_password, user_role, name, email) values (?,?,?,?,?)', [
+                DB::select('insert into user_login_details (user_name, user_password, user_role, user_full_name, user_email) values (?,?,?,?,?)', [
                     $user_name, $user_password,
                     $user_role, $edu_name, $edu_email
                 ]);
@@ -124,7 +124,7 @@ class adminEducatorController extends Controller
     {
         $edu_id = $request->input('edu_id');
 
-        $educators = DB::table('educator_list')->where('edu_id', [$edu_id])->get();  //To fetch the filtered data from database 
+        $educators = DB::table('educator_list')->where('edu_id', [$edu_id])->paginate(10);  //To fetch the filtered data from database 
         $count = count($educators);
 
         if ($count == 1) {

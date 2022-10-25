@@ -5,10 +5,11 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use DB;
+use Illuminate\Support\Facades\Hash;
 
 class adminPasswordController extends Controller
 {
-    public function updatePassword(Request $request)
+    public function adminUpdatePassword(Request $request)
     {
         $user_name = $request->input('user_name');
         $new_password = $request->input('new_password');
@@ -18,9 +19,10 @@ class adminPasswordController extends Controller
             'new_password' => 'required',
         ]);
 
+
         $data = array(
             "user_name" => $user_name,
-            'user_password' => $new_password,
+            'user_password' => hash::make($new_password),
         );
 
         $checkUser = DB::select('select * from user_login_details where user_name = ?', [$user_name]);

@@ -24,7 +24,7 @@
         <i class="login_icon fa fa-lock" aria-hidden="true"></i>
         <input type="password" name="password" class="login_input" placeholder="Password" autocomplete="off" required>
 
-        @if (session('status'))
+        @if(session('status'))
         <p style="text-align:center; color:red;"><b>{{ session('status') }}</b></p>
         @endif
 

@@ -20,11 +20,11 @@
 
         <br /> <br />
         <label>Assignment Due Date:</label>
-        <?php $current_date_time = \Carbon\Carbon::now()->toDateTimeString(); ?>
-        <input type="datetime-local" name="assignment_due_date" placeholder="Full Marks" autocomplete="off" align='left' size='30%' min='{{ $current_date_time }}' required>
+        <?php $current_date = date('Y-m-d H:i'); ?>
+        <input type="datetime-local" name="assignment_due_date" placeholder="Full Marks" autocomplete="off" align='left' size='30%' min='{{ $current_date }}' required>
 
         <br /> <br />
-        <label>Assignment Full Marks: {{$current_date_time}} </label>
+        <label>Assignment Full Marks: </label>
         <input type="number" name="assignment_full_mark" placeholder="1" autocomplete="off" align='left' size='50%' min='1' max="100" required>
 
         <br />
